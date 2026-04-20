@@ -1,11 +1,270 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
-import Script from "next/script";
 
 export default function Home() {
+  useEffect(() => {
+    // ===== HEADER SCROLL EFFECT =====
+    const header = document.getElementById("header");
+    if (!header) return;
+
+    const handleScroll = () => {
+      header.classList.toggle("scrolled", window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // ===== BURGER MENU =====
+    const burger = document.getElementById("burger");
+    const nav = document.getElementById("nav");
+
+    const toggleMenu = () => {
+      burger?.classList.toggle("active");
+      nav?.classList.toggle("open");
+    };
+    burger?.addEventListener("click", toggleMenu);
+
+    const closeMenu = () => {
+      burger?.classList.remove("active");
+      nav?.classList.remove("open");
+    };
+    nav
+      ?.querySelectorAll("a")
+      .forEach((link) => link.addEventListener("click", closeMenu));
+
+    // ===== SMOOTH SCROLL =====
+    const smoothScrollLinks =
+      document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]');
+    const handleSmoothScroll = function (this: HTMLAnchorElement, e: Event) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href") ?? "");
+      if (target && header) {
+        const targetPosition =
+          target.getBoundingClientRect().top +
+          window.scrollY -
+          header.offsetHeight -
+          20;
+        window.scrollTo({ top: targetPosition, behavior: "smooth" });
+      }
+    };
+    smoothScrollLinks.forEach((anchor) =>
+      anchor.addEventListener("click", handleSmoothScroll),
+    );
+
+    // ===== REVEAL ON SCROLL =====
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -50px 0px" },
+    );
+    document
+      .querySelectorAll(".reveal")
+      .forEach((el) => revealObserver.observe(el));
+
+    // ===== COUNTER ANIMATION =====
+    const animateCounter = (element: Element, target: number) => {
+      const duration = 2000;
+      const startTime = performance.now();
+      const labelText =
+        element.closest(".stat-item")?.querySelector(".stat-label")
+          ?.textContent ?? "";
+      const suffix = labelText.includes("%") ? "" : "+";
+
+      const step = (currentTime: number) => {
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        element.textContent =
+          Math.round(eased * target) + (progress === 1 ? suffix : "");
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.getAttribute("data-target") ?? "0", 10);
+            animateCounter(el, target);
+            counterObserver.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+    document
+      .querySelectorAll<Element>(".stat-number[data-target]")
+      .forEach((el) => counterObserver.observe(el));
+
+    // ===== PARALLAX FOR DOODLES =====
+    const doodles = document.querySelectorAll<HTMLElement>(".hero-doodle");
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      doodles.forEach((doodle, index) => {
+        const speed = (index + 1) * 15;
+        const rotateSpeed = (index + 1) * 3;
+        doodle.style.transform = `translate(${x * speed}px, ${y * speed}px) rotate(${x * rotateSpeed}deg)`;
+      });
+    };
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+
+    // ===== PHONE INPUT MASK =====
+    const phoneInput = document.getElementById(
+      "phone",
+    ) as HTMLInputElement | null;
+    const handlePhoneInput = (e: Event) => {
+      const input = e.target as HTMLInputElement;
+      let value = input.value.replace(/\D/g, "");
+      if (!value.length) {
+        input.value = "";
+        return;
+      }
+      if (value[0] === "8") value = "7" + value.slice(1);
+      if (value[0] !== "7") value = "7" + value;
+
+      let formatted = "+7";
+      if (value.length > 1) formatted += " (" + value.slice(1, 4);
+      if (value.length > 4) formatted += ") " + value.slice(4, 7);
+      if (value.length > 7) formatted += "-" + value.slice(7, 9);
+      if (value.length > 9) formatted += "-" + value.slice(9, 11);
+      input.value = formatted;
+    };
+    phoneInput?.addEventListener("input", handlePhoneInput);
+
+    // ===== FORM SUBMISSION =====
+    const form = document.getElementById(
+      "contactForm",
+    ) as HTMLFormElement | null;
+    const handleFormSubmit = (e: Event) => {
+      e.preventDefault();
+      const submitBtn = form?.querySelector<HTMLButtonElement>(
+        'button[type="submit"]',
+      );
+      if (!submitBtn) return;
+
+      const originalHTML = submitBtn.innerHTML;
+      submitBtn.innerHTML = "✅ Заявка отправлена!";
+      submitBtn.style.background = "#7ec8a0";
+      submitBtn.style.pointerEvents = "none";
+
+      setTimeout(() => {
+        form?.reset();
+        submitBtn.innerHTML = originalHTML;
+        submitBtn.style.background = "";
+        submitBtn.style.pointerEvents = "";
+      }, 3000);
+    };
+    form?.addEventListener("submit", handleFormSubmit);
+
+    // ===== SVG DOODLE DECORATIONS =====
+    const svgDoodles = [
+      {
+        svg: `<svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M15 2L18 12L28 15L18 18L15 28L12 18L2 15L12 12Z" stroke="#b8d4e8" stroke-width="1.5" fill="none"/></svg>`,
+        positions: [
+          { top: "20%", left: "5%" },
+          { top: "60%", right: "3%" },
+          { bottom: "15%", left: "10%" },
+        ],
+      },
+      {
+        svg: `<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="#e8a0a0" stroke-width="1.5" stroke-dasharray="3 3"/></svg>`,
+        positions: [
+          { top: "35%", right: "8%" },
+          { top: "75%", left: "3%" },
+        ],
+      },
+      {
+        svg: `<svg width="40" height="20" viewBox="0 0 40 20" fill="none"><path d="M2 10H35M35 10L28 3M35 10L28 17" stroke="#9b8ec4" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+        positions: [{ top: "45%", left: "2%" }],
+      },
+    ];
+
+    const decorElements: HTMLDivElement[] = [];
+    svgDoodles.forEach((doodle) => {
+      doodle.positions.forEach((pos) => {
+        const div = document.createElement("div");
+        div.className = "doodle-decoration";
+        div.innerHTML = doodle.svg;
+        Object.assign(div.style, pos);
+        const duration = 3 + Math.random() * 4;
+        const delay = Math.random() * 2;
+        div.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+        document.body.appendChild(div);
+        decorElements.push(div);
+      });
+    });
+
+    // ===== CURSOR TRAIL =====
+    let lastTrail = 0;
+    const handleCursorTrail = (e: MouseEvent) => {
+      const now = Date.now();
+      if (now - lastTrail < 80) return;
+      lastTrail = now;
+
+      const trail = document.createElement("div");
+      trail.style.cssText = `
+        position: fixed;
+        left: ${e.clientX}px;
+        top: ${e.clientY}px;
+        width: 4px;
+        height: 4px;
+        background: var(--line-blue);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.3;
+        transition: all 0.6s ease;
+      `;
+      document.body.appendChild(trail);
+      requestAnimationFrame(() => {
+        trail.style.opacity = "0";
+        trail.style.transform = "scale(0)";
+      });
+      setTimeout(() => trail.remove(), 600);
+    };
+    document.addEventListener("mousemove", handleCursorTrail, {
+      passive: true,
+    });
+
+    // ===== CLEANUP =====
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      burger?.removeEventListener("click", toggleMenu);
+      nav
+        ?.querySelectorAll("a")
+        .forEach((link) => link.removeEventListener("click", closeMenu));
+      smoothScrollLinks.forEach((anchor) =>
+        anchor.removeEventListener("click", handleSmoothScroll),
+      );
+      window.removeEventListener("mousemove", handleMouseMove);
+      phoneInput?.removeEventListener("input", handlePhoneInput);
+      form?.removeEventListener("submit", handleFormSubmit);
+      document.removeEventListener("mousemove", handleCursorTrail);
+      revealObserver.disconnect();
+      counterObserver.disconnect();
+      decorElements.forEach((el) => el.remove());
+    };
+  }, []);
+
   return (
     <>
+      {/* Notebook holes decoration */}
+      <div className="notebook-holes" aria-hidden="true">
+        <div className="notebook-hole" />
+        <div className="notebook-hole" />
+        <div className="notebook-hole" />
+        <div className="notebook-hole" />
+        <div className="notebook-hole" />
+      </div>
+
       {/* ===== HEADER ===== */}
       <header className="header" id="header">
         <div className="container">
@@ -138,9 +397,7 @@ export default function Home() {
             Полный цикл performance‑маркетинга: от стратегии до масштабирования
             результатов
           </p>
-
           <div className="services-grid">
-            {/* Card 1 */}
             <div className="service-card reveal">
               <Image
                 src="/images/doodle_target.png"
@@ -156,7 +413,6 @@ export default function Home() {
               </p>
               <span className="tag">ROI до 500%</span>
             </div>
-            {/* Card 2 */}
             <div className="service-card reveal reveal-delay-1">
               <Image
                 src="/images/doodle_megaphone.png"
@@ -172,7 +428,6 @@ export default function Home() {
               </p>
               <span className="tag">от 50₽ за лид</span>
             </div>
-            {/* Card 3 */}
             <div className="service-card reveal reveal-delay-2">
               <Image
                 src="/images/doodle_growth.png"
@@ -188,7 +443,6 @@ export default function Home() {
               </p>
               <span className="tag">прозрачность 100%</span>
             </div>
-            {/* Card 4 */}
             <div className="service-card reveal reveal-delay-3">
               <Image
                 src="/images/doodle_laptop.png"
@@ -204,7 +458,6 @@ export default function Home() {
               </p>
               <span className="tag">конверсия от 5%</span>
             </div>
-            {/* Card 5 */}
             <div className="service-card reveal reveal-delay-4">
               <Image
                 src="/images/doodle_idea.png"
@@ -220,7 +473,6 @@ export default function Home() {
               </p>
               <span className="tag">индивидуально</span>
             </div>
-            {/* Card 6 */}
             <div className="service-card reveal reveal-delay-5">
               <Image
                 src="/images/doodle_rocket.png"
@@ -291,7 +543,6 @@ export default function Home() {
               Прозрачный и понятный путь от брифа до первых результатов
             </p>
           </div>
-
           <div className="process-steps">
             <div className="process-step reveal">
               <div className="step-number">01</div>
@@ -329,9 +580,7 @@ export default function Home() {
           <p className="section-subtitle reveal">
             Реальные цифры, которыми мы гордимся
           </p>
-
           <div className="cases-grid">
-            {/* Case 1 */}
             <div className="case-card reveal">
               <div className="case-card-header">
                 <div className="case-icon">🏠</div>
@@ -355,8 +604,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
-            {/* Case 2 */}
             <div className="case-card reveal reveal-delay-1">
               <div className="case-card-header">
                 <div className="case-icon">🛒</div>
@@ -380,8 +627,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
-            {/* Case 3 */}
             <div className="case-card reveal reveal-delay-2">
               <div className="case-card-header">
                 <div className="case-icon">🏥</div>
@@ -405,8 +650,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
-            {/* Case 4 */}
             <div className="case-card reveal reveal-delay-3">
               <div className="case-card-header">
                 <div className="case-icon">🍕</div>
@@ -503,9 +746,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-
-      {/* External script for interactive behaviour */}
-      <Script src="/script.js" strategy="afterInteractive" />
     </>
   );
 }
