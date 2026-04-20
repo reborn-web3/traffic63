@@ -1,0 +1,63 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+  workflow_dispatch:
+
+env:
+  IMAGE: cr.yandex/${{ secrets.YC_REGISTRY_ID }}/tomatis-samara
+
+jobs:
+  build-and-deploy:
+    name: Build, Push & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Yandex Container Registry
+        run: |
+          echo '${{ secrets.YC_SA_JSON_KEY }}' | docker login \
+            --username json_key \
+            --password-stdin \
+            cr.yandex
+
+      - name: Build & Push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ github.sha }}
+            ${{ env.IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Install yc CLI
+        run: |
+          curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh \
+            | bash -s -- -i /tmp/yc -n
+          echo "/tmp/yc/bin" >> $GITHUB_PATH
+
+      - name: Deploy new revision
+        run: |
+          echo '${{ secrets.YC_SA_JSON_KEY }}' > /tmp/sa-key.json
+          yc config set service-account-key /tmp/sa-key.json
+
+          yc serverless container revision deploy \
+            --container-id ${{ secrets.YC_CONTAINER_ID }} \
+            --image ${{ env.IMAGE }}:${{ github.sha }} \
+            --cores 1 \
+            --memory 512MB \
+            --concurrency 16 \
+            --execution-timeout 30s \
+            --service-account-id ${{ secrets.YC_SA_ID }}
+
+          rm /tmp/sa-key.json
