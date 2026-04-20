@@ -22,9 +22,9 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "traffik63 — Performance-агентство",
+  title: "traffic63 — Performance-агентство",
   description:
-    "traffik63 — performance-агентство нового поколения. Контекстная реклама, таргет, SEO и аналитика с гарантией результата.",
+    "traffic63 — performance-агентство нового поколения. Контекстная реклама, таргет, SEO и аналитика с гарантией результата.",
   keywords: [
     "performance агентство",
     "контекстная реклама",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "маркетинг",
   ],
   openGraph: {
-    title: "traffik63 — Performance-агентство",
+    title: "traffic63 — Performance-агентство",
     description:
       "Превращаем рекламу в реальные продажи. Построение систем привлечения клиентов.",
     type: "website",

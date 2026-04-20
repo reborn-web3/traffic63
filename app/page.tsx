@@ -10,7 +10,7 @@ export default function Home() {
       <header className="header" id="header">
         <div className="container">
           <a href="#" className="logo">
-            traffik<span>63</span>
+            traffic<span>63</span>
           </a>
           <nav className="nav" id="nav">
             <a href="#services">Услуги</a>
@@ -247,7 +247,7 @@ export default function Home() {
             <div className="about-image-wrapper reveal">
               <Image
                 src="/images/doodle_laptop.png"
-                alt="О команде traffik63"
+                alt="О команде traffic63"
                 width={400}
                 height={300}
               />
@@ -260,7 +260,7 @@ export default function Home() {
                 цифрами и результатом
               </h2>
               <p>
-                <strong>traffik63</strong> — это не просто агентство. Это
+                <strong>traffic63</strong> — это не просто агентство. Это
                 команда маркетологов, аналитиков и дизайнеров, которые помешаны
                 на performance. Мы верим: каждый рубль бюджета должен приносить
                 измеримый результат.
@@ -489,7 +489,7 @@ export default function Home() {
         <div className="container">
           <div className="footer-content">
             <a href="#" className="logo">
-              traffik<span>63</span>
+              traffic<span>63</span>
             </a>
             <div className="footer-links">
               <a href="#services">Услуги</a>
@@ -499,7 +499,7 @@ export default function Home() {
             </div>
           </div>
           <div className="footer-bottom">
-            © 2024 traffik63 — нарисовано с любовью 💙
+            © 2024 traffic63 — нарисовано с любовью 💙
           </div>
         </div>
       </footer>
