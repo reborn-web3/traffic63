@@ -38,9 +38,13 @@ export default function Home() {
     // ===== SMOOTH SCROLL =====
     const smoothScrollLinks =
       document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]');
-    const handleSmoothScroll = function (this: HTMLAnchorElement, e: Event) {
+    const handleSmoothScroll = (e: Event) => {
       e.preventDefault();
-      const target = document.querySelector(this.getAttribute("href") ?? "");
+      const anchor = e.currentTarget as HTMLAnchorElement;
+      const href = anchor.getAttribute("href");
+      // Guard against empty, null or just "#" which is not a valid selector
+      if (!href || href === "#") return;
+      const target = document.querySelector(href);
       if (target && header) {
         const targetPosition =
           target.getBoundingClientRect().top +
