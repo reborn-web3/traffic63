@@ -1,42 +1,10 @@
 "use client";
 
-import type { Metadata } from "next";
+// Metadata import removed because generateMetadata is no longer needed
 import { useEffect } from "react";
 import Image from "next/image";
 
-/**
- * SEO metadata for the Home page.
- */
-export const generateMetadata = async (): Promise<Metadata> => {
-  const title = "Главная — traffic63";
-  const description =
-    "Digital‑агентство traffic63: performance‑маркетинг, контекстная реклама, таргет, SEO, аналитика. Мы превращаем рекламный бюджет в измеримые продажи.";
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      url: "https://traffic63.ru",
-      siteName: "traffic63",
-      images: [
-        {
-          url: "/opengraph-image.png",
-          width: 1200,
-          height: 630,
-          alt: "traffic63 – performance‑агентство",
-        },
-      ],
-      locale: "ru_RU",
-      type: "website",
-    },
-    robots: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-    },
-  };
-};
+// generateMetadata removed – layout now provides site‑wide metadata.
 
 export default function Home() {
   useEffect(() => {

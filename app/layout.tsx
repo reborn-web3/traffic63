@@ -3,10 +3,10 @@ import { jsonLdOrganization } from "./seo/jsonld";
 import "./globals.css";
 
 /**
- * Base metadata used as defaults. Individual pages can override via
- * `export const generateMetadata` in their component.
+ * Default metadata used as a baseline for all routes.
+ * Individual pages can override by exporting their own `generateMetadata`.
  */
-export const metadata: Metadata = {
+const defaultMetadata: Metadata = {
   title: "traffic63 — Performance‑агентство",
   description:
     "traffic63 — performance‑агентство нового поколения. Контекстная реклама, таргет, SEO и аналитика с гарантией результата.",
@@ -54,15 +54,15 @@ export default function RootLayout({
 }
 
 /**
- * Generates metadata for every route. The base `metadata` object provides
- * defaults; routes may override by exporting their own `generateMetadata`.
+ * Generates metadata for every route. The `defaultMetadata` object provides
+ * baseline values; routes may override by exporting their own `generateMetadata`.
  */
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    ...metadata,
+    ...defaultMetadata,
     openGraph: {
-      title: metadata.title as string,
-      description: metadata.description as string,
+      title: defaultMetadata.title as string,
+      description: defaultMetadata.description as string,
       url: "https://traffic63.ru",
       siteName: "traffic63",
       images: [
