@@ -48,7 +48,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <main>{children}</main>
+      <body>
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
