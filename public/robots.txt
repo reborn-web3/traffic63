@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Sitemap: https://traffic63.ru/sitemap.xml
+
+# Optional: запретить индексировать
+
+Disallow: /admin
