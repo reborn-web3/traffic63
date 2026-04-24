@@ -852,12 +852,13 @@ body::before {
 
 /* ===== SERVICE CLIMBER GAME ===== */
 
-/* Tall outer wrapper — creates scroll room for the sticky effect */
 .climber-outer {
   position: relative;
+  background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+  color: #fff;
+  overflow: hidden;
 }
 
-/* Sticky inner — pins the visible content to the viewport */
 .climber-sticky {
   position: sticky;
   top: 0;
@@ -872,6 +873,7 @@ body::before {
   width: 100%;
   padding: 0 0 40px;
   position: relative;
+  z-index: 10;
 }
 
 .climber-header {
@@ -879,19 +881,48 @@ body::before {
   margin-bottom: 40px;
 }
 
-.climber-arena {
-  position: relative;
-  height: 460px;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 60px 20px 0;
+.climber-header .section-title {
+  color: #fff;
+  font-size: 3rem;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  margin-top: 12px;
 }
 
-/* Grid lines */
+.climber-header .section-subtitle {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+.climber-header .section-label {
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  color: #c4b5fd;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-weight: bold;
+}
+
+.climber-arena {
+  position: relative;
+  height: 480px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 40px 0;
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
 .climber-grid {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  border-radius: 24px;
+  overflow: hidden;
 }
 
 .climber-grid-line {
@@ -899,32 +930,34 @@ body::before {
   left: 0;
   right: 0;
   height: 1px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--line-blue-light) 0px,
-    var(--line-blue-light) 6px,
-    transparent 6px,
-    transparent 14px
-  );
-  opacity: 0.5;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 10px rgba(255,255,255,0.02);
 }
 
-/* Bars container */
+.climber-grid-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}
+
 .climber-bars {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 16px;
+  gap: 20px;
   height: 100%;
   position: relative;
   z-index: 2;
-  padding-bottom: 4px;
+  padding-bottom: 20px;
 }
 
-/* Individual bar wrapper */
 .climber-bar-wrapper {
   flex: 1;
-  max-width: 120px;
+  max-width: 130px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -933,12 +966,11 @@ body::before {
   position: relative;
 }
 
-/* Stylish flying labels */
 .climber-label-modern {
   position: absolute;
-  bottom: calc(100% + 16px);
+  bottom: calc(100% + 24px);
   left: 50%;
-  transform: translateX(-50%) translateY(20px) scale(0.9) rotateX(-20deg);
+  transform: translateX(-50%) translateY(30px) scale(0.9) rotateX(-20deg);
   opacity: 0;
   transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   pointer-events: none;
@@ -955,19 +987,19 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  padding: 12px 20px;
-  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  padding: 16px 24px;
+  border-radius: 20px;
   box-shadow: 
-    0 10px 30px -10px rgba(44, 62, 80, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
+    0 10px 30px -10px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(139, 92, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   white-space: nowrap;
 }
 
-/* Little tail for the speech bubble */
 .climber-label-modern-inner::after {
   content: '';
   position: absolute;
@@ -976,34 +1008,34 @@ body::before {
   transform: translateX(-50%) rotate(45deg);
   width: 12px;
   height: 12px;
-  background: rgba(255, 255, 255, 0.85);
-  border-right: 1px solid rgba(255, 255, 255, 0.6);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.85);
+  border-right: 1px solid rgba(139, 92, 246, 0.4);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.4);
+  backdrop-filter: blur(16px);
   border-radius: 0 0 4px 0;
 }
 
 .climber-label-modern-icon {
-  font-size: 2rem;
-  margin-bottom: 6px;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-  animation: float 4s ease-in-out infinite;
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+  animation: float 3s ease-in-out infinite;
 }
 
 .climber-label-modern-text {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: var(--ink-dark);
-  letter-spacing: 0.02em;
+  color: #fff;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-/* The bar itself */
 .climber-bar {
   width: 100%;
   position: relative;
-  border-radius: 16px 16px 4px 4px;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px 12px 6px 6px;
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   min-height: 40px;
   transform-style: preserve-3d;
 }
@@ -1011,25 +1043,23 @@ body::before {
 .climber-bar-fill {
   position: absolute;
   inset: 0;
-  border-radius: 16px 16px 4px 4px;
-  transition: background 0.5s ease;
+  border-radius: 12px 12px 6px 6px;
+  transition: background 0.6s ease, box-shadow 0.6s ease;
   overflow: hidden;
 }
 
-/* 3D Glass top for the bar */
 .climber-bar-glass-top {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 16px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%);
-  border-radius: 16px 16px 0 0;
+  height: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+  border-radius: 12px 12px 0 0;
   z-index: 2;
   pointer-events: none;
 }
 
-/* Inner glint for active bar */
 .climber-bar-glint {
   position: absolute;
   top: 0;
@@ -1039,107 +1069,115 @@ body::before {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.4),
     transparent
   );
   transform: skewX(-20deg);
-  animation: glintSweep 2.5s ease-in-out infinite;
+  animation: glintSweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @keyframes glintSweep {
   0% { left: -100%; }
-  20%, 100% { left: 200%; }
+  30%, 100% { left: 200%; }
 }
 
-/* Bar states */
 .climber-bar--future .climber-bar-fill {
   background: linear-gradient(
     180deg,
-    rgba(184, 212, 232, 0.3) 0%,
-    rgba(184, 212, 232, 0.1) 100%
+    rgba(51, 65, 85, 0.4) 0%,
+    rgba(30, 41, 59, 0.4) 100%
   );
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
 }
 
 .climber-bar--future {
-  border: 1px solid rgba(184, 212, 232, 0.5);
+  opacity: 0.7;
 }
 
 .climber-bar--past .climber-bar-fill {
   background: linear-gradient(
     180deg,
-    var(--mint) 0%,
-    var(--mint-light) 100%
+    #10b981 0%,
+    #059669 100%
   );
+  box-shadow: 
+    inset 0 0 0 1px rgba(255,255,255,0.2),
+    0 0 20px rgba(16, 185, 129, 0.3);
 }
 
 .climber-bar--past {
-  border: 1px solid rgba(126, 200, 160, 0.8);
-  box-shadow: 0 4px 20px rgba(126, 200, 160, 0.25);
+  transform: translateZ(5px);
 }
 
 .climber-bar--active .climber-bar-fill {
   background: linear-gradient(
     180deg,
-    var(--coral) 0%,
-    var(--coral-light) 100%
+    #8b5cf6 0%,
+    #6d28d9 100%
   );
+  box-shadow: 
+    inset 0 0 0 1px rgba(255,255,255,0.3),
+    0 0 30px rgba(139, 92, 246, 0.5),
+    0 0 60px rgba(139, 92, 246, 0.2);
 }
 
 .climber-bar--active {
-  border: 1px solid rgba(232, 132, 107, 0.9);
-  box-shadow: 0 12px 32px rgba(232, 132, 107, 0.4);
-  transform: scaleX(1.05) translateZ(10px);
+  transform: scaleX(1.08) translateZ(15px);
+  z-index: 5;
 }
 
-/* Bar number */
 .climber-bar-number {
   position: absolute;
-  bottom: 12px;
+  bottom: -34px;
   left: 50%;
   transform: translateX(-50%);
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.5);
   z-index: 3;
+  transition: all 0.3s ease;
+}
+
+.climber-bar--active .climber-bar-number {
+  color: #c4b5fd;
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+  transform: translateX(-50%) scale(1.2);
 }
 
 .climber-bar--future .climber-bar-number {
-  color: rgba(184, 212, 232, 0.8);
+  color: rgba(255, 255, 255, 0.2);
 }
 
-/* Background Glow for Arena */
 .climber-glow {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90%;
-  height: 90%;
-  background: radial-gradient(circle, rgba(126, 200, 160, 0.15) 0%, transparent 70%);
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
-  animation: pulseGlow 4s ease-in-out infinite alternate;
+  animation: pulseNeonGlow 4s ease-in-out infinite alternate;
 }
 
-@keyframes pulseGlow {
-  0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+@keyframes pulseNeonGlow {
+  0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.95); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
 }
 
-/* Global Character Container - Moves smoothly in X and Y */
 .climber-character-global {
   position: absolute;
   left: 0;
-  bottom: 0; /* Controlled via style now */
-  width: 48px;
-  height: 72px;
+  bottom: 0;
+  width: 56px;
+  height: 80px;
   z-index: 20;
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), bottom 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
-  margin-left: -24px;
+  margin-left: -28px;
 }
 
-/* Inner wrapper handles the jumping arc and shadow */
 .climber-character-inner {
   position: relative;
   width: 100%;
@@ -1147,32 +1185,29 @@ body::before {
   transform-origin: bottom center;
 }
 
-/* The actual SVG character */
 .climber-svg {
   width: 100%;
   height: 100%;
   position: relative;
   z-index: 2;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
-  transition: transform 0.3s ease; /* For flipping direction */
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+  transition: transform 0.3s ease;
 }
 
-/* Shadow under the character */
 .climber-character-shadow {
   position: absolute;
   bottom: -4px;
   left: 50%;
   transform: translateX(-50%);
-  width: 24px;
+  width: 28px;
   height: 8px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 50%;
-  filter: blur(2px);
+  filter: blur(3px);
   z-index: 1;
   transition: all 0.5s ease;
 }
 
-/* Jump Animations */
 .is-jumping .climber-svg {
   animation: hopArc 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -1181,7 +1216,6 @@ body::before {
   animation: shadowScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Lively limbs */
 .is-jumping .climber-arms {
   transform-origin: 30px 38px;
   animation: armsSwing 0.5s ease-in-out;
@@ -1194,84 +1228,66 @@ body::before {
 
 @keyframes hopArc {
   0% { transform: translateY(0) scale(1, 1); }
-  20% { transform: translateY(5px) scale(1.1, 0.9); } /* Squash */
-  50% { transform: translateY(-45px) scale(0.95, 1.05); } /* Stretch & Peak */
-  80% { transform: translateY(-5px) scale(1.05, 0.95); } /* Land squash */
+  20% { transform: translateY(5px) scale(1.1, 0.9); }
+  50% { transform: translateY(-55px) scale(0.9, 1.1); }
+  80% { transform: translateY(-5px) scale(1.05, 0.95); }
   100% { transform: translateY(0) scale(1, 1); }
 }
 
 @keyframes shadowScale {
   0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
-  50% { transform: translateX(-50%) scale(0.4); opacity: 0.3; }
+  50% { transform: translateX(-50%) scale(0.3); opacity: 0.2; }
 }
 
 @keyframes armsSwing {
   0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(15deg); }
+  50% { transform: rotate(20deg); }
 }
 
 @keyframes legsTuck {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-12px); }
 }
 
-@keyframes bounceHint {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(6px); }
-}
-
-@keyframes bounceArrow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
-}
-
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.6);
+@media (max-width: 992px) {
+  .climber-header .section-title {
+    font-size: 2.5rem;
   }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
+  .climber-arena {
+    height: 420px;
+    padding: 50px 20px 0;
   }
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .climber-arena {
     height: 380px;
+    padding: 40px 10px 0;
   }
-
   .climber-bars {
     gap: 8px;
+    padding-bottom: 30px;
   }
-
   .climber-bar-wrapper {
     max-width: 80px;
   }
-
-  .climber-label-text {
+  .climber-label-modern-inner {
+    padding: 8px 12px;
+  }
+  .climber-label-modern-icon {
+    font-size: 1.5rem;
+  }
+  .climber-label-modern-text {
     font-size: 0.8rem;
-    padding: 3px 8px;
   }
-
-  .climber-label-emoji {
-    font-size: 1.2rem;
-  }
-
-  .climber-character {
-    width: 36px;
-    height: 54px;
-    top: -50px;
-  }
-
   .climber-bar-number {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    bottom: -24px;
   }
-
-  .climber-complete {
-    font-size: 0.95rem;
-    padding: 8px 16px;
+  .climber-character-global {
+    width: 44px;
+    height: 64px;
+    margin-left: -22px;
   }
 }
 
@@ -1279,28 +1295,27 @@ body::before {
   .climber-arena {
     height: 320px;
   }
-
   .climber-bars {
     gap: 5px;
   }
-
   .climber-bar-wrapper {
     max-width: 55px;
   }
-
-  .climber-label-text {
+  .climber-label-modern-inner {
+    padding: 6px 10px;
+    border-radius: 12px;
+  }
+  .climber-label-modern-icon {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+  .climber-label-modern-text {
     font-size: 0.7rem;
-    padding: 2px 6px;
   }
-
-  .climber-character {
-    width: 28px;
-    height: 42px;
-    top: -38px;
-  }
-
-  .climber-scroll-hint {
-    font-size: 0.9rem;
+  .climber-character-global {
+    width: 36px;
+    height: 52px;
+    margin-left: -18px;
   }
 }
 

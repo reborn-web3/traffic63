@@ -187,22 +187,22 @@ export const ServiceClimber = () => {
                       className="climber-svg"
                       style={{ transform: facingRight ? 'scaleX(1)' : 'scaleX(-1)' }}
                     >
-                      <circle cx="30" cy="16" r="12" stroke="var(--ink-dark)" strokeWidth="3" fill="var(--paper)"/>
-                      <circle cx="25" cy="14" r="2" fill="var(--ink-dark)" />
-                      <circle cx="35" cy="14" r="2" fill="var(--ink-dark)" />
-                      <path d="M24 20 Q30 26 36 20" stroke="var(--coral)" strokeWidth="2" strokeLinecap="round" fill="none"/>
-                      <line x1="30" y1="28" x2="30" y2="58" stroke="var(--ink-dark)" strokeWidth="3" strokeLinecap="round"/>
+                      <circle cx="30" cy="16" r="12" stroke="#ffffff" strokeWidth="3" fill="#1e293b"/>
+                      <circle cx="25" cy="14" r="2" fill="#ffffff" />
+                      <circle cx="35" cy="14" r="2" fill="#ffffff" />
+                      <path d="M24 20 Q30 26 36 20" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round" fill="none"/>
+                      <line x1="30" y1="28" x2="30" y2="58" stroke="#ffffff" strokeWidth="3" strokeLinecap="round"/>
                       <g className="climber-arms">
-                        <line x1="30" y1="38" x2="14" y2="48" stroke="var(--ink-dark)" strokeWidth="3" strokeLinecap="round"/>
-                        <line x1="30" y1="38" x2="46" y2="32" stroke="var(--ink-dark)" strokeWidth="3" strokeLinecap="round"/>
+                        <line x1="30" y1="38" x2="14" y2="48" stroke="#ffffff" strokeWidth="3" strokeLinecap="round"/>
+                        <line x1="30" y1="38" x2="46" y2="32" stroke="#ffffff" strokeWidth="3" strokeLinecap="round"/>
                       </g>
                       <g className="climber-legs">
-                        <line x1="30" y1="58" x2="18" y2="78" stroke="var(--ink-dark)" strokeWidth="3" strokeLinecap="round"/>
-                        <line x1="30" y1="58" x2="42" y2="78" stroke="var(--ink-dark)" strokeWidth="3" strokeLinecap="round"/>
+                        <line x1="30" y1="58" x2="18" y2="78" stroke="#ffffff" strokeWidth="3" strokeLinecap="round"/>
+                        <line x1="30" y1="58" x2="42" y2="78" stroke="#ffffff" strokeWidth="3" strokeLinecap="round"/>
                       </g>
                       <g className="climber-flag">
-                        <line x1="46" y1="32" x2="46" y2="8" stroke="var(--coral)" strokeWidth="2" strokeLinecap="round"/>
-                        <path d="M46 8 L58 14 L46 20" fill="var(--coral)" opacity="0.8" />
+                        <line x1="46" y1="32" x2="46" y2="8" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round"/>
+                        <path d="M46 8 L58 14 L46 20" fill="#8b5cf6" opacity="0.8" />
                       </g>
                     </svg>
                   </div>
