@@ -68,32 +68,29 @@ const StatItem = ({ target, label, delay = 0 }: StatItemProps) => {
   return (
     <div
       ref={elementRef}
-      className={`text-center transition-all duration-800 ease-out ${
+      className={`stat-item text-center transition-all duration-800 ease-out ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
       }`}
       style={{ transitionDelay: `${delay}s` }}
     >
-      <span className="font-handwritten text-5xl md:text-[3.5rem] font-bold text-coral-light block mb-2 leading-none">
+      <span className="stat-number font-handwritten text-5xl md:text-[3.5rem] font-bold text-coral-light block mb-2 leading-none">
         {count}
         {count === target ? suffix : ""}
       </span>
-      <span className="text-white/80 font-medium text-sm md:text-base leading-tight block">
+      <span className="stat-label text-white/80 font-medium text-sm md:text-base leading-tight block">
         {label}
       </span>
     </div>
   );
 };
 
+import { stats as statsData } from "@/lib/data";
+
 export const Stats = () => {
-  const stats = [
-    { target: 50, label: "довольных клиентов" },
-    { target: 120, label: "запущенных кампаний" },
-    { target: 340, label: "% средний рост ROAS" },
-    { target: 3, label: "года на рынке" },
-  ];
+  const stats = statsData;
 
   return (
-    <section className="relative bg-gradient-to-br from-ink-blue to-[#2c5a7a] py-20 overflow-hidden">
+    <section className="stats-section relative bg-gradient-to-br from-ink-blue to-[#2c5a7a] py-20 overflow-hidden">
       {/* Notebook ruled lines background effect */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.05]"
@@ -105,11 +102,11 @@ export const Stats = () => {
       />
 
       <div className="container mx-auto px-5 md:px-10 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
+        <div className="stats-grid grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
           {stats.map((stat, index) => (
             <StatItem
               key={index}
-              target={stat.target}
+              target={stat.value}
               label={stat.label}
               delay={index * 0.1}
             />

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Fonts are loaded via <link> in layout.tsx for better performance */
 
 /* ===== CSS VARIABLES ===== */
@@ -53,7 +57,7 @@ body {
   background-color: var(--paper);
   color: var(--ink-dark);
   line-height: 1.7;
-  overflow-x: hidden;
+  overflow-x: clip;
   /* Notebook ruled lines background */
   background-image:
     linear-gradient(var(--line-blue-light) 1px, transparent 1px);
@@ -592,6 +596,714 @@ body::before {
   }
 }
 
+/* ===== COZY BOARD-GAME ROADMAP ===== */
+.cozy-roadmap-section {
+  background: var(--paper); /* matching doodle theme */
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.cozy-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.cozy-label {
+  display: inline-block;
+  font-family: var(--font-handwritten);
+  font-size: 1.6rem;
+  color: var(--coral);
+  margin-bottom: 12px;
+  transform: rotate(-2deg);
+}
+
+.cozy-title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--ink-dark);
+  margin-bottom: 20px;
+}
+
+.cozy-subtitle {
+  font-size: 1.2rem;
+  color: var(--pencil);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cozy-snake-wrapper {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.cozy-path-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cozy-row {
+  width: 100%;
+  display: flex;
+  position: relative;
+  z-index: 2;
+  padding: 40px 0;
+  align-items: center;
+}
+
+.cozy-row-left {
+  justify-content: flex-start;
+}
+.cozy-row-right {
+  justify-content: flex-end;
+}
+
+/* 
+  Card width 40%, margin 5% -> center is at exactly 25% for Left card.
+  Right card center is exactly at 75%.
+*/
+.cozy-row-left .cozy-card {
+  width: 40%;
+  margin-left: 5%;
+}
+
+.cozy-row-right .cozy-card {
+  width: 40%;
+  margin-right: 5%;
+}
+
+.cozy-node-marker {
+  position: absolute;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  background: var(--paper);
+  border: 6px solid var(--coral);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.cozy-row-left .cozy-node-marker {
+  left: 25%;
+}
+
+.cozy-row-right .cozy-node-marker {
+  left: 75%;
+}
+
+/* Card Styling - Cozy, Soft, Friendly */
+.cozy-card {
+  background: white;
+  border: 3px solid var(--ink-dark);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 8px 8px 0 var(--line-blue);
+  /* Use the custom CSS variables for positioning */
+  transform: translate(var(--offset-x, 0px), var(--offset-y, 0px));
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.cozy-card:hover {
+  transform: translate(var(--offset-x, 0px), var(--offset-y, 0px)) scale(1.02) rotate(-1deg);
+  box-shadow: 12px 12px 0 var(--coral-light);
+}
+
+.cozy-row-right .cozy-card:hover {
+  transform: translate(var(--offset-x, 0px), var(--offset-y, 0px)) scale(1.02) rotate(1deg);
+}
+
+.cozy-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.cozy-card-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--yellow-light);
+  border: 2px solid var(--ink-dark);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-3deg);
+}
+
+.cozy-step-badge {
+  display: inline-block;
+  font-family: var(--font-handwritten);
+  font-size: 1.1rem;
+  color: var(--ink-dark);
+  background: var(--mint-light);
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: 1px dashed var(--ink-dark);
+  margin-bottom: 4px;
+}
+
+.cozy-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--ink-dark);
+}
+
+.cozy-card-desc {
+  font-size: 1.05rem;
+  color: var(--pencil);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+/* Speech Bubble */
+.cozy-speech-bubble {
+  position: relative;
+  background: rgba(184, 212, 232, 0.15); /* line-blue light */
+  border: 2px dashed var(--line-blue);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+/* Tiny triangle for speech bubble */
+.cozy-speech-bubble::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  width: 0; 
+  height: 0; 
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid rgba(184, 212, 232, 0.5);
+}
+
+.cozy-speech-bubble strong {
+  display: block;
+  font-family: var(--font-heading);
+  color: var(--ink-blue);
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+
+.cozy-speech-bubble p {
+  color: var(--ink-dark);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 992px) {
+  .cozy-row-left .cozy-card {
+    width: 48%;
+    margin-left: 1%; /* Center is ~25% */
+  }
+
+  .cozy-row-right .cozy-card {
+    width: 48%;
+    margin-right: 1%;
+  }
+}
+
+@media (max-width: 768px) {
+  .cozy-path-svg {
+    display: none;
+  }
+
+  .cozy-snake-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 24px;
+    width: 4px;
+    background-image: linear-gradient(to bottom, var(--line-blue) 50%, transparent 50%);
+    background-size: 4px 20px;
+    z-index: 1;
+  }
+
+  .cozy-row {
+    justify-content: flex-start !important;
+    padding: 20px 0 20px 48px;
+  }
+
+  .cozy-row-left .cozy-card, 
+  .cozy-row-right .cozy-card {
+    width: 100%;
+    margin: 0;
+  }
+
+  .cozy-row-left .cozy-node-marker,
+  .cozy-row-right .cozy-node-marker {
+    left: 26px;
+    top: 50%;
+  }
+}
+
+/* ===== SERVICE CLIMBER GAME ===== */
+
+/* Tall outer wrapper — creates scroll room for the sticky effect */
+.climber-outer {
+  position: relative;
+}
+
+/* Sticky inner — pins the visible content to the viewport */
+.climber-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.climber-section {
+  width: 100%;
+  padding: 0 0 40px;
+  position: relative;
+}
+
+.climber-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.climber-arena {
+  position: relative;
+  height: 460px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px 0;
+}
+
+/* Grid lines */
+.climber-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.climber-grid-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--line-blue-light) 0px,
+    var(--line-blue-light) 6px,
+    transparent 6px,
+    transparent 14px
+  );
+  opacity: 0.5;
+}
+
+/* Bars container */
+.climber-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  padding-bottom: 4px;
+}
+
+/* Individual bar wrapper */
+.climber-bar-wrapper {
+  flex: 1;
+  max-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  position: relative;
+}
+
+/* Stylish flying labels */
+.climber-label-modern {
+  position: absolute;
+  bottom: calc(100% + 16px);
+  left: 50%;
+  transform: translateX(-50%) translateY(20px) scale(0.9) rotateX(-20deg);
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  z-index: 10;
+  perspective: 1000px;
+}
+
+.climber-label-modern--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1) rotateX(0deg);
+}
+
+.climber-label-modern-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 12px 20px;
+  border-radius: 16px;
+  box-shadow: 
+    0 10px 30px -10px rgba(44, 62, 80, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  white-space: nowrap;
+}
+
+/* Little tail for the speech bubble */
+.climber-label-modern-inner::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  border-right: 1px solid rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 0 0 4px 0;
+}
+
+.climber-label-modern-icon {
+  font-size: 2rem;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+  animation: float 4s ease-in-out infinite;
+}
+
+.climber-label-modern-text {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink-dark);
+  letter-spacing: 0.02em;
+}
+
+/* The bar itself */
+.climber-bar {
+  width: 100%;
+  position: relative;
+  border-radius: 16px 16px 4px 4px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 40px;
+  transform-style: preserve-3d;
+}
+
+.climber-bar-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px 16px 4px 4px;
+  transition: background 0.5s ease;
+  overflow: hidden;
+}
+
+/* 3D Glass top for the bar */
+.climber-bar-glass-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%);
+  border-radius: 16px 16px 0 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Inner glint for active bar */
+.climber-bar-glint {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: glintSweep 2.5s ease-in-out infinite;
+}
+
+@keyframes glintSweep {
+  0% { left: -100%; }
+  20%, 100% { left: 200%; }
+}
+
+/* Bar states */
+.climber-bar--future .climber-bar-fill {
+  background: linear-gradient(
+    180deg,
+    rgba(184, 212, 232, 0.3) 0%,
+    rgba(184, 212, 232, 0.1) 100%
+  );
+}
+
+.climber-bar--future {
+  border: 1px solid rgba(184, 212, 232, 0.5);
+}
+
+.climber-bar--past .climber-bar-fill {
+  background: linear-gradient(
+    180deg,
+    var(--mint) 0%,
+    var(--mint-light) 100%
+  );
+}
+
+.climber-bar--past {
+  border: 1px solid rgba(126, 200, 160, 0.8);
+  box-shadow: 0 4px 20px rgba(126, 200, 160, 0.25);
+}
+
+.climber-bar--active .climber-bar-fill {
+  background: linear-gradient(
+    180deg,
+    var(--coral) 0%,
+    var(--coral-light) 100%
+  );
+}
+
+.climber-bar--active {
+  border: 1px solid rgba(232, 132, 107, 0.9);
+  box-shadow: 0 12px 32px rgba(232, 132, 107, 0.4);
+  transform: scaleX(1.05) translateZ(10px);
+}
+
+/* Bar number */
+.climber-bar-number {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.8);
+  z-index: 3;
+}
+
+.climber-bar--future .climber-bar-number {
+  color: rgba(184, 212, 232, 0.8);
+}
+
+/* Background Glow for Arena */
+.climber-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  background: radial-gradient(circle, rgba(126, 200, 160, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.9); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* Global Character Container - Moves smoothly in X and Y */
+.climber-character-global {
+  position: absolute;
+  left: 0;
+  bottom: 0; /* Controlled via style now */
+  width: 48px;
+  height: 72px;
+  z-index: 20;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), bottom 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  margin-left: -24px;
+}
+
+/* Inner wrapper handles the jumping arc and shadow */
+.climber-character-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-origin: bottom center;
+}
+
+/* The actual SVG character */
+.climber-svg {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+  transition: transform 0.3s ease; /* For flipping direction */
+}
+
+/* Shadow under the character */
+.climber-character-shadow {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  filter: blur(2px);
+  z-index: 1;
+  transition: all 0.5s ease;
+}
+
+/* Jump Animations */
+.is-jumping .climber-svg {
+  animation: hopArc 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.is-jumping .climber-character-shadow {
+  animation: shadowScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Lively limbs */
+.is-jumping .climber-arms {
+  transform-origin: 30px 38px;
+  animation: armsSwing 0.5s ease-in-out;
+}
+
+.is-jumping .climber-legs {
+  transform-origin: 30px 58px;
+  animation: legsTuck 0.5s ease-in-out;
+}
+
+@keyframes hopArc {
+  0% { transform: translateY(0) scale(1, 1); }
+  20% { transform: translateY(5px) scale(1.1, 0.9); } /* Squash */
+  50% { transform: translateY(-45px) scale(0.95, 1.05); } /* Stretch & Peak */
+  80% { transform: translateY(-5px) scale(1.05, 0.95); } /* Land squash */
+  100% { transform: translateY(0) scale(1, 1); }
+}
+
+@keyframes shadowScale {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+  50% { transform: translateX(-50%) scale(0.4); opacity: 0.3; }
+}
+
+@keyframes armsSwing {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+}
+
+@keyframes legsTuck {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes bounceHint {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+@keyframes bounceArrow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .climber-arena {
+    height: 380px;
+  }
+
+  .climber-bars {
+    gap: 8px;
+  }
+
+  .climber-bar-wrapper {
+    max-width: 80px;
+  }
+
+  .climber-label-text {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+  }
+
+  .climber-label-emoji {
+    font-size: 1.2rem;
+  }
+
+  .climber-character {
+    width: 36px;
+    height: 54px;
+    top: -50px;
+  }
+
+  .climber-bar-number {
+    font-size: 1.1rem;
+  }
+
+  .climber-complete {
+    font-size: 0.95rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .climber-arena {
+    height: 320px;
+  }
+
+  .climber-bars {
+    gap: 5px;
+  }
+
+  .climber-bar-wrapper {
+    max-width: 55px;
+  }
+
+  .climber-label-text {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+  }
+
+  .climber-character {
+    width: 28px;
+    height: 42px;
+    top: -38px;
+  }
+
+  .climber-scroll-hint {
+    font-size: 0.9rem;
+  }
+}
+
 /* ===== ABOUT / WHY US ===== */
 .about-grid {
   display: grid;
@@ -967,55 +1679,7 @@ body::before {
   resize: vertical;
 }
 
-/* ===== FOOTER ===== */
-.footer {
-  background: var(--ink-dark);
-  padding: 48px 0 32px;
-  position: relative;
-}
-
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-.footer .logo {
-  color: #fff;
-}
-
-.footer .logo span {
-  color: var(--coral-light);
-}
-
-.footer-links {
-  display: flex;
-  gap: 24px;
-}
-
-.footer-links a {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-  color: var(--coral-light);
-}
-
-.footer-bottom {
-  text-align: center;
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.4);
-  font-family: var(--font-handwritten);
-  font-size: 1rem;
-}
+/* Old footer styles removed - now using components/Footer.css */
 
 /* ===== ANIMATIONS ===== */
 @keyframes float {
@@ -1133,6 +1797,95 @@ body::before {
   background: rgba(232, 132, 107, 0.25);
   color: var(--ink-dark);
 }
+
+/* ===== CUSTOM 404 PAGE ===== */
+.not-found-wrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 160px 20px 80px;
+  position: relative;
+  z-index: 10;
+}
+
+.not-found-title-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 40px;
+}
+
+.not-found-title {
+  font-family: var(--font-heading);
+  font-size: clamp(6rem, 15vw, 12rem);
+  font-weight: 800;
+  color: var(--ink-dark);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-shadow: 0 4px 12px var(--shadow);
+}
+
+.not-found-title span {
+  color: var(--coral);
+  display: inline-block;
+}
+
+.not-found-underline {
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8'%3E%3Cpath d='M0,4 Q50,0 100,4 T200,4' fill='none' stroke='%23e8846b' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x;
+  background-size: 150px 8px;
+  opacity: 0.8;
+}
+
+.not-found-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid var(--line-blue);
+  border-radius: 24px;
+  padding: 48px;
+  box-shadow: 0 24px 48px var(--shadow-md);
+  position: relative;
+  margin-top: 32px;
+}
+
+.not-found-subtitle {
+  font-family: var(--font-handwritten);
+  font-size: 3rem;
+  color: var(--ink-blue);
+  margin-bottom: 16px;
+  transform: rotate(-2deg);
+}
+
+.not-found-text {
+  color: var(--pencil);
+  font-size: 1.25rem;
+  margin-bottom: 40px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15%); }
+}
+
+@media (max-width: 768px) {
+  .not-found-card {
+    padding: 32px 24px;
+  }
+  .not-found-subtitle {
+    font-size: 2.2rem;
+  }
+  .not-found-text {
+    font-size: 1.1rem;
+  }
+}
+
 
 /* Sticker effect */
 .sticker {
