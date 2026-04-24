@@ -60,9 +60,55 @@ const ROADMAP: ServiceRoadmapItem[] = [
     translateX: "200px",
     translateY: "0px",
   },
+  {
+    id: "smm",
+    step: "05",
+    title: "SMM и Контент",
+    description: "Ведение социальных сетей, создание вовлекающего контента и комьюнити-менеджмент. Делаем ваш бренд живым.",
+    whyItMatters: "Соцсети — это лицо бизнеса. Мы формируем лояльное сообщество вокруг вашего бренда, подогреваем интерес и превращаем подписчиков в адвокатов бренда.",
+    tag: "охваты и лояльность",
+    icon: "/images/doodle_megaphone.png", // Используем имеющуюся иконку
+    translateX: "-200px",
+    translateY: "0px",
+  },
+  {
+    id: "crm",
+    step: "06",
+    title: "CRM и Автоматизация",
+    description: "Внедрение CRM, email-маркетинга и чат-ботов. Выстраиваем систему возврата и удержания покупателей.",
+    whyItMatters: "Привлечь клиента дорого, удержать — дешевле. Мы автоматизируем воронку продаж так, чтобы клиенты покупали снова и снова.",
+    tag: "рост LTV",
+    icon: "/images/doodle_growth.png", // Используем имеющуюся иконку
+    translateX: "200px",
+    translateY: "0px",
+  },
 ];
 
+// Генератор SVG пути для любого количества карточек
+const generateSnakePath = (numItems: number) => {
+  if (numItems === 0) return "";
+  const points = [];
+  for (let i = 0; i < numItems; i++) {
+    const isRight = i % 2 !== 0;
+    const x = isRight ? 75 : 25;
+    const y = 12.5 + i * 25;
+    points.push({ x, y });
+  }
+
+  let d = `M ${points[0].x} ${points[0].y}`;
+  for (let i = 1; i < numItems; i++) {
+    const prev = points[i - 1];
+    const curr = points[i];
+    d += ` C 50 ${prev.y}, 50 ${curr.y}, ${curr.x} ${curr.y}`;
+  }
+  return d;
+};
+
 export const ServiceSnake = () => {
+  const numItems = ROADMAP.length;
+  const viewBoxHeight = numItems * 25;
+  const pathD = generateSnakePath(numItems);
+
   return (
     <section className="section cozy-roadmap-section" id="services">
       <div className="container">
@@ -79,10 +125,10 @@ export const ServiceSnake = () => {
           <svg
             className="cozy-path-svg"
             preserveAspectRatio="none"
-            viewBox="0 0 100 100"
+            viewBox={`0 0 100 ${viewBoxHeight}`}
           >
             <path
-              d="M 25 12.5 C 50 12.5, 50 37.5, 75 37.5 C 50 37.5, 50 62.5, 25 62.5 C 50 62.5, 50 87.5, 75 87.5"
+              d={pathD}
               fill="none"
               stroke="var(--coral)"
               strokeWidth="4"
@@ -136,3 +182,4 @@ export const ServiceSnake = () => {
     </section>
   );
 };
+

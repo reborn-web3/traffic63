@@ -63,6 +63,7 @@ body {
     linear-gradient(var(--line-blue-light) 1px, transparent 1px);
   background-size: 100% 32px;
   background-position: 0 0;
+  background-attachment: fixed;
 }
 
 /* Red margin line */
@@ -598,7 +599,7 @@ body::before {
 
 /* ===== COZY BOARD-GAME ROADMAP ===== */
 .cozy-roadmap-section {
-  background: var(--paper); /* matching doodle theme */
+  background: transparent; /* matching doodle theme */
   padding: 100px 0;
   position: relative;
   overflow: hidden;
@@ -854,9 +855,7 @@ body::before {
 
 .climber-outer {
   position: relative;
-  background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
-  color: #fff;
-  overflow: hidden;
+  background: transparent;
 }
 
 .climber-sticky {
@@ -873,56 +872,63 @@ body::before {
   width: 100%;
   padding: 0 0 40px;
   position: relative;
-  z-index: 10;
 }
 
 .climber-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .climber-header .section-title {
-  color: #fff;
+  font-family: var(--font-heading);
   font-size: 3rem;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  color: var(--ink-dark);
   margin-top: 12px;
+  position: relative;
+  display: inline-block;
+}
+
+.climber-header .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -5%;
+  width: 110%;
+  height: 6px;
+  background: var(--yellow);
+  border-radius: 3px;
+  transform: rotate(-1deg);
+  z-index: -1;
+  opacity: 0.6;
 }
 
 .climber-header .section-subtitle {
-  color: #94a3b8;
+  color: var(--pencil);
+  font-family: var(--font-body);
   font-size: 1.1rem;
+  margin-top: 15px;
 }
 
 .climber-header .section-label {
-  background: rgba(139, 92, 246, 0.2);
-  border: 1px solid rgba(139, 92, 246, 0.4);
-  color: #c4b5fd;
+  font-family: var(--font-handwritten);
+  font-size: 1.5rem;
+  color: var(--coral);
   display: inline-block;
-  padding: 4px 12px;
-  border-radius: 50px;
-  font-weight: bold;
+  transform: rotate(-2deg);
 }
 
 .climber-arena {
   position: relative;
-  height: 480px;
-  max-width: 1000px;
+  height: 400px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 60px 40px 0;
-  background: rgba(15, 23, 42, 0.6);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  padding: 40px 20px 0;
 }
 
 .climber-grid {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  border-radius: 24px;
-  overflow: hidden;
 }
 
 .climber-grid-line {
@@ -930,34 +936,35 @@ body::before {
   left: 0;
   right: 0;
   height: 1px;
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 10px rgba(255,255,255,0.02);
-}
-
-.climber-grid-line::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  border-top: 2px dashed var(--line-blue-light);
+  opacity: 0.8;
 }
 
 .climber-bars {
   display: flex;
   align-items: flex-end;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-evenly;
+  gap: 16px;
   height: 100%;
   position: relative;
   z-index: 2;
-  padding-bottom: 20px;
+  padding-bottom: 3px;
+}
+
+.climber-baseline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--line-blue);
+  border-radius: 2px;
+  border-bottom: 1px dashed var(--line-blue-light);
 }
 
 .climber-bar-wrapper {
   flex: 1;
-  max-width: 130px;
+  max-width: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -968,214 +975,131 @@ body::before {
 
 .climber-label-modern {
   position: absolute;
-  bottom: calc(100% + 24px);
+  bottom: calc(100% + 80px);
   left: 50%;
-  transform: translateX(-50%) translateY(30px) scale(0.9) rotateX(-20deg);
+  transform: translateX(-50%) translateY(10px) scale(0.9);
   opacity: 0;
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   pointer-events: none;
   z-index: 10;
-  perspective: 1000px;
 }
 
 .climber-label-modern--visible {
   opacity: 1;
-  transform: translateX(-50%) translateY(0) scale(1) rotateX(0deg);
+  transform: translateX(-50%) translateY(0) scale(1);
 }
 
 .climber-label-modern-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(139, 92, 246, 0.4);
-  padding: 16px 24px;
-  border-radius: 20px;
-  box-shadow: 
-    0 10px 30px -10px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(139, 92, 246, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: white;
+  border: 2px solid var(--ink-dark);
+  padding: 10px 14px;
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 var(--line-blue);
   white-space: nowrap;
+  position: relative;
+  transform: rotate(-2deg);
 }
 
 .climber-label-modern-inner::after {
   content: '';
   position: absolute;
-  bottom: -6px;
+  bottom: -8px;
   left: 50%;
-  transform: translateX(-50%) rotate(45deg);
-  width: 12px;
-  height: 12px;
-  background: rgba(15, 23, 42, 0.85);
-  border-right: 1px solid rgba(139, 92, 246, 0.4);
-  border-bottom: 1px solid rgba(139, 92, 246, 0.4);
-  backdrop-filter: blur(16px);
-  border-radius: 0 0 4px 0;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: var(--ink-dark) transparent transparent transparent;
+}
+
+.climber-label-modern-inner::before {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px 6px 0;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+  z-index: 1;
 }
 
 .climber-label-modern-icon {
-  font-size: 2.2rem;
-  margin-bottom: 8px;
-  filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
-  animation: float 3s ease-in-out infinite;
+  font-size: 1.6rem;
+  margin-bottom: 4px;
 }
 
 .climber-label-modern-text {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.03em;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  color: var(--ink-dark);
 }
 
 .climber-bar {
   width: 100%;
   position: relative;
-  border-radius: 12px 12px 6px 6px;
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid var(--ink-dark);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   min-height: 40px;
-  transform-style: preserve-3d;
+  background: white;
+  box-shadow: inset -4px 0 0 rgba(0,0,0,0.05);
 }
 
-.climber-bar-fill {
-  position: absolute;
-  inset: 0;
-  border-radius: 12px 12px 6px 6px;
-  transition: background 0.6s ease, box-shadow 0.6s ease;
-  overflow: hidden;
-}
+.climber-bar-wrapper:nth-child(1) .climber-bar { background-color: var(--mint-light); }
+.climber-bar-wrapper:nth-child(2) .climber-bar { background-color: var(--coral-light); }
+.climber-bar-wrapper:nth-child(3) .climber-bar { background-color: var(--line-blue-light); }
+.climber-bar-wrapper:nth-child(4) .climber-bar { background-color: var(--paper-dark); }
+.climber-bar-wrapper:nth-child(5) .climber-bar { background-color: var(--yellow-light); }
+.climber-bar-wrapper:nth-child(6) .climber-bar { background-color: var(--line-blue-light); }
 
-.climber-bar-glass-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 12px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
-  border-radius: 12px 12px 0 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.climber-bar-glint {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  transform: skewX(-20deg);
-  animation: glintSweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-@keyframes glintSweep {
-  0% { left: -100%; }
-  30%, 100% { left: 200%; }
-}
-
-.climber-bar--future .climber-bar-fill {
-  background: linear-gradient(
-    180deg,
-    rgba(51, 65, 85, 0.4) 0%,
-    rgba(30, 41, 59, 0.4) 100%
-  );
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
-}
-
-.climber-bar--future {
-  opacity: 0.7;
-}
-
-.climber-bar--past .climber-bar-fill {
-  background: linear-gradient(
-    180deg,
-    #10b981 0%,
-    #059669 100%
-  );
-  box-shadow: 
-    inset 0 0 0 1px rgba(255,255,255,0.2),
-    0 0 20px rgba(16, 185, 129, 0.3);
+.climber-bar--active {
+  transform: scaleY(1.05) translateY(-2px);
+  transform-origin: bottom center;
+  box-shadow: 4px 4px 0 rgba(44, 62, 80, 0.1);
+  z-index: 5;
 }
 
 .climber-bar--past {
-  transform: translateZ(5px);
+  opacity: 0.9;
 }
 
-.climber-bar--active .climber-bar-fill {
-  background: linear-gradient(
-    180deg,
-    #8b5cf6 0%,
-    #6d28d9 100%
-  );
-  box-shadow: 
-    inset 0 0 0 1px rgba(255,255,255,0.3),
-    0 0 30px rgba(139, 92, 246, 0.5),
-    0 0 60px rgba(139, 92, 246, 0.2);
-}
-
-.climber-bar--active {
-  transform: scaleX(1.08) translateZ(15px);
-  z-index: 5;
+.climber-bar--future {
+  opacity: 0.4;
+  background-color: var(--paper) !important;
+  border-style: dashed;
 }
 
 .climber-bar-number {
   position: absolute;
-  bottom: -34px;
+  bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-handwritten);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink-dark);
   z-index: 3;
-  transition: all 0.3s ease;
+  opacity: 0.7;
 }
 
 .climber-bar--active .climber-bar-number {
-  color: #c4b5fd;
-  text-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
-  transform: translateX(-50%) scale(1.2);
-}
-
-.climber-bar--future .climber-bar-number {
-  color: rgba(255, 255, 255, 0.2);
-}
-
-.climber-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-  animation: pulseNeonGlow 4s ease-in-out infinite alternate;
-}
-
-@keyframes pulseNeonGlow {
-  0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.95); }
-  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+  opacity: 1;
 }
 
 .climber-character-global {
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 56px;
-  height: 80px;
+  width: 48px;
+  height: 64px;
   z-index: 20;
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), bottom 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
-  margin-left: -28px;
+  margin-left: -24px;
 }
 
 .climber-character-inner {
@@ -1190,22 +1114,20 @@ body::before {
   height: 100%;
   position: relative;
   z-index: 2;
-  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
   transition: transform 0.3s ease;
 }
 
 .climber-character-shadow {
   position: absolute;
-  bottom: -4px;
+  bottom: -2px;
   left: 50%;
   transform: translateX(-50%);
-  width: 28px;
-  height: 8px;
-  background: rgba(0, 0, 0, 0.4);
+  width: 24px;
+  height: 4px;
+  background: var(--ink-dark);
+  opacity: 0.15;
   border-radius: 50%;
-  filter: blur(3px);
   z-index: 1;
-  transition: all 0.5s ease;
 }
 
 .is-jumping .climber-svg {
@@ -1228,15 +1150,15 @@ body::before {
 
 @keyframes hopArc {
   0% { transform: translateY(0) scale(1, 1); }
-  20% { transform: translateY(5px) scale(1.1, 0.9); }
-  50% { transform: translateY(-55px) scale(0.9, 1.1); }
-  80% { transform: translateY(-5px) scale(1.05, 0.95); }
+  20% { transform: translateY(4px) scale(1.1, 0.9); }
+  50% { transform: translateY(-40px) scale(0.95, 1.05); }
+  80% { transform: translateY(-4px) scale(1.05, 0.95); }
   100% { transform: translateY(0) scale(1, 1); }
 }
 
 @keyframes shadowScale {
-  0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
-  50% { transform: translateX(-50%) scale(0.3); opacity: 0.2; }
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.15; }
+  50% { transform: translateX(-50%) scale(0.5); opacity: 0.05; }
 }
 
 @keyframes armsSwing {
@@ -1246,76 +1168,71 @@ body::before {
 
 @keyframes legsTuck {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  50% { transform: translateY(-10px); }
 }
 
 @media (max-width: 992px) {
   .climber-header .section-title {
     font-size: 2.5rem;
   }
-  .climber-arena {
-    height: 420px;
-    padding: 50px 20px 0;
-  }
 }
 
 @media (max-width: 768px) {
   .climber-arena {
-    height: 380px;
-    padding: 40px 10px 0;
+    height: 320px;
+    padding: 30px 10px 0;
   }
   .climber-bars {
     gap: 8px;
-    padding-bottom: 30px;
   }
   .climber-bar-wrapper {
-    max-width: 80px;
+    max-width: 60px;
   }
   .climber-label-modern-inner {
-    padding: 8px 12px;
+    padding: 6px 10px;
   }
   .climber-label-modern-icon {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
   .climber-label-modern-text {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
   .climber-bar-number {
     font-size: 1rem;
-    bottom: -24px;
+    bottom: 5px;
   }
   .climber-character-global {
-    width: 44px;
-    height: 64px;
-    margin-left: -22px;
+    width: 36px;
+    height: 48px;
+    margin-left: -18px;
   }
 }
 
 @media (max-width: 480px) {
   .climber-arena {
-    height: 320px;
+    height: 280px;
   }
   .climber-bars {
     gap: 5px;
   }
   .climber-bar-wrapper {
-    max-width: 55px;
+    max-width: 45px;
   }
   .climber-label-modern-inner {
-    padding: 6px 10px;
-    border-radius: 12px;
+    padding: 4px 8px;
+    border-radius: 8px;
   }
   .climber-label-modern-icon {
-    font-size: 1.2rem;
-    margin-bottom: 4px;
+    font-size: 1rem;
+    margin-bottom: 2px;
   }
   .climber-label-modern-text {
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
   .climber-character-global {
-    width: 36px;
-    height: 52px;
-    margin-left: -18px;
+    width: 30px;
+    height: 40px;
+    margin-left: -15px;
   }
 }
 
