@@ -32,10 +32,8 @@ export default function RootLayout({
         {/* Emoji favicon */}
         {/* Canonical URL for SEO */}
         <link rel="canonical" href="https://traffic63.ru" />
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📒</text></svg>"
-        />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/favicon.svg" />
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -48,7 +46,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <main>{children}</main>
       </body>
     </html>
@@ -69,9 +67,9 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "traffic63",
       images: [
         {
-          url: "/opengraph-image.png",
-          width: 1200,
-          height: 630,
+          url: "/favicon.svg",
+          width: 240,
+          height: 240,
           alt: "traffic63 – performance‑агентство",
         },
       ],

@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { navigationLinks } from "@/lib/data";
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,8 +23,16 @@ export const Header = () => {
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <header
+      id="header"
       className={`header fixed top-0 left-0 right-0 z-[1000] transition-all duration-300 border-b-2 border-line-blue bg-paper/85 backdrop-blur-lg ${isScrolled ? "scrolled shadow-lg translate-y-0" : ""
         }`}
     >
@@ -30,6 +40,7 @@ export const Header = () => {
         <Link
           href="/"
           className="logo font-handwritten text-3xl font-bold text-ink-blue transition-transform hover:-rotate-2 hover:scale-105"
+          onClick={handleLogoClick}
         >
           traffic<span className="text-coral">63</span>
         </Link>

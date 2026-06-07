@@ -29,7 +29,16 @@ export const Reveal = ({ children, delay = 0, className = "" }: RevealProps) => 
       observer.observe(elementRef.current);
     }
 
-    return () => observer.disconnect();
+    const safetyTimer = setTimeout(() => {
+      if (elementRef.current && !elementRef.current.classList.contains("visible")) {
+        elementRef.current.classList.add("visible");
+      }
+    }, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(safetyTimer);
+    };
   }, []);
 
   return (

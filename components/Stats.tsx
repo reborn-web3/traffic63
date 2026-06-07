@@ -31,7 +31,12 @@ const StatItem = ({ target, label, delay = 0 }: StatItemProps) => {
       observer.observe(elementRef.current);
     }
 
-    return () => observer.disconnect();
+    const safetyTimer = setTimeout(() => setIsVisible(true), 2000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(safetyTimer);
+    };
   }, []);
 
   useEffect(() => {
