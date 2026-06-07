@@ -152,8 +152,8 @@ export const Hero = () => {
       <motion.div 
         className="absolute w-64 h-64 border-2 border-dashed border-line-blue/30 rounded-full pointer-events-none -z-10"
         style={{ 
-          x: useSpring(useTransform(mouseX, (v) => v - 128), springConfig),
-          y: useSpring(useTransform(mouseY, (v) => v - 128), springConfig)
+          x: useSpring(useTransform(mouseX, (v: any) => v - 128), springConfig),
+          y: useSpring(useTransform(mouseY, (v: any) => v - 128), springConfig)
         }}
       />
     </section>
@@ -161,8 +161,8 @@ export const Hero = () => {
 };
 
 const DoodleItem = ({ src, top, left, right, bottom, speed, rotate, mouseX, mouseY }: any) => {
-  const x = useSpring(useTransform(mouseX, (v) => (v - 900) * speed), { damping: 30, stiffness: 100 });
-  const y = useSpring(useTransform(mouseY, (v) => (v - 450) * speed), { damping: 30, stiffness: 100 });
+  const x = useSpring(useTransform(mouseX, (v: any) => (v - 900) * speed), { damping: 30, stiffness: 100 });
+  const y = useSpring(useTransform(mouseY, (v: any) => (v - 450) * speed), { damping: 30, stiffness: 100 });
 
   return (
     <motion.div

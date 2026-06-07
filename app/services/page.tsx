@@ -10,77 +10,66 @@ import { NotebookHoles } from "@/components/NotebookHoles";
 import { CursorTrail } from "@/components/CursorTrail";
 import { useReveal } from "@/hooks/useReveal";
 
-const services = [
+const subscriptions = [
   {
-    title: "Лендинг",
-    subtitle: "Быстрый старт",
-    description:
-      "Продающая одностраничная площадка с высокой конверсией. Идеально для быстрого запуска продукта, акции или конкретной услуги.",
-    price: "30 000 ₽",
-    priceNote: "фиксированная цена",
-    icon: "/images/doodle_rocket.png",
-    tags: ["Быстрый старт", "Конверсия", "UX/UI"],
-    features: [
-      "UX-прототип и уникальный дизайн",
-      "Адаптивная верстка (mobile-first)",
-      "Форма заявки + интеграция",
-      "Базовая SEO-оптимизация",
-      "Сдача за 7–14 дней",
-    ],
+    title: "Lite (Старт)",
+    price: "15 000 – 20 000 ₽",
+    period: "/ мес",
+    priceNote: "для небольшого бизнеса",
+    icon: "/images/doodle_laptop.png",
     accentColor: "var(--mint)",
     accentBg: "rgba(126, 200, 160, 0.12)",
     badge: null,
     rotate: "-1deg",
+    description: "Поддержание работоспособности и контроль стабильности вашей воронки привлечения.",
+    features: [
+      "Поддержка работоспособности сайта",
+      "Быстрое исправление ошибок на страницах",
+      "Базовая поддержка AI-консультанта",
+      "Еженедельная аналитика посещаемости",
+    ],
   },
   {
-    title: "Многостраничный сайт",
-    subtitle: "Самый популярный",
-    description:
-      "Полноценный корпоративный сайт или визитка для вашего бизнеса. Детально раскрывает все преимущества, услуги и ценности бренда.",
-    price: "70 000 ₽",
-    priceNote: "фиксированная цена",
-    icon: "/images/doodle_laptop.png",
-    tags: ["Масштабируемость", "SEO-ready", "Брендинг"],
-    features: [
-      "До 10 страниц с уникальным дизайном",
-      "CMS для самостоятельного редактирования",
-      "Полная SEO-оптимизация",
-      "Интеграция с CRM и аналитикой",
-      "Поддержка 3 месяца в подарок",
-    ],
+    title: "Growth (Рост)",
+    price: "30 000 – 50 000 ₽",
+    period: "/ мес",
+    priceNote: "основной тариф для развития",
+    icon: "/images/doodle_growth.png",
     accentColor: "var(--coral)",
     accentBg: "rgba(232, 132, 107, 0.1)",
-    badge: "⭐ Популярный",
-    rotate: "0.5deg",
+    badge: "🔥 Рекомендуем",
+    rotate: "1.5deg",
+    description: "Комплексное ведение и постоянное улучшение воронки. Оптимально для стабильного притока лидов.",
+    features: [
+      "Всё из тарифа Lite (Старт)",
+      "Ведение, оптимизация и масштабирование рекламы",
+      "Ежемесячные доработки сайта для роста конверсии",
+      "Проектирование новых сценариев AI-бота под новые услуги",
+      "Автоматизации (уведомления в Telegram / CRM, отчеты)",
+      "Регулярные отчеты по стоимости и качеству заявок",
+    ],
   },
   {
-    title: "Сложный проект",
-    subtitle: "Максимум возможностей",
-    description:
-      "Веб-приложения, интернет-магазины с корзиной, личным кабинетом, авторизацией и интеграциями с CRM/складскими системами.",
-    price: "150 000 ₽",
-    priceNote: "от, индивидуально",
+    title: "Pro (Партнер)",
+    price: "70 000 – 150 000 ₽",
+    period: "/ мес",
+    priceNote: "максимальное вовлечение команды",
     icon: "/images/doodle_idea.png",
-    tags: ["E-commerce", "Auth", "Интеграции"],
-    features: [
-      "Личный кабинет и авторизация",
-      "Интернет-магазин с корзиной",
-      "Интеграция с CRM / складом",
-      "Нагрузочное тестирование",
-      "Выделенный менеджер проекта",
-    ],
     accentColor: "var(--lavender)",
     accentBg: "rgba(155, 142, 196, 0.1)",
-    badge: null,
+    badge: "👑 VIP-сопровождение",
     rotate: "-0.5deg",
+    description: "Для компаний, готовых к кратному росту. Полное делегирование маркетинга и IT-инфраструктуры.",
+    features: [
+      "Всё из тарифа Growth (Рост)",
+      "Постоянная оптимизация всей воронки продаж",
+      "Создание новых посадочных страниц (Landing Pages)",
+      "Запуск и ведение новых рекламных кампаний",
+      "Сложные интеграции и синхронизация по API",
+      "Разработка AI-инструментов для ваших сотрудников",
+      "Регулярные стратегические консультации",
+    ],
   },
-];
-
-const benefits = [
-  { icon: "✨", title: "Фикс цена", desc: "Никаких скрытых платежей и внезапных доп. расходов" },
-  { icon: "📈", title: "SEO-ready", desc: "Оптимизировано под поисковики с первого дня" },
-  { icon: "🧠", title: "UX-фокус", desc: "Проектируем для людей, а не для галочки" },
-  { icon: "🤝", title: "Поддержка", desc: "Всегда на связи — пишите в любое время" },
 ];
 
 export default function ServicesPage() {
@@ -127,7 +116,7 @@ export default function ServicesPage() {
             >
               Наши{" "}
               <span style={{ color: "var(--coral)", position: "relative", display: "inline-block" }}>
-                услуги
+                тарифы
                 <svg
                   style={{ position: "absolute", bottom: "-8px", left: 0, width: "100%", height: "10px" }}
                   viewBox="0 0 100 10"
@@ -139,13 +128,12 @@ export default function ServicesPage() {
               </span>
             </h1>
 
-            <p style={{ fontSize: "1.2rem", color: "var(--pencil)", lineHeight: 1.7, maxWidth: "540px" }}>
-              Мы превращаем идеи в цифровые продукты, которые работают на ваш результат.{" "}
-              <strong style={{ color: "var(--ink-dark)" }}>Только кастомные решения.</strong>
+            <p style={{ fontSize: "1.2rem", color: "var(--pencil)", lineHeight: 1.7, maxWidth: "700px" }}>
+              Мы берем на себя постоянное улучшение конверсии вашего сайта, ведение рекламы, развитие AI-ассистента и настройку автоматизаций. Выберите подходящий тариф подписки:
             </p>
           </div>
 
-          {/* ── Service Cards ── */}
+          {/* ── SUBSCRIPTIONS GRID ── */}
           <div
             style={{
               display: "grid",
@@ -154,7 +142,7 @@ export default function ServicesPage() {
               marginBottom: "80px",
             }}
           >
-            {services.map((svc, idx) => (
+            {subscriptions.map((svc, idx) => (
               <div
                 key={idx}
                 className="reveal"
@@ -236,7 +224,7 @@ export default function ServicesPage() {
                             display: "block",
                           }}
                         >
-                          {svc.subtitle}
+                          {svc.priceNote}
                         </span>
                         <h3
                           style={{
@@ -304,26 +292,6 @@ export default function ServicesPage() {
                       ))}
                     </ul>
 
-                    {/* Tags */}
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "24px" }}>
-                      {svc.tags.map((tag, tIdx) => (
-                        <span
-                          key={tIdx}
-                          style={{
-                            fontFamily: "var(--font-handwritten)",
-                            fontSize: "0.95rem",
-                            color: "var(--ink-blue)",
-                            background: "rgba(184, 212, 232, 0.2)",
-                            border: "1px dashed var(--line-blue)",
-                            padding: "3px 14px",
-                            borderRadius: "50px",
-                          }}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
                     {/* Price + CTA */}
                     <div
                       style={{
@@ -346,19 +314,22 @@ export default function ServicesPage() {
                             marginBottom: "2px",
                           }}
                         >
-                          {svc.priceNote}
+                          ежемесячно
                         </p>
                         <p
                           style={{
                             fontFamily: "var(--font-heading)",
-                            fontSize: "2rem",
+                            fontSize: "1.65rem",
                             fontWeight: 900,
                             color: "var(--ink-dark)",
                             letterSpacing: "-0.04em",
-                            lineHeight: 1,
+                            lineHeight: 1.1,
                           }}
                         >
                           {svc.price}
+                          <span style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--pencil)" }}>
+                            {svc.period}
+                          </span>
                         </p>
                       </div>
 
@@ -389,7 +360,7 @@ export default function ServicesPage() {
                           (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
                         }}
                       >
-                        Обсудить
+                        Выбрать
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
@@ -401,137 +372,6 @@ export default function ServicesPage() {
             ))}
           </div>
 
-          {/* ── Benefits block ── */}
-          <div
-            className="reveal"
-            style={{
-              background: "#fff",
-              border: "3px solid var(--ink-dark)",
-              borderRadius: "40px",
-              padding: "clamp(40px, 6vw, 72px)",
-              boxShadow: "10px 10px 0 var(--line-blue)",
-              marginBottom: "80px",
-            }}
-          >
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "48px",
-                alignItems: "center",
-              }}
-            >
-              {/* Left side */}
-              <div>
-                <span
-                  style={{
-                    display: "inline-block",
-                    fontFamily: "var(--font-handwritten)",
-                    fontSize: "1.3rem",
-                    color: "var(--coral)",
-                    marginBottom: "12px",
-                  }}
-                >
-                  📌 Почему мы
-                </span>
-                <h2
-                  style={{
-                    fontFamily: "var(--font-heading)",
-                    fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
-                    fontWeight: 900,
-                    color: "var(--ink-dark)",
-                    lineHeight: 1.1,
-                    marginBottom: "40px",
-                    letterSpacing: "-0.03em",
-                  }}
-                >
-                  Сайты, которые{" "}
-                  <span style={{ color: "var(--coral)", textDecoration: "underline", textDecorationColor: "var(--yellow)", textDecorationThickness: "4px" }}>
-                    реально
-                  </span>{" "}
-                  работают
-                </h2>
-
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px" }}>
-                  {benefits.map((b, i) => (
-                    <div key={i} style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                      <span style={{ fontSize: "2.2rem" }}>{b.icon}</span>
-                      <h4 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.1rem", color: "var(--ink-dark)" }}>
-                        {b.title}
-                      </h4>
-                      <p style={{ fontSize: "0.9rem", color: "var(--pencil)", lineHeight: 1.55 }}>{b.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right side — quote card */}
-              <div
-                style={{
-                  background: "var(--paper)",
-                  border: "3px solid var(--line-blue)",
-                  borderRadius: "32px",
-                  padding: "40px",
-                  position: "relative",
-                  transform: "rotate(1deg)",
-                }}
-              >
-                {/* tape decoration */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "-18px",
-                    left: "50%",
-                    transform: "translateX(-50%) rotate(-2deg)",
-                    width: "80px",
-                    height: "28px",
-                    background: "rgba(245, 215, 110, 0.6)",
-                    border: "1px solid rgba(245, 215, 110, 0.9)",
-                    borderRadius: "4px",
-                  }}
-                />
-                <p
-                  style={{
-                    fontFamily: "var(--font-handwritten)",
-                    fontSize: "clamp(1.3rem, 2.5vw, 1.7rem)",
-                    color: "var(--ink-blue)",
-                    lineHeight: 1.5,
-                    marginBottom: "28px",
-                  }}
-                >
-                  «Мы проектируем сайты, которые превращают клики в прибыль.»
-                </p>
-                <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-                  <div
-                    style={{
-                      width: "52px",
-                      height: "52px",
-                      borderRadius: "16px",
-                      background: "var(--ink-dark)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#fff",
-                      fontWeight: 900,
-                      fontSize: "1rem",
-                      letterSpacing: "-0.03em",
-                      flexShrink: 0,
-                    }}
-                  >
-                    T63
-                  </div>
-                  <div>
-                    <p style={{ fontWeight: 800, color: "var(--ink-dark)", fontSize: "1rem", lineHeight: 1.2 }}>
-                      Команда traffic63
-                    </p>
-                    <p style={{ fontSize: "0.75rem", color: "var(--pencil)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", marginTop: "4px" }}>
-                      Design & Strategy
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* CTA */}

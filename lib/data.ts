@@ -9,7 +9,7 @@ export const stats = [
   { value: 50, label: "довольных клиентов", suffix: "+" },
   { value: 120, label: "запущенных кампаний", suffix: "+" },
   { value: 340, label: "% средний рост ROAS", suffix: "" },
-  { value: 3, label: "года на рынке", suffix: "+" },
+  { value: 5, label: "лет опыта", suffix: "+" },
 ];
 
 export const processSteps = [
