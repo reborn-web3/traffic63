@@ -10,13 +10,5 @@ import React from "react";
  * and `.notebook-hole`). This component merely provides the markup.
  */
 export const NotebookHoles = () => {
-  return (
-    <div className="notebook-holes" aria-hidden="true">
-      <div className="notebook-hole" />
-      <div className="notebook-hole" />
-      <div className="notebook-hole" />
-      <div className="notebook-hole" />
-      <div className="notebook-hole" />
-    </div>
-  );
+  return null;
 };

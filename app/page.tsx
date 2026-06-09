@@ -4,13 +4,14 @@ import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import { useReveal } from "@/hooks/useReveal";
 import { Header } from "@/components/Header";
 import Hero from "@/components/Hero";
-import { Stats } from "@/components/Stats";
-import { ServiceSnake } from "@/components/ServiceSnake";
+import { Marquee } from "@/components/Marquee";
+import { AgencyBanner } from "@/components/AgencyBanner";
 import { ServiceClimber } from "@/components/ServiceClimber";
 import { About } from "@/components/About";
 import { Process } from "@/components/Process";
 import { Cases } from "@/components/Cases";
 import { CTASection } from "@/components/CTASection";
+import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { DoodleDecorations } from "@/components/DoodleDecorations";
 import { NotebookHoles } from "@/components/NotebookHoles";
@@ -30,15 +31,16 @@ export default function Home() {
 
       {/* Main Layout */}
       <Header />
-      
+
       <main>
         <Hero />
-        <Stats />
+        <Marquee speed={180} startSpeed={50} decelerationDuration={2} />
         <ServiceClimber />
-        <ServiceSnake />
+        <AgencyBanner />
         <About />
         <Process />
         <Cases />
+        <FAQ />
         <CTASection />
       </main>
 

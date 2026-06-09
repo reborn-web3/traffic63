@@ -3,12 +3,13 @@ export const navigationLinks = [
   { label: "О нас", href: "/#about" },
   { label: "Как работаем", href: "/#process" },
   { label: "Кейсы", href: "/#cases" },
+  { label: "Контакты", href: "/contacts" },
 ];
 
 export const stats = [
   { value: 50, label: "довольных клиентов", suffix: "+" },
   { value: 120, label: "запущенных кампаний", suffix: "+" },
-  { value: 340, label: "% средний рост ROAS", suffix: "" },
+  { value: 340, label: "средний рост ROAS", suffix: "%" },
   { value: 5, label: "лет опыта", suffix: "+" },
 ];
 

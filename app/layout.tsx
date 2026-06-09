@@ -1,6 +1,25 @@
 import type { Metadata } from "next";
+import { Caveat, Nunito, Geist } from "next/font/google";
 import { jsonLdOrganization } from "./seo/jsonld";
 import "./globals.css";
+
+const caveat = Caveat({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-handwritten",
+  display: "swap",
+});
+
+const nunito = Nunito({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const geist = Geist({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-heading",
+  display: "swap",
+});
 
 /**
  * Default metadata used as a baseline for all routes.
@@ -11,7 +30,7 @@ const defaultMetadata: Metadata = {
   description:
     "traffic63 — performance‑агентство нового поколения. Контекстная реклама, таргет, SEO и аналитика с гарантией результата.",
   keywords:
-    "performance агентство, контекстная реклама, таргетированная реклама, SEO, аналитика, маркетинг",
+    "performance агентство, contextual реклама, таргетированная реклама, SEO, аналитика, маркетинг",
 };
 
 export default function RootLayout({
@@ -20,7 +39,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru">
+    <html
+      lang="ru"
+      className={`${caveat.variable} ${nunito.variable} ${geist.variable}`}
+    >
       <head>
         {/* JSON‑LD Organization schema for rich snippets */}
         <script
@@ -34,17 +56,6 @@ export default function RootLayout({
         <link rel="canonical" href="https://traffic63.ru" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
-        {/* Google Fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Nunito:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body suppressHydrationWarning>
         <main>{children}</main>

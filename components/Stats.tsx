@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { stats as statsData } from "@/lib/data";
 
 interface StatItemProps {
   target: number;
   label: string;
+  suffix: string;
   delay?: number;
 }
 
-const StatItem = ({ target, label, delay = 0 }: StatItemProps) => {
+const StatItem = ({ target, label, suffix, delay = 0 }: StatItemProps) => {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -22,8 +24,8 @@ const StatItem = ({ target, label, delay = 0 }: StatItemProps) => {
         }
       },
       {
-        threshold: 0.5,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.2,
+        rootMargin: "0px 0px -30px 0px",
       }
     );
 
@@ -42,14 +44,14 @@ const StatItem = ({ target, label, delay = 0 }: StatItemProps) => {
   useEffect(() => {
     if (!isVisible) return;
 
-    const duration = 2000;
+    const duration = 1800;
     const startTime = performance.now();
 
     const step = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
 
-      // Ease out cubic for smooth finish
+      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = Math.round(eased * target);
 
@@ -67,53 +69,41 @@ const StatItem = ({ target, label, delay = 0 }: StatItemProps) => {
     return () => clearTimeout(timeoutId);
   }, [isVisible, target, delay]);
 
-  // Logic from script.js: don't add '+' if label contains '%'
-  const suffix = label.includes("%") ? "" : "+";
-
   return (
     <div
       ref={elementRef}
-      className={`stat-item text-center transition-all duration-800 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      className={`stat-item px-4 text-center border-slate-100/80 border-r even:border-r-0 md:even:border-r md:last:border-r-0 transition-all duration-1000 ease-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{ transitionDelay: `${delay}s` }}
     >
-      <span className="stat-number font-handwritten text-5xl md:text-[3.5rem] font-bold text-coral-light block mb-2 leading-none">
+      <span className="font-heading font-semibold text-5xl md:text-6xl tracking-tight text-ink-dark leading-none block select-none">
         {count}
-        {count === target ? suffix : ""}
+        {count === target && suffix && (
+          <span className="font-serif italic font-normal text-coral text-4xl md:text-5xl ml-1 align-baseline">
+            {suffix}
+          </span>
+        )}
       </span>
-      <span className="stat-label text-white/80 font-medium text-sm md:text-base leading-tight block">
+      <span className="font-heading text-[10px] font-extrabold tracking-widest text-pencil uppercase block mt-4 select-none">
         {label}
       </span>
     </div>
   );
 };
 
-import { stats as statsData } from "@/lib/data";
-
 export const Stats = () => {
-  const stats = statsData;
-
   return (
-    <section className="stats-section relative bg-gradient-to-br from-ink-blue to-[#2c5a7a] py-20 overflow-hidden">
-      {/* Notebook ruled lines background effect */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.05]"
-        style={{
-          backgroundImage: 'linear-gradient(white 1px, transparent 1px)',
-          backgroundSize: '100% 32px'
-        }}
-        aria-hidden="true"
-      />
-
+    <section className="stats-section bg-white border-y border-slate-100/60 py-16 md:py-20 relative overflow-hidden">
       <div className="container mx-auto px-5 md:px-10 relative z-10">
-        <div className="stats-grid grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
-          {stats.map((stat, index) => (
+        <div className="stats-grid grid grid-cols-2 md:grid-cols-4 gap-y-12 md:gap-y-0">
+          {statsData.map((stat, index) => (
             <StatItem
               key={index}
               target={stat.value}
               label={stat.label}
-              delay={index * 0.1}
+              suffix={stat.suffix}
+              delay={index * 0.08}
             />
           ))}
         </div>

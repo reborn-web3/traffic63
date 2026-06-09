@@ -25,29 +25,5 @@ const svgDoodles = [
 ];
 
 export const DoodleDecorations = () => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
-  return (
-    <div className="fixed inset-0 pointer-events-none z-[1]" aria-hidden="true">
-      {svgDoodles.map((doodle, i) =>
-        doodle.positions.map((pos, j) => (
-          <div
-            key={`${i}-${j}`}
-            className="absolute opacity-50"
-            style={{
-              ...pos,
-              animation: `float ${3 + Math.random() * 4}s ease-in-out ${Math.random() * 2}s infinite`,
-            }}
-            dangerouslySetInnerHTML={{ __html: doodle.svg }}
-          />
-        ))
-      )}
-    </div>
-  );
+  return null;
 };
