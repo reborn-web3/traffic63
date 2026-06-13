@@ -34,12 +34,10 @@ export default function Home() {
 
       <main>
         <Hero />
-        <Marquee speed={180} startSpeed={50} decelerationDuration={2} />
+        <Marquee speed={180} startSpeed={70} decelerationDuration={2} />
         <ServiceClimber />
         <AgencyBanner />
         <About />
-        <Process />
-        <Cases />
         <FAQ />
         <CTASection />
       </main>

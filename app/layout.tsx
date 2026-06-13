@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Caveat, Nunito, Geist } from "next/font/google";
-import { jsonLdOrganization } from "./seo/jsonld";
+import { jsonLdOrganization, jsonLdLocalBusiness, jsonLdWebSite } from "./seo/jsonld";
+import { CookieBanner } from "@/components/CookieBanner";
 import "./globals.css";
 
 const caveat = Caveat({
@@ -26,11 +27,11 @@ const geist = Geist({
  * Individual pages can override by exporting their own `generateMetadata`.
  */
 const defaultMetadata: Metadata = {
-  title: "traffic63 — Performance‑агентство",
+  title: "traffic63 — Performance-агентство в Самаре | Интернет-маркетинг, SEO и Реклама",
   description:
-    "traffic63 — performance‑агентство нового поколения. Контекстная реклама, таргет, SEO и аналитика с гарантией результата.",
+    "Агентство интернет-маркетинга traffic63 в Самаре. Разработка сайтов, контекстная реклама, SEO-продвижение, таргетированная реклама и внедрение AI-ботов с гарантией результата. 🚀 Бесплатный аудит!",
   keywords:
-    "performance агентство, contextual реклама, таргетированная реклама, SEO, аналитика, маркетинг",
+    "performance-агентство Самара, интернет-маркетинг Самара, продвижение сайтов Самара, seo оптимизация Самара, контекстная реклама Самара, таргетированная реклама Самара, внедрение ai-ботов, веб-студия Самара, разработка сайтов Самара, traffic63",
 };
 
 export default function RootLayout({
@@ -42,13 +43,41 @@ export default function RootLayout({
     <html
       lang="ru"
       className={`${caveat.variable} ${nunito.variable} ${geist.variable}`}
+      suppressHydrationWarning
     >
       <head>
-        {/* JSON‑LD Organization schema for rich snippets */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var theme = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', theme);
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
+                }
+              })()
+            `
+          }}
+        />
+        {/* JSON‑LD Schemas for rich search results */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLdOrganization),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdLocalBusiness),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdWebSite),
           }}
         />
         {/* Emoji favicon */}
@@ -59,6 +88,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <main>{children}</main>
+        <CookieBanner />
       </body>
     </html>
   );
@@ -71,6 +101,10 @@ export default function RootLayout({
 export async function generateMetadata(): Promise<Metadata> {
   return {
     ...defaultMetadata,
+    metadataBase: new URL("https://traffic63.ru"),
+    alternates: {
+      canonical: "/",
+    },
     openGraph: {
       title: defaultMetadata.title as string,
       description: defaultMetadata.description as string,
@@ -81,7 +115,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "/favicon.svg",
           width: 240,
           height: 240,
-          alt: "traffic63 – performance‑агентство",
+          alt: "traffic63 – performance-агентство в Самаре",
         },
       ],
       locale: "ru_RU",
@@ -91,6 +125,27 @@ export async function generateMetadata(): Promise<Metadata> {
       index: true,
       follow: true,
       "max-image-preview": "large",
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+      },
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: defaultMetadata.title as string,
+      description: defaultMetadata.description as string,
+      images: ["/favicon.svg"],
+    },
+    verification: {
+      google: "google-site-verification-placeholder",
+      yandex: "yandex-verification-placeholder",
+    },
+    other: {
+      "geo.region": "RU-SAM",
+      "geo.placename": "Самара",
+      "geo.position": "53.21245;50.14441",
+      "ICBM": "53.21245, 50.14441",
     },
   };
 }

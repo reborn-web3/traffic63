@@ -42,14 +42,14 @@ export const AgencyBanner = () => {
   return (
     <section
       id="agency-banner"
-      className="relative bg-white py-24 md:py-32 overflow-hidden border-t border-slate-100"
+      className="relative bg-paper py-24 md:py-32 overflow-hidden border-t border-line-blue"
     >
       {/* Decorative blueprint grids in background */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="banner-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(15, 23, 42, 0.03)" strokeWidth="0.8" />
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="0.8" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#banner-grid)" />
@@ -79,7 +79,7 @@ export const AgencyBanner = () => {
         </div>
 
         {/* Separator and Split Content Grid */}
-        <div className="border-t border-slate-200 pt-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        <div className="border-t border-line-blue pt-12 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           
           {/* Left Column: Manifesto / Intro */}
           <div className="lg:col-span-5 flex flex-col justify-between text-left">
@@ -93,7 +93,7 @@ export const AgencyBanner = () => {
             </div>
 
             {/* Handwritten script note */}
-            <div className="mt-12 lg:mt-0 pt-8 border-t border-slate-100">
+            <div className="mt-12 lg:mt-0 pt-8 border-t border-line-blue">
               <span className="font-handwritten text-3xl text-ink-blue -rotate-2 inline-block select-none transform hover:scale-105 transition-transform duration-300">
                 ⚡️ Трафик. Дизайн. Код.
               </span>
@@ -105,7 +105,7 @@ export const AgencyBanner = () => {
             <span className="font-heading text-[10px] font-extrabold tracking-widest text-pencil uppercase mb-6 block select-none text-left">
               ▼ НАШИ СТОЛПЫ
             </span>
-            <div className="flex flex-col border-b border-slate-100">
+            <div className="flex flex-col border-b border-line-blue">
               {PILLARS.map((pillar, i) => (
                 <motion.div
                   key={pillar.num}
@@ -113,7 +113,7 @@ export const AgencyBanner = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: i * 0.15, duration: 0.7 }}
-                  className="group flex flex-col md:flex-row text-left py-8 border-t border-slate-100 transition-colors duration-500 hover:bg-slate-50/40 px-4 rounded-xl -mx-4"
+                  className="group flex flex-col md:flex-row text-left py-8 border-t border-line-blue transition-colors duration-500 hover:bg-line-blue-light/30 px-4 rounded-xl -mx-4"
                 >
                   {/* Number & Tag */}
                   <div className="flex justify-between md:flex-col md:justify-start gap-4 mb-4 md:mb-0 md:w-40 shrink-0">

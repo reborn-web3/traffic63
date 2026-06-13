@@ -18,6 +18,9 @@ export const CursorTrail = () => {
   const lastTrailRef = useRef<number>(0);
 
   useEffect(() => {
+    // Disable on touch-only devices to save resources and prevent tap lag/glitches
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       const now = Date.now();
       if (now - lastTrailRef.current < 80) return; // throttle to ~12fps

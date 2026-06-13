@@ -60,7 +60,7 @@ export const Marquee = ({
   return (
     <motion.section
       ref={containerRef}
-      className="marquee-section relative w-full overflow-hidden bg-white border-y border-slate-100/60 py-8 sm:py-10 lg:py-12 select-none"
+      className="marquee-section relative w-full overflow-hidden bg-paper border-y border-line-blue/60 py-8 sm:py-10 lg:py-12 select-none"
       style={{ "--marquee-duration": speedStyle } as any}
     >
       <div className="flex w-max animate-marquee-slow whitespace-nowrap">

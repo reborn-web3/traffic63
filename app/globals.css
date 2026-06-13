@@ -1,14 +1,45 @@
 @import "tailwindcss";
 
 @theme {
+  /* Fonts */
   --font-handwritten: var(--font-handwritten), 'Caveat', cursive;
   --font-body: var(--font-body), 'Nunito', sans-serif;
   --font-heading: var(--font-heading), 'Geist', sans-serif;
+
+  /* Colors */
+  --color-paper: var(--paper);
+  --color-paper-dark: var(--paper-dark);
+  --color-line-blue: var(--line-blue);
+  --color-line-blue-light: var(--line-blue-light);
+  --color-ink-blue: var(--ink-blue);
+  --color-ink-dark: var(--ink-dark);
+  --color-pencil: var(--pencil);
+  --color-coral: var(--coral);
+  --color-coral-light: var(--coral-light);
+  --color-coral-dark: var(--coral-dark);
+  --color-mint: var(--mint);
+  --color-mint-light: var(--mint-light);
+  --color-lavender: var(--lavender);
+  --color-lavender-light: var(--lavender-light);
+  --color-yellow: var(--yellow);
+  --color-yellow-light: var(--yellow-light);
+  --color-red-margin: var(--red-margin);
+
+  /* Border Radius */
+  --radius-notebook: var(--border-radius);
+  --radius-notebook-sm: var(--border-radius-sm);
+  --radius-notebook-lg: var(--border-radius-lg);
+
+  /* Spacing/Gap for Burger Menu */
+  --spacing-1\.25: 5px;
+
+  /* Custom Border Width */
+  --border-width-1: 1px;
 }
 
 /* ===== CSS VARIABLES ===== */
 :root {
-  /* Notebook palette */
+  /* Notebook palette - Original Light Theme */
   --paper: #ffffff;
   --paper-dark: #f8f9fa;
   --line-blue: #e2e8f0;
@@ -42,6 +73,28 @@
   --border-radius-lg: 24px;
 }
 
+[data-theme="dark"] {
+  /* Chalkboard/Dark Notebook (black color) */
+  --paper: #000000;
+  --paper-dark: #0c0c0e;
+  --line-blue: #1e293b;
+  --line-blue-light: #0f172a;
+  --ink-blue: #60a5fa;
+  --ink-dark: #f8fafc;
+  --pencil: #94a3b8;
+  --coral: #ff6b6b;
+  --coral-light: #ff8787;
+  --coral-dark: #c53030;
+  --mint: #10b981;
+  --mint-light: #064e3b;
+  --lavender: #8b5cf6;
+  --lavender-light: #2e1065;
+  --yellow: #fbbf24;
+  --yellow-light: rgba(251, 191, 36, 0.15);
+  --shadow: rgba(0, 0, 0, 0.5);
+  --shadow-md: rgba(0, 0, 0, 0.7);
+}
+
 /* ===== RESET & BASE ===== */
 @layer base {
   *, *::before, *::after {
@@ -53,6 +106,7 @@
   html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: clip;
   }
 
   body {
@@ -66,6 +120,7 @@
 
 /* ===== CONTAINER ===== */
 .container {
+  width: 100%;
   max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 40px;
@@ -89,6 +144,10 @@
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line-blue);
   transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .header {
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .header.scrolled {
@@ -141,6 +200,10 @@
 .nav a:hover {
   color: var(--ink-blue);
   background: rgba(184, 212, 232, 0.2);
+}
+
+[data-theme="dark"] .nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .nav a::after {
@@ -313,6 +376,10 @@
   position: relative;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+}
+
+[data-theme="dark"] .service-card {
+  background: var(--paper-dark);
 }
 
 .service-card::before {
@@ -505,6 +572,10 @@
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
 }
 
+[data-theme="dark"] .cozy-card {
+  background: var(--paper-dark);
+}
+
 .cozy-card:hover {
   transform: translate(var(--offset-x, 0px), var(--offset-y, 0px)) scale(1.02) rotate(-1deg);
   box-shadow: 12px 12px 0 var(--coral-light);
@@ -565,6 +636,10 @@
   border: 2px dashed var(--line-blue);
   border-radius: 16px;
   padding: 20px;
+}
+
+[data-theme="dark"] .cozy-speech-bubble {
+  background: rgba(255, 255, 255, 0.04);
 }
 
 /* Tiny triangle for speech bubble */
@@ -917,6 +992,10 @@
   border: 1px dashed var(--line-blue);
 }
 
+[data-theme="dark"] .case-metric {
+  background: var(--paper-dark);
+}
+
 .case-metric .value {
   font-family: var(--font-handwritten);
   font-size: 1.8rem;
@@ -1005,6 +1084,11 @@
   border-radius: var(--border-radius-sm);
   outline: none;
   transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea {
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .form-group input:focus,
@@ -1107,6 +1191,10 @@
   opacity: 0.4;
 }
 
+[data-theme="dark"] .notebook-hole {
+  background: var(--paper);
+}
+
 @media (max-width: 768px) {
   .notebook-holes {
     display: none;
@@ -1192,6 +1280,10 @@
   margin-top: 32px;
 }
 
+[data-theme="dark"] .not-found-card {
+  background: rgba(12, 12, 14, 0.7);
+}
+
 .not-found-subtitle {
   font-family: var(--font-handwritten);
   font-size: 3rem;
@@ -1260,4 +1352,42 @@
   .animate-marquee-slow {
     animation-play-state: paused;
   }
+}
+
+/* ===== CHALK DRAWING EFFECT (DARK INVERSION) ===== */
+[data-theme="dark"] img[src*="doodle_"],
+[data-theme="dark"] .dark-theme-image {
+  filter: invert(1) brightness(1.1) contrast(1.1);
+}
+
+/* ===== SMOOTH THEME SWITCHING TRANSITION ===== */
+body, 
+.header, 
+.service-card, 
+.cozy-card, 
+.cozy-speech-bubble, 
+.case-card, 
+.cta-card, 
+.case-metric, 
+.form-group input, 
+.form-group textarea, 
+.notebook-hole, 
+.not-found-card, 
+.social-item, 
+.premium-footer, 
+.contacts-map-iframe,
+img,
+svg,
+h1, h2, h3, p, span, button, a {
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Yandex Map blending */
+.contacts-map-iframe {
+  filter: sepia(0.2) hue-rotate(330deg) contrast(1.05) saturate(0.95);
+  transition: filter 0.5s ease;
+}
+
+[data-theme="dark"] .contacts-map-iframe {
+  filter: invert(0.9) hue-rotate(180deg) contrast(1.2) brightness(0.9);
 }

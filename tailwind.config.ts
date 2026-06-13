@@ -90,6 +90,7 @@ const config: Config = {
 
       addComponents({
         ".container": {
+          width: "100%",
           maxWidth: "1200px",
           margin: "0 auto",
           padding: "0 20px",

@@ -12,11 +12,10 @@ export async function GET() {
   // При необходимости расширяйте массив, указывая относительный путь.
   const urls = [
     "/",               // главная
-    "/#services",      // якорь‑страница услуг (будет интерпретирован как отдельный URL)
-    "/#about",
-    "/#process",
-    "/#cases",
-    "/#contact",
+    "/services",       // тарифы и цены
+    "/contacts",       // контакты
+    "/privacy",        // политика конфиденциальности
+    "/terms",          // публичная оферта
   ];
 
   const now = new Date().toISOString();

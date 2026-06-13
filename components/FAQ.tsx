@@ -59,7 +59,7 @@ export const FAQ = () => {
   };
 
   return (
-    <section id="faq" className="relative bg-white py-24 lg:py-32 overflow-hidden border-t border-slate-100">
+    <section id="faq" className="relative bg-paper py-24 lg:py-32 overflow-hidden border-t border-line-blue">
       <div className="container mx-auto px-5 md:px-10 relative z-10">
         
         {/* Typographic Headline matching Hero */}
@@ -74,7 +74,7 @@ export const FAQ = () => {
 
         {/* Description Row (border-t separated, single column) matching Hero */}
         <Reveal delay={0.2}>
-          <div className="border-t border-slate-200 pt-10 pb-12 md:pb-16 text-left">
+          <div className="border-t border-line-blue pt-10 pb-12 md:pb-16 text-left">
             <p className="font-body text-lg md:text-xl lg:text-[22px] text-pencil leading-relaxed font-medium max-w-[720px]">
               Собрали здесь ответы на самые частые вопросы о процессах работы, стоимости и поддержке проектов. Если не нашли нужный ответ — напишите нам.
             </p>
@@ -90,7 +90,7 @@ export const FAQ = () => {
             return (
               <Reveal key={index} delay={0.1 + index * 0.05}>
                 <div 
-                  className="border-t border-slate-200 py-6 md:py-8 cursor-pointer group"
+                  className="border-t border-line-blue py-6 md:py-8 cursor-pointer group"
                   onClick={() => toggleIndex(index)}
                 >
                   <div className="flex items-start justify-between gap-4 md:gap-8">
@@ -147,7 +147,7 @@ export const FAQ = () => {
             );
           })}
           {/* Bottom border line to seal the accordion list */}
-          <div className="border-t border-slate-200"></div>
+          <div className="border-t border-line-blue"></div>
         </div>
 
       </div>

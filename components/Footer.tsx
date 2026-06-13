@@ -1,99 +1,151 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { navigationLinks } from "@/lib/data";
-import "./Footer.css";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="premium-footer">
-      {/* Decorative Stickers/Doodles */}
-      <div className="footer-sticker sticker-1">
-        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.1 }}>
-          <path d="M10 60C10 32.3858 32.3858 10 60 10C87.6142 10 110 32.3858 110 60C110 87.6142 87.6142 110 60 110C32.3858 110 10 87.6142 10 60Z" stroke="white" strokeWidth="2" strokeDasharray="5 5" />
-          <path d="M40 40L80 80M80 40L40 80" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        </svg>
-      </div>
-      <div className="footer-sticker sticker-2">
-        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ opacity: 0.1 }}>
-          <path d="M20 20L80 80M80 20L20 80" stroke="white" strokeWidth="4" strokeLinecap="round" />
-          <circle cx="50" cy="50" r="30" stroke="white" strokeWidth="4" />
-        </svg>
-      </div>
-
-      <div className="footer-container">
-        <div className="footer-grid">
+    <footer className="relative bg-paper text-ink-dark py-24 overflow-hidden border-t border-line-blue transition-colors duration-300">
+      <div className="container mx-auto px-5 md:px-10 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
           {/* Column 1: Brand */}
-          <div className="footer-brand">
-            <Link href="/#hero" className="footer-logo">
-              traffic<span>63</span>
+          <div className="flex flex-col gap-6 items-start text-left">
+            <Link
+              href="/#hero"
+              className="font-serif italic text-2xl md:text-3xl font-black text-ink-dark tracking-tight transition-opacity hover:opacity-85"
+            >
+              traffic<span className="text-coral">63</span>
             </Link>
-            <p className="footer-description">
+            <p className="font-body text-sm text-pencil leading-relaxed max-w-[280px]">
               Performance-агентство, которое говорит на языке цифр. Рисуем стратегии роста и воплощаем их в жизнь с 2018 года.
             </p>
-            <div className="footer-socials">
+            <div className="flex gap-4 mt-2">
               <SocialIcon href="https://t.me/traffic63" icon="telegram" />
-              <SocialIcon href="#" icon="vk" />
-              <SocialIcon href="#" icon="whatsapp" />
+              <SocialIcon href="https://vk.com/traffic63" icon="vk" />
+              <SocialIcon href="https://wa.me/79991234567" icon="whatsapp" />
             </div>
           </div>
 
           {/* Column 2: Navigation */}
-          <div className="footer-column">
-            <h4>Компания</h4>
-            <ul className="footer-links-list">
+          <div className="flex flex-col text-left">
+            <h4 className="font-heading text-xs font-extrabold uppercase tracking-widest text-pencil mb-6 select-none">
+              Компания
+            </h4>
+            <ul className="flex flex-col gap-4">
               {navigationLinks.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="footer-link">
+                  <Link
+                    href={link.href}
+                    className="group relative font-body text-sm font-semibold text-pencil hover:text-ink-dark transition-colors duration-300 py-1 inline-block"
+                  >
                     {link.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-coral group-hover:w-full transition-all duration-300" />
                   </Link>
                 </li>
               ))}
-              <li><Link href="/#contact" className="footer-link">Обсудить проект</Link></li>
+              <li>
+                <Link
+                  href="/#contact"
+                  className="group relative font-body text-sm font-semibold text-pencil hover:text-ink-dark transition-colors duration-300 py-1 inline-block"
+                >
+                  Обсудить проект
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-coral group-hover:w-full transition-all duration-300" />
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Column 3: Services */}
-          <div className="footer-column">
-            <h4>Услуги</h4>
-            <ul className="footer-links-list">
-              <li><Link href="/#services" className="footer-link">Контекстная реклама</Link></li>
-              <li><Link href="/#services" className="footer-link">Таргетированная реклама</Link></li>
-              <li><Link href="/#services" className="footer-link">SEO‑продвижение</Link></li>
-              <li><Link href="/#services" className="footer-link">Создание сайтов</Link></li>
+          <div className="flex flex-col text-left">
+            <h4 className="font-heading text-xs font-extrabold uppercase tracking-widest text-pencil mb-6 select-none">
+              Услуги
+            </h4>
+            <ul className="flex flex-col gap-4">
+              {[
+                { label: "Контекстная реклама", href: "/#services" },
+                { label: "Таргетированная реклама", href: "/#services" },
+                { label: "SEO‑продвижение", href: "/#services" },
+                { label: "Создание сайтов", href: "/#services" },
+              ].map((service, index) => (
+                <li key={index}>
+                  <Link
+                    href={service.href}
+                    className="group relative font-body text-sm font-semibold text-pencil hover:text-ink-dark transition-colors duration-300 py-1 inline-block"
+                  >
+                    {service.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-coral group-hover:w-full transition-all duration-300" />
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Column 4: Contacts */}
-          <div className="footer-column">
-            <h4>Контакты</h4>
-            <div className="footer-contact-info">
-              <a href="tel:+79991234567" className="footer-phone">
+          <div className="flex flex-col gap-4 items-start text-left">
+            <h4 className="font-heading text-xs font-extrabold uppercase tracking-widest text-pencil mb-6 select-none">
+              Контакты
+            </h4>
+            <div className="flex flex-col gap-4 items-start w-full">
+              <a
+                href="tel:+79991234567"
+                className="font-heading text-xl font-extrabold text-ink-dark hover:text-coral transition-colors duration-300"
+              >
                 +7 (999) 123-45-67
               </a>
-              <a href="mailto:hello@traffic63.ru" className="footer-email">
+              <a
+                href="mailto:hello@traffic63.ru"
+                className="font-body text-sm text-pencil hover:text-ink-dark transition-colors duration-300 border-b border-dashed border-pencil/40 hover:border-ink-dark pb-0.5"
+              >
                 hello@traffic63.ru
               </a>
-              <div className="footer-office">
-                <p className="footer-office-label">Офис в Самаре</p>
-                <p className="footer-office-address">ул. Ново-Садовая, 106, офис 402</p>
+              <div className="bg-paper-dark/60 border border-line-blue rounded-2xl p-5 shadow-sm select-none text-left w-full mt-2 hover:shadow-md transition-shadow duration-300">
+                <p className="font-heading text-[9px] font-extrabold tracking-widest text-pencil uppercase mb-1">
+                  Офис в Самаре
+                </p>
+                <p className="font-body text-xs text-ink-dark leading-relaxed">
+                  ул. Ново-Садовая, 106, офис 402
+                </p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="footer-bottom">
-          <div className="copyright">
+        <div className="border-t border-line-blue/60 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="font-body text-xs text-pencil/80 text-center md:text-left">
             © {currentYear} traffic63 — Performance-агентство.
           </div>
-          <div className="legal-links">
-            <Link href="/privacy" className="legal-link">Политика конфиденциальности</Link>
-            <Link href="/terms" className="legal-link">Публичная оферта</Link>
+          <div className="flex gap-6">
+            <Link
+              href="/privacy"
+              className="font-body text-xs text-pencil hover:text-ink-dark transition-colors duration-300"
+            >
+              Политика конфиденциальности
+            </Link>
+            <Link
+              href="/terms"
+              className="font-body text-xs text-pencil hover:text-ink-dark transition-colors duration-300"
+            >
+              Публичная оферта
+            </Link>
           </div>
-          <div className="made-with">
-            Нарисовано с любовью <span className="heart">💙</span>
+          <div className="font-body text-xs text-pencil/80 flex items-center gap-1.5 select-none">
+            Нарисовано с любовью{" "}
+            <motion.span
+              className="inline-block text-coral"
+              animate={{ scale: [1, 1.25, 1] }}
+              transition={{
+                repeat: Infinity,
+                duration: 1.5,
+                ease: "easeInOut",
+              }}
+            >
+              💙
+            </motion.span>
           </div>
         </div>
       </div>
@@ -125,9 +177,10 @@ const SocialIcon = ({ href, icon }: { href: string; icon: string }) => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="social-item"
+      className="w-10 h-10 rounded-xl border border-line-blue hover:border-coral bg-paper/40 hover:bg-coral/10 text-pencil hover:text-coral transition-all duration-300 flex items-center justify-center hover:-translate-y-1 hover:rotate-3 shadow-sm hover:shadow"
     >
       {icons[icon] || null}
     </a>
   );
 };
+

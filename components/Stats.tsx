@@ -72,7 +72,7 @@ const StatItem = ({ target, label, suffix, delay = 0 }: StatItemProps) => {
   return (
     <div
       ref={elementRef}
-      className={`stat-item px-4 text-center border-slate-100/80 border-r even:border-r-0 md:even:border-r md:last:border-r-0 transition-all duration-1000 ease-out ${
+      className={`stat-item px-4 text-center border-line-blue/80 border-r even:border-r-0 md:even:border-r md:last:border-r-0 transition-all duration-1000 ease-out ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{ transitionDelay: `${delay}s` }}
@@ -94,7 +94,7 @@ const StatItem = ({ target, label, suffix, delay = 0 }: StatItemProps) => {
 
 export const Stats = () => {
   return (
-    <section className="stats-section bg-white border-y border-slate-100/60 py-16 md:py-20 relative overflow-hidden">
+    <section className="stats-section bg-paper border-y border-line-blue/60 py-16 md:py-20 relative overflow-hidden">
       <div className="container mx-auto px-5 md:px-10 relative z-10">
         <div className="stats-grid grid grid-cols-2 md:grid-cols-4 gap-y-12 md:gap-y-0">
           {statsData.map((stat, index) => (

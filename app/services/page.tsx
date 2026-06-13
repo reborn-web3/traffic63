@@ -16,11 +16,11 @@ const subscriptions = [
     price: "15 000 – 20 000 ₽",
     period: "/ мес",
     priceNote: "для небольшого бизнеса",
-    icon: "/images/doodle_laptop.png",
+    icon: "/images/editorial_tech.png",
     accentColor: "var(--mint)",
-    accentBg: "rgba(126, 200, 160, 0.12)",
-    badge: null,
-    rotate: "-1deg",
+    accentBgClass: "bg-mint/10",
+    textColorClass: "text-mint",
+    badgeColorClass: "bg-mint/10 text-mint",
     description: "Поддержание работоспособности и контроль стабильности вашей воронки привлечения.",
     features: [
       "Поддержка работоспособности сайта",
@@ -34,11 +34,12 @@ const subscriptions = [
     price: "30 000 – 50 000 ₽",
     period: "/ мес",
     priceNote: "основной тариф для развития",
-    icon: "/images/doodle_growth.png",
+    icon: "/images/editorial_marketing.png",
     accentColor: "var(--coral)",
-    accentBg: "rgba(232, 132, 107, 0.1)",
+    accentBgClass: "bg-coral/10",
+    textColorClass: "text-coral",
+    badgeColorClass: "bg-coral/10 text-coral",
     badge: "🔥 Рекомендуем",
-    rotate: "1.5deg",
     description: "Комплексное ведение и постоянное улучшение воронки. Оптимально для стабильного притока лидов.",
     features: [
       "Всё из тарифа Lite (Старт)",
@@ -54,11 +55,12 @@ const subscriptions = [
     price: "70 000 – 150 000 ₽",
     period: "/ мес",
     priceNote: "максимальное вовлечение команды",
-    icon: "/images/doodle_idea.png",
+    icon: "/images/editorial_design.png",
     accentColor: "var(--lavender)",
-    accentBg: "rgba(155, 142, 196, 0.1)",
+    accentBgClass: "bg-lavender/10",
+    textColorClass: "text-lavender",
+    badgeColorClass: "bg-lavender/10 text-lavender",
     badge: "👑 VIP-сопровождение",
-    rotate: "-0.5deg",
     description: "Для компаний, готовых к кратному росту. Полное делегирование маркетинга и IT-инфраструктуры.",
     features: [
       "Всё из тарифа Growth (Рост)",
@@ -83,286 +85,123 @@ export default function ServicesPage() {
 
       <Header />
 
-      <main style={{ paddingTop: "140px", paddingBottom: "80px" }} className="relative z-10">
-        <div className="container">
+      <main className="relative z-10 pt-32 pb-24 md:pt-40 md:pb-32">
+        <div className="container mx-auto px-5 md:px-10">
 
           {/* ── Page Header ── */}
-          <div className="max-w-3xl mb-20 reveal">
-            <div
-              className="inline-block px-4 py-1 mb-6 rounded-xl border-2 border-dashed"
-              style={{
-                background: "rgba(245, 215, 110, 0.3)",
-                borderColor: "var(--yellow)",
-                transform: "rotate(-1.5deg)",
-              }}
-            >
-              <span
-                style={{ fontFamily: "var(--font-handwritten)", fontSize: "1.2rem", color: "var(--ink-blue)" }}
-              >
-                Exclusive Offers 2026
-              </span>
-            </div>
+          <div className="max-w-3xl mb-16 reveal">
+            <span className="font-heading text-[10px] font-extrabold tracking-widest text-coral uppercase mb-6 block select-none">
+              ✦ Тарифы 2026
+            </span>
 
-            <h1
-              style={{
-                fontFamily: "var(--font-heading)",
-                fontSize: "clamp(3rem, 8vw, 5.5rem)",
-                fontWeight: 900,
-                color: "var(--ink-dark)",
-                lineHeight: 0.95,
-                letterSpacing: "-0.03em",
-                marginBottom: "24px",
-              }}
-            >
-              Наши{" "}
-              <span style={{ color: "var(--coral)", position: "relative", display: "inline-block" }}>
-                тарифы
-                <svg
-                  style={{ position: "absolute", bottom: "-8px", left: 0, width: "100%", height: "10px" }}
-                  viewBox="0 0 100 10"
-                  preserveAspectRatio="none"
-                  fill="none"
-                >
-                  <path d="M0,8 Q25,2 50,6 T100,4" stroke="var(--yellow)" strokeWidth="3" strokeLinecap="round" />
-                </svg>
-              </span>
+            <h1 className="font-heading text-4xl sm:text-7xl lg:text-[110px] font-black leading-[0.95] text-ink-dark tracking-tighter uppercase select-none mb-12">
+              Наши <br />
+              <span className="font-serif italic text-coral lowercase font-normal tracking-normal">тарифы.</span>
             </h1>
 
-            <p style={{ fontSize: "1.2rem", color: "var(--pencil)", lineHeight: 1.7, maxWidth: "700px" }}>
-              Мы берем на себя постоянное улучшение конверсии вашего сайта, ведение рекламы, развитие AI-ассистента и настройку автоматизаций. Выберите подходящий тариф подписки:
-            </p>
+            {/* Description Row (border-t separated, single column) */}
+            <div className="border-t border-line-blue pt-10 text-left">
+              <p className="font-body text-lg md:text-xl lg:text-[22px] text-pencil leading-relaxed font-medium max-w-[720px]">
+                Мы берем на себя постоянное улучшение конверсии вашего сайта, ведение рекламы, развитие AI-ассистента и настройку автоматизаций. Выберите подходящий тариф подписки:
+              </p>
+            </div>
           </div>
 
           {/* ── SUBSCRIPTIONS GRID ── */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-              gap: "32px",
-              marginBottom: "80px",
-            }}
-          >
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10 mb-20">
             {subscriptions.map((svc, idx) => (
               <div
                 key={idx}
-                className="reveal"
-                style={{ transitionDelay: `${idx * 120}ms` }}
+                className="reveal flex"
+                style={{ transitionDelay: `${idx * 150}ms` }}
               >
                 <div
-                  style={{
-                    background: "#fff",
-                    border: `3px solid var(--ink-dark)`,
-                    borderRadius: "28px",
-                    padding: "0",
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%",
-                    boxShadow: `6px 6px 0 ${svc.accentColor}`,
-                    transition: "transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease",
-                    transform: `rotate(${svc.rotate})`,
-                    overflow: "hidden",
-                    position: "relative",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = `rotate(0deg) translateY(-6px)`;
-                    (e.currentTarget as HTMLElement).style.boxShadow = `10px 10px 0 ${svc.accentColor}`;
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = `rotate(${svc.rotate})`;
-                    (e.currentTarget as HTMLElement).style.boxShadow = `6px 6px 0 ${svc.accentColor}`;
-                  }}
+                  className="relative w-full bg-paper-dark border border-line-blue/60 rounded-[32px] overflow-hidden flex flex-col hover:shadow-lg hover:-translate-y-1.5 transition-all duration-500 group"
                 >
-                  {/* Coloured top stripe */}
-                  <div style={{ height: "6px", background: svc.accentColor, flexShrink: 0 }} />
+                  {/* Colored top stripe */}
+                  <div className="h-2 w-full shrink-0" style={{ backgroundColor: svc.accentColor }} />
 
                   {/* Badge */}
                   {svc.badge && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "20px",
-                        right: "20px",
-                        background: "var(--coral)",
-                        color: "#fff",
-                        fontFamily: "var(--font-handwritten)",
-                        fontSize: "1rem",
-                        padding: "4px 14px",
-                        borderRadius: "50px",
-                        border: "2px solid var(--ink-dark)",
-                        transform: "rotate(2deg)",
-                        zIndex: 2,
-                      }}
-                    >
+                    <div className="absolute top-6 right-6 font-heading text-[10px] font-black tracking-widest text-white bg-coral px-3.5 py-1.5 rounded-full select-none shadow-sm shadow-coral/20">
                       {svc.badge}
                     </div>
                   )}
 
-                  <div style={{ padding: "32px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
+                  <div className="p-8 md:p-10 flex flex-col flex-grow">
                     {/* Icon + subtitle */}
-                    <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
-                      <div
-                        style={{
-                          width: "72px",
-                          height: "72px",
-                          borderRadius: "20px",
-                          border: "2px solid var(--line-blue)",
-                          background: svc.accentBg,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          flexShrink: 0,
-                        }}
-                      >
-                        <Image src={svc.icon} alt={svc.title} width={48} height={48} className="object-contain" />
+                    <div className="flex items-center gap-6 mb-6">
+                      <div className={`w-16 h-16 rounded-2xl border border-line-blue/60 ${svc.accentBgClass} flex items-center justify-center shrink-0`}>
+                        <Image
+                          src={svc.icon}
+                          alt={svc.title}
+                          width={42}
+                          height={42}
+                          className="object-contain hover:scale-105 transition-transform duration-700 dark-theme-image"
+                        />
                       </div>
                       <div>
-                        <span
-                          style={{
-                            fontFamily: "var(--font-handwritten)",
-                            fontSize: "1rem",
-                            color: "var(--pencil)",
-                            display: "block",
-                          }}
-                        >
+                        <span className="font-heading text-[10px] font-extrabold tracking-widest text-pencil uppercase block mb-1">
                           {svc.priceNote}
                         </span>
-                        <h3
-                          style={{
-                            fontFamily: "var(--font-heading)",
-                            fontSize: "1.5rem",
-                            fontWeight: 800,
-                            color: "var(--ink-dark)",
-                            lineHeight: 1.1,
-                          }}
-                        >
+                        <h3 className="font-heading text-xl font-bold text-ink-dark leading-tight">
                           {svc.title}
                         </h3>
                       </div>
                     </div>
 
                     {/* Description */}
-                    <p style={{ color: "var(--pencil)", lineHeight: 1.65, marginBottom: "24px", fontSize: "0.98rem" }}>
+                    <p className="font-body text-pencil text-sm leading-relaxed mb-6 flex-grow">
                       {svc.description}
                     </p>
 
                     {/* Feature list */}
-                    <ul
-                      style={{
-                        listStyle: "none",
-                        padding: 0,
-                        margin: "0 0 24px 0",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "10px",
-                        flexGrow: 1,
-                      }}
-                    >
+                    <ul className="flex flex-col gap-3.5 mb-8">
                       {svc.features.map((feat, fIdx) => (
                         <li
                           key={fIdx}
-                          style={{
-                            display: "flex",
-                            alignItems: "flex-start",
-                            gap: "10px",
-                            fontSize: "0.92rem",
-                            color: "var(--ink-dark)",
-                            fontWeight: 600,
-                          }}
+                          className="flex items-start gap-3 text-sm text-ink-dark font-medium"
                         >
-                          <span
-                            style={{
-                              width: "20px",
-                              height: "20px",
-                              borderRadius: "50%",
-                              background: svc.accentBg,
-                              border: `2px solid ${svc.accentColor}`,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              flexShrink: 0,
-                              marginTop: "1px",
-                            }}
-                          >
+                          <span className={`w-5 h-5 rounded-full ${svc.badgeColorClass} flex items-center justify-center shrink-0 mt-0.5`}>
                             <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-                              <path d="M1 4L3.5 6.5L9 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: svc.accentColor }} />
+                              <path
+                                d="M1 4L3.5 6.5L9 1.5"
+                                stroke="currentColor"
+                                strokeWidth="2.2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
                             </svg>
                           </span>
-                          {feat}
+                          <span>{feat}</span>
                         </li>
                       ))}
                     </ul>
 
                     {/* Price + CTA */}
-                    <div
-                      style={{
-                        borderTop: "2px dashed var(--line-blue)",
-                        paddingTop: "20px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        gap: "12px",
-                      }}
-                    >
+                    <div className="border-t border-line-blue/60 pt-6 flex items-center justify-between gap-4 mt-auto">
                       <div>
-                        <p
-                          style={{
-                            fontSize: "0.72rem",
-                            fontWeight: 800,
-                            color: "var(--coral)",
-                            textTransform: "uppercase",
-                            letterSpacing: "0.1em",
-                            marginBottom: "2px",
-                          }}
-                        >
+                        <p className="text-[10px] font-extrabold text-coral uppercase tracking-wider mb-1">
                           ежемесячно
                         </p>
-                        <p
-                          style={{
-                            fontFamily: "var(--font-heading)",
-                            fontSize: "1.65rem",
-                            fontWeight: 900,
-                            color: "var(--ink-dark)",
-                            letterSpacing: "-0.04em",
-                            lineHeight: 1.1,
-                          }}
-                        >
+                        <p className="font-heading text-2xl font-black text-ink-dark tracking-tight leading-none">
                           {svc.price}
-                          <span style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--pencil)" }}>
-                            {svc.period}
-                          </span>
                         </p>
                       </div>
 
                       <Link
                         href="/#contact"
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "8px",
-                          background: "var(--coral)",
-                          color: "#fff",
-                          fontFamily: "var(--font-body)",
-                          fontWeight: 700,
-                          fontSize: "0.9rem",
-                          padding: "12px 22px",
-                          borderRadius: "50px",
-                          textDecoration: "none",
-                          boxShadow: "0 4px 16px rgba(232,132,107,0.35)",
-                          transition: "all 0.3s ease",
-                          whiteSpace: "nowrap",
-                        }}
-                        onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.background = "var(--coral-dark)";
-                          (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
-                        }}
-                        onMouseLeave={(e) => {
-                          (e.currentTarget as HTMLElement).style.background = "var(--coral)";
-                          (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                        }}
+                        className="inline-flex items-center gap-2 bg-coral text-white font-body font-extrabold text-xs uppercase tracking-widest py-3.5 px-6 rounded-full shadow-md shadow-coral/20 hover:bg-coral-dark hover:shadow-lg hover:shadow-coral/30 hover:-translate-y-0.5 transition-all duration-300 select-none cursor-pointer"
                       >
                         Выбрать
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="shrink-0">
+                          <path
+                            d="M3 8h10M9 4l4 4-4 4"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
                         </svg>
                       </Link>
                     </div>
