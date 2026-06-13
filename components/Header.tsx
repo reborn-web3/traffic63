@@ -10,12 +10,44 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    const currentTheme = document.documentElement.getAttribute("data-theme") as "light" | "dark" || "dark";
-    setTheme(currentTheme);
-    setMounted(true);
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const handleChange = () => {
+      if (!localStorage.getItem("theme")) {
+        const nextTheme = mediaQuery.matches ? "dark" : "light";
+        setTheme(nextTheme);
+        document.documentElement.setAttribute("data-theme", nextTheme);
+        if (nextTheme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      }
+    };
+
+    let currentTheme = savedTheme;
+    if (!currentTheme) {
+      currentTheme = mediaQuery.matches ? "dark" : "light";
+    }
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    if (currentTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    // Set state asynchronously to avoid "setState in effect" warning/error
+    setTimeout(() => {
+      setTheme(currentTheme!);
+      setMounted(true);
+    }, 0);
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   const toggleTheme = () => {
