@@ -13,7 +13,7 @@ import { useState, useRef, FormEvent } from "react";
 export const ContactForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [originalBtnHTML, setOriginalBtnHTML] = useState<string>("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
   // Phone input mask – formats Russian phone numbers as +7 (___) ___-__-__
   const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,29 +39,21 @@ export const ContactForm = () => {
 
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (isSubmitting) return;
+    if (isSubmitting || isSuccess) return;
 
     setIsSubmitting(true);
 
     // Simulate async request (replace with real API call if needed)
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
     // Reset form and UI
     formRef.current?.reset();
     setIsSubmitting(false);
-    
-    // Show temporary success state
-    const originalText = "Отправить заявку ✉️";
-    const btn = formRef.current?.querySelector('button[type="submit"]');
-    if (btn) {
-      const prevText = btn.innerHTML;
-      btn.innerHTML = "✅ Заявка отправлена!";
-      btn.classList.add("bg-green-500");
-      setTimeout(() => {
-        btn.innerHTML = prevText;
-        btn.classList.remove("bg-green-500");
-      }, 3000);
-    }
+    setIsSuccess(true);
+
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 4000);
   };
 
   return (
@@ -72,7 +64,7 @@ export const ContactForm = () => {
       onSubmit={handleFormSubmit}
     >
       <div className="form-group">
-        <label htmlFor="name">Ваше имя ✍️</label>
+        <label htmlFor="name">Ваше имя</label>
         <input
           type="text"
           id="name"
@@ -83,7 +75,7 @@ export const ContactForm = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="phone">Телефон 📱</label>
+        <label htmlFor="phone">Телефон</label>
         <input
           type="tel"
           id="phone"
@@ -95,7 +87,7 @@ export const ContactForm = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="message">Расскажите о проекте 💬</label>
+        <label htmlFor="message">Расскажите о проекте</label>
         <textarea
           id="message"
           name="message"
@@ -105,11 +97,24 @@ export const ContactForm = () => {
 
       <button
         type="submit"
-        disabled={isSubmitting}
-        className="btn-primary w-full justify-center flex items-center py-3 rounded-full bg-coral text-white font-bold transition-colors hover:bg-coral-dark"
+        disabled={isSubmitting || isSuccess}
+        className={`w-full py-4 rounded-xl text-white font-heading text-xs font-extrabold uppercase tracking-widest transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed group ${
+          isSuccess 
+            ? "bg-emerald-600 hover:bg-emerald-600 shadow-md" 
+            : "bg-coral hover:bg-coral-dark hover:-translate-y-0.5"
+        }`}
         style={{ width: "100%" }}
       >
-        Отправить заявку ✉️
+        {isSubmitting && "Отправка..."}
+        {isSuccess && "Заявка отправлена!"}
+        {!isSubmitting && !isSuccess && (
+          <>
+            Отправить заявку
+            <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </>
+        )}
       </button>
     </form>
   );
