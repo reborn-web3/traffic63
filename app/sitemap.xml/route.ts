@@ -1,35 +1,52 @@
 import { NextResponse } from "next/server";
+import { client } from "@/sanity/client";
 
-/**
- * Генерирует XML‑sitemap для основных публичных страниц сайта.
- * По умолчанию включаем статические роуты, которые уже существуют в проекте.
- * При добавлении новых страниц достаточно добавить их в массив `urls`.
- */
+export const revalidate = 3600; // Кэшируем sitemap на 1 час
+
 export async function GET() {
   const baseUrl = "https://traffic63.ru";
-
-  // Список публичных страниц сайта.
-  // При необходимости расширяйте массив, указывая относительный путь.
-  const urls = [
-    "/",               // главная
-    "/services",       // тарифы и цены
-    "/contacts",       // контакты
-    "/privacy",        // политика конфиденциальности
-    "/terms",          // публичная оферта
-  ];
-
   const now = new Date().toISOString();
 
-  const urlEntries = urls
-    .map((path) => {
-      // Убираем возможный ведущий слеш, чтобы правильно склеить URL.
+  // Статические страницы
+  const staticUrls = [
+    { path: "/", priority: "1.0", changefreq: "daily" },
+    { path: "/services", priority: "0.8", changefreq: "weekly" },
+    { path: "/contacts", priority: "0.8", changefreq: "weekly" },
+    { path: "/blog", priority: "0.9", changefreq: "daily" },
+    { path: "/privacy", priority: "0.3", changefreq: "monthly" },
+    { path: "/terms", priority: "0.3", changefreq: "monthly" },
+  ];
+
+  // Динамически загружаем статьи блога из Sanity
+  let blogUrls: Array<{ path: string; lastmod: string; priority: string; changefreq: string }> = [];
+  try {
+    const posts = await client.fetch(
+      `*[_type == "post" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`
+    );
+    blogUrls = posts.map((post: { slug: string; _updatedAt: string }) => ({
+      path: `/blog/${post.slug}`,
+      lastmod: post._updatedAt ? new Date(post._updatedAt).toISOString() : now,
+      priority: "0.7",
+      changefreq: "weekly",
+    }));
+  } catch (error) {
+    console.error("Failed to fetch blog posts for sitemap:", error);
+  }
+
+  const allUrls = [
+    ...staticUrls.map(u => ({ ...u, lastmod: now })),
+    ...blogUrls
+  ];
+
+  const urlEntries = allUrls
+    .map(({ path, lastmod, changefreq, priority }) => {
       const loc = `${baseUrl}${path.startsWith("/") ? "" : "/"}${path}`;
       return `
   <url>
     <loc>${loc}</loc>
-    <lastmod>${now}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
   </url>`;
     })
     .join("");

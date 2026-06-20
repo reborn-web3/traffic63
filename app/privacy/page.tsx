@@ -68,7 +68,7 @@ export default function PrivacyPage() {
   useReveal();
 
   return (
-    <div className="relative min-h-screen bg-paper overflow-x-clip selection:bg-coral/30 font-body">
+    <div className="relative min-h-screen bg-paper overflow-x-clip font-body">
       {/* Decorative elements */}
       <NotebookHoles />
       <DoodleDecorations />

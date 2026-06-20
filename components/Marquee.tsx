@@ -1,7 +1,15 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import React, { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useMotionValue,
+  useVelocity,
+  useAnimationFrame,
+} from "framer-motion";
 
 const MARQUEE_ITEMS = [
   "Рост",
@@ -16,57 +24,71 @@ const MARQUEE_ITEMS = [
   "Креативность",
 ];
 
-export const Marquee = ({ 
-  speed = 200, 
-  startSpeed = 8,
-  decelerationDuration = 6
-}: { 
-  speed?: number; 
-  startSpeed?: number; 
-  decelerationDuration?: number;
+// Helper to wrap the value between min and max
+const wrap = (min: number, max: number, v: number) => {
+  const rangeSize = max - min;
+  return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
+};
+
+export const Marquee = ({
+  speed = 0.5, // Base speed of scrolling (percent of width per second)
+}: {
+  speed?: number;
+  startSpeed?: number; // Kept for backwards compatibility, not used
+  decelerationDuration?: number; // Kept for backwards compatibility, not used
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Motion value starting at a fast speed
-  const speedVal = useMotionValue(startSpeed);
-  // Transform numerical duration to a CSS duration string (e.g. "8s")
-  const speedStyle = useTransform(speedVal, (v) => `${v}s`);
+  const baseX = useMotionValue(0);
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(scrollVelocity, {
+    damping: 50,
+    stiffness: 400,
+  });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          // Reset to very fast speed when it enters the viewport
-          speedVal.set(startSpeed);
-          // Smoothly decelerate to the target speed over decelerationDuration seconds
-          animate(speedVal, speed, {
-            duration: decelerationDuration,
-            ease: "easeOut",
-          });
-        }
-      },
-      {
-        threshold: 0.05, // Trigger as soon as the top edge of the marquee enters the viewport
-      }
-    );
+  // Map scroll velocity to a speed multiplier (e.g. velocity of 1000px/s adds 1.5% per second speed)
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 1.5], {
+    clamp: false,
+  });
 
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
+  /**
+   * We render 4 duplicate blocks of the marquee.
+   * To achieve a seamless infinite scroll, we wrap the translation percentage between -25% and 0%.
+   * Since there are 4 blocks, each block is exactly 25% of the total container width.
+   * Wrapping between -25 and 0 means it loops perfectly and invisibly.
+   */
+  const x = useTransform(baseX, (v) => `${wrap(-25, 0, v)}%`);
+
+  const directionFactor = useRef<number>(1);
+  useAnimationFrame((time, delta) => {
+    const deltaSeconds = delta / 1000;
+    
+    // Determine movement direction based on scroll velocity (reverses direction on scroll up)
+    const currentVelocity = velocityFactor.get();
+    if (currentVelocity < 0) {
+      directionFactor.current = -1;
+    } else if (currentVelocity > 0) {
+      directionFactor.current = 1;
     }
 
-    return () => observer.disconnect();
-  }, [speedVal, speed, startSpeed, decelerationDuration]);
+    // Base speed translates left (negative translation)
+    let moveBy = -speed * deltaSeconds;
+    
+    if (directionFactor.current === 1) {
+      // Scrolling down (page moves up): speed up moving left (negative baseX change)
+      moveBy -= Math.abs(currentVelocity) * deltaSeconds;
+    } else if (directionFactor.current === -1) {
+      // Scrolling up (page moves down): move right (positive baseX change)
+      moveBy += Math.abs(currentVelocity) * deltaSeconds;
+    }
+
+    baseX.set(baseX.get() + moveBy);
+  });
 
   return (
-    <motion.section
-      ref={containerRef}
-      className="marquee-section relative w-full overflow-hidden bg-paper border-y border-line-blue/60 py-8 sm:py-10 lg:py-12 select-none"
-      style={{ "--marquee-duration": speedStyle } as any}
-    >
-      <div className="flex w-max animate-marquee-slow whitespace-nowrap">
-        
-        {/* Render duplicate blocks to cover the infinite screen loop width */}
-        {[...Array(3)].map((_, blockIdx) => (
+    <section className="marquee-section relative w-full overflow-hidden bg-paper border-y border-line-blue/60 py-8 sm:py-10 lg:py-12 select-none">
+      <motion.div className="flex w-max whitespace-nowrap" style={{ x }}>
+        {/* Render 4 duplicate blocks to guarantee seamless wrapping under any viewport size */}
+        {[...Array(4)].map((_, blockIdx) => (
           <div key={blockIdx} className="flex shrink-0 items-center gap-6 sm:gap-8 lg:gap-12 px-3 sm:px-4">
             {MARQUEE_ITEMS.map((item, itemIdx) => (
               <React.Fragment key={itemIdx}>
@@ -75,7 +97,7 @@ export const Marquee = ({
                   {item}
                 </span>
                 {/* Slanted Slash Divider */}
-                <span 
+                <span
                   className="font-serif italic font-normal text-coral text-4xl sm:text-6xl lg:text-7xl select-none"
                   aria-hidden="true"
                 >
@@ -85,9 +107,8 @@ export const Marquee = ({
             ))}
           </div>
         ))}
-
-      </div>
-    </motion.section>
+      </motion.div>
+    </section>
   );
 };
 

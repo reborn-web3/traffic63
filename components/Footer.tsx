@@ -18,7 +18,7 @@ export const Footer = () => {
               href="/#hero"
               className="font-serif italic text-2xl md:text-3xl font-black text-ink-dark tracking-tight transition-opacity hover:opacity-85"
             >
-              traffic<span className="text-coral">63</span>
+              traffic<span className="text-coral">6<span className="relative" style={{ top: '-0.16em' }}>3</span></span>
             </Link>
             <p className="font-body text-sm text-pencil leading-relaxed max-w-[280px]">
               Performance-агентство, которое говорит на языке цифр. Рисуем стратегии роста и воплощаем их в жизнь с 2018 года.

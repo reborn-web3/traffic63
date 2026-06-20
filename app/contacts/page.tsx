@@ -67,7 +67,7 @@ export default function ContactsPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-paper overflow-x-clip selection:bg-coral/30 font-body">
+    <div className="relative min-h-screen bg-paper overflow-x-clip font-body">
       {/* Decorative notebook layout elements */}
       <NotebookHoles />
       <DoodleDecorations />
@@ -77,7 +77,7 @@ export default function ContactsPage() {
 
       <main style={{ paddingTop: "140px", paddingBottom: "80px" }} className="relative z-10">
         <div className="container mx-auto px-5 md:px-10">
-          
+
           {/* ── Page Header ── */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -100,12 +100,12 @@ export default function ContactsPage() {
 
           {/* ── Main Contacts Grid ── */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
-            
+
             {/* Left Column: Contact Methods */}
             <div className="lg:col-span-5 flex flex-col gap-6 reveal" style={{ transitionDelay: "100ms" }}>
-              
+
               {/* Telegram & WhatsApp Sticky Note */}
-              <div 
+              <div
                 className="bg-paper-dark border border-line-blue rounded-[32px] p-8 relative hover:shadow-lg transition-all duration-300 overflow-hidden"
               >
                 {/* SVG Blueprint Grid Background */}
@@ -123,11 +123,11 @@ export default function ContactsPage() {
                     ✦ ОТВЕЧАЕМ ЗА 10 МИНУТ
                   </span>
                   <h3 className="font-heading font-extrabold text-xl text-ink-dark mb-6">Быстрая связь</h3>
-                  
+
                   <div className="flex flex-col gap-4">
-                    <a 
-                      href="https://t.me/traffic63" 
-                      target="_blank" 
+                    <a
+                      href="https://t.me/traffic63_support"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-4 p-4 border border-line-blue bg-paper rounded-2xl hover:border-coral transition-all duration-300 hover:shadow-sm"
                       style={{ textDecoration: "none" }}
@@ -139,16 +139,16 @@ export default function ContactsPage() {
                       </div>
                       <div>
                         <span className="block font-semibold text-ink-dark">Telegram</span>
-                        <span className="text-sm text-pencil">@traffic63</span>
+                        <span className="text-sm text-pencil">@traffic63_support</span>
                       </div>
                       <svg className="ml-auto w-5 h-5 text-pencil" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                       </svg>
                     </a>
 
-                    <a 
-                      href="https://wa.me/79991234567" 
-                      target="_blank" 
+                    <a
+                      href="https://wa.me/79991234567"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-4 p-4 border border-line-blue bg-paper rounded-2xl hover:border-coral transition-all duration-300 hover:shadow-sm"
                       style={{ textDecoration: "none" }}
@@ -171,7 +171,7 @@ export default function ContactsPage() {
               </div>
 
               {/* Direct Contacts Info Note */}
-              <div 
+              <div
                 className="bg-paper-dark border border-line-blue rounded-[32px] p-8 relative flex flex-col gap-6 hover:shadow-lg transition-all duration-300 overflow-hidden"
               >
                 {/* SVG Blueprint Grid Background */}
@@ -257,7 +257,7 @@ export default function ContactsPage() {
 
             {/* Right Column: Lead Form Card */}
             <div className="lg:col-span-7 reveal" style={{ transitionDelay: "200ms" }}>
-              <div 
+              <div
                 className="bg-paper-dark border border-line-blue rounded-[32px] p-8 md:p-10 hover:shadow-xl transition-all duration-300 relative h-full"
               >
                 <div className="mb-8">
@@ -296,7 +296,7 @@ export default function ContactsPage() {
                 const isOpen = openFAQ === idx;
                 const itemNum = String(idx + 1).padStart(2, "0");
                 return (
-                  <div 
+                  <div
                     key={idx}
                     className="border-t border-line-blue py-6 md:py-8 cursor-pointer group"
                     onClick={() => toggleFAQ(idx)}
@@ -310,8 +310,8 @@ export default function ContactsPage() {
                           {item.question}
                         </h3>
                       </div>
-                      
-                      <button 
+
+                      <button
                         className="text-pencil group-hover:text-coral transition-colors duration-300 focus:outline-none mt-1"
                         aria-label={isOpen ? "Свернуть ответ" : "Развернуть ответ"}
                       >
@@ -323,16 +323,16 @@ export default function ContactsPage() {
                       {isOpen && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
-                          animate={{ 
-                            height: "auto", 
+                          animate={{
+                            height: "auto",
                             opacity: 1,
                             transition: {
                               height: { duration: 0.35, ease: [0.04, 0.62, 0.23, 0.98] },
                               opacity: { duration: 0.25, delay: 0.1 }
                             }
                           }}
-                          exit={{ 
-                            height: 0, 
+                          exit={{
+                            height: 0,
                             opacity: 0,
                             transition: {
                               height: { duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] },
@@ -359,8 +359,8 @@ export default function ContactsPage() {
           {/* ── Stylized Interactive Office Map ── */}
           <section className="reveal">
             <div className="max-w-5xl mx-auto relative">
-              
-              <div 
+
+              <div
                 className="bg-paper-dark border border-line-blue rounded-[32px] p-6 relative overflow-hidden hover:shadow-lg transition-all duration-300"
               >
                 {/* SVG Blueprint Grid Background */}
@@ -391,14 +391,14 @@ export default function ContactsPage() {
                     </div>
                   </div>
 
-                  <div 
+                  <div
                     className="w-full h-[350px] md:h-[450px] rounded-2xl overflow-hidden relative border border-line-blue/60 contacts-map-iframe"
                   >
-                    <iframe 
+                    <iframe
                       src="https://yandex.ru/map-widget/v1/?ll=50.138867%2C53.213264&z=16&mode=search&text=%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0%2C%20%D0%BD%D0%BE%D0%B2%D0%BE-%D1%81%D0%B0%D0%B4%D0%BE%D0%B2%D0%B0%D1%8F%2C%20106"
-                      width="100%" 
-                      height="100%" 
-                      frameBorder="0" 
+                      width="100%"
+                      height="100%"
+                      frameBorder="0"
                       allowFullScreen={true}
                       style={{ position: "relative" }}
                       title="Офис traffic63 на карте"

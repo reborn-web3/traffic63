@@ -1227,8 +1227,8 @@
 
 /* ===== MISC ===== */
 ::selection {
-  background: rgba(232, 132, 107, 0.25);
-  color: var(--ink-dark);
+  background: var(--coral);
+  color: var(--paper);
 }
 
 /* ===== CUSTOM 404 PAGE ===== */
@@ -1397,3 +1397,25 @@ h1, h2, h3, p, span, button, a {
 [data-theme="dark"] .contacts-map-iframe {
   filter: invert(0.9) hue-rotate(180deg) contrast(1.2) brightness(0.9);
 }
+
+/* ===== LIQUID GLASS BOTTOM BLUR OVERLAY ===== */
+.bottom-blur-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  pointer-events: none;
+  z-index: 800;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  mask-image: linear-gradient(to top, black 0%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, black 0%, transparent 100%);
+  transition: background-color 0.4s ease;
+}
+
+[data-theme="dark"] .bottom-blur-overlay {
+  background: rgba(0, 0, 0, 0.08);
+}
+

@@ -1131,8 +1131,8 @@ body::before {
 
 /* ===== MISC ===== */
 ::selection {
-  background: rgba(232, 132, 107, 0.25);
-  color: var(--ink-dark);
+  background: var(--coral);
+  color: var(--paper);
 }
 
 /* Sticker effect */

@@ -23,7 +23,7 @@ export default function Home() {
   useReveal();
 
   return (
-    <div className="relative min-h-screen bg-paper overflow-x-clip selection:bg-coral/30">
+    <div className="relative min-h-screen bg-paper overflow-x-clip">
       {/* Decorative Elements */}
       <NotebookHoles />
       <DoodleDecorations />
@@ -34,7 +34,7 @@ export default function Home() {
 
       <main>
         <Hero />
-        <Marquee speed={180} startSpeed={70} decelerationDuration={2} />
+        <Marquee />
         <ServiceClimber />
         <AgencyBanner />
         <About />

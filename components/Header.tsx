@@ -111,7 +111,7 @@ export const Header = () => {
             className="font-serif italic text-2xl md:text-3xl font-black text-ink-dark tracking-tight transition-opacity hover:opacity-85"
             onClick={handleLogoClick}
           >
-            traffic<span className="text-coral">63</span>
+            traffic<span className="text-coral">6<span className="relative" style={{ top: '-0.16em' }}>3</span></span>
           </Link>
         </div>
 

@@ -40,14 +40,6 @@ export const CookieBanner = () => {
           className="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:bottom-8 z-[900] w-auto md:w-[380px]"
         >
           <div className="bg-paper/95 backdrop-blur-md border border-line-blue rounded-2xl p-6 shadow-2xl relative overflow-hidden transition-colors duration-300">
-            {/* Header border block - matching the design details from Hero cards */}
-            <div className="border-t border-line-blue pt-3 flex justify-between items-center mb-4">
-              <span className="font-body text-xs font-black text-ink-dark select-none">04</span>
-              <span className="font-heading text-[10px] font-extrabold tracking-widest text-pencil select-none uppercase">
-                COOKIE CONSENT
-              </span>
-            </div>
-
             {/* Descriptor text */}
             <p className="font-body text-xs md:text-sm text-pencil leading-relaxed mb-6">
               Мы используем файлы cookie для анализа трафика и улучшения сайта. Подробности о защите ваших данных в нашей{" "}
