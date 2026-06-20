@@ -13,6 +13,13 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Pass public Sanity environment variables at build-time for static page generation
+ARG NEXT_PUBLIC_SANITY_PROJECT_ID=ycocn4yk
+ARG NEXT_PUBLIC_SANITY_DATASET=production
+ENV NEXT_PUBLIC_SANITY_PROJECT_ID=$NEXT_PUBLIC_SANITY_PROJECT_ID
+ENV NEXT_PUBLIC_SANITY_DATASET=$NEXT_PUBLIC_SANITY_DATASET
+
 RUN npm run build
 
 # Production image, copy all the files and run next

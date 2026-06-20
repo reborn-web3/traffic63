@@ -54,6 +54,11 @@ const portableTextComponents: PortableTextComponents = {
         {children}
       </ul>
     ),
+    number: ({ children }) => (
+      <ol className="flex flex-col gap-3.5 my-6 pl-6 list-decimal">
+        {children}
+      </ol>
+    ),
   },
   listItem: {
     bullet: ({ children }) => (
@@ -70,6 +75,11 @@ const portableTextComponents: PortableTextComponents = {
           </svg>
         </span>
         <span className="leading-relaxed">{children}</span>
+      </li>
+    ),
+    number: ({ children }) => (
+      <li className="text-base text-ink-dark font-medium leading-relaxed">
+        {children}
       </li>
     ),
   },
