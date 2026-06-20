@@ -25,10 +25,7 @@
   --color-yellow-light: var(--yellow-light);
   --color-red-margin: var(--red-margin);
 
-  /* Border Radius */
-  --radius-notebook: var(--border-radius);
-  --radius-notebook-sm: var(--border-radius-sm);
-  --radius-notebook-lg: var(--border-radius-lg);
+
 
   /* Spacing/Gap for Burger Menu */
   --spacing-1\.25: 5px;
@@ -39,7 +36,7 @@
 
 /* ===== CSS VARIABLES ===== */
 :root {
-  /* Notebook palette - Original Light Theme */
+  /* Color palette - Light Theme */
   --paper: #ffffff;
   --paper-dark: #f8f9fa;
   --line-blue: #e2e8f0;
@@ -74,7 +71,7 @@
 }
 
 [data-theme="dark"] {
-  /* Chalkboard/Dark Notebook (black color) */
+  /* Dark Theme */
   --paper: #000000;
   --paper-dark: #0c0c0e;
   --line-blue: #1e293b;
@@ -339,27 +336,7 @@
   line-height: 1.7;
 }
 
-/* Notebook tape decoration */
-.tape {
-  position: absolute;
-  width: 120px;
-  height: 40px;
-  background: rgba(245, 215, 110, 0.5);
-  border: 1px solid rgba(245, 215, 110, 0.8);
-  z-index: 2;
-}
 
-.tape-left {
-  top: 60px;
-  left: -20px;
-  transform: rotate(-15deg);
-}
-
-.tape-right {
-  top: 40px;
-  right: -20px;
-  transform: rotate(10deg);
-}
 
 /* ===== SERVICES ===== */
 .services-grid {
@@ -1175,37 +1152,7 @@
   transform: rotate(-5deg);
 }
 
-/* Notebook holes on the side */
-.notebook-holes {
-  position: fixed;
-  left: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-  z-index: 0;
-  pointer-events: none;
-}
 
-.notebook-hole {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid var(--line-blue);
-  background: #e8e0d0;
-  opacity: 0.4;
-}
-
-[data-theme="dark"] .notebook-hole {
-  background: var(--paper);
-}
-
-@media (max-width: 768px) {
-  .notebook-holes {
-    display: none;
-  }
-}
 
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar {
@@ -1377,7 +1324,6 @@ body,
 .case-metric, 
 .form-group input, 
 .form-group textarea, 
-.notebook-hole, 
 .not-found-card, 
 .social-item, 
 .premium-footer, 

@@ -1,11 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { DoodleDecorations } from "@/components/DoodleDecorations";
-import { NotebookHoles } from "@/components/NotebookHoles";
 import { CursorTrail } from "@/components/CursorTrail";
 import { useReveal } from "@/hooks/useReveal";
 
@@ -69,9 +66,6 @@ export default function TermsPage() {
 
   return (
     <div className="relative min-h-screen bg-paper overflow-x-clip font-body">
-      {/* Decorative elements */}
-      <NotebookHoles />
-      <DoodleDecorations />
       <CursorTrail />
 
       <Header />

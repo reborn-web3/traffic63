@@ -33,11 +33,6 @@ const config: Config = {
         body: ["var(--font-body)"],
         heading: ["var(--font-heading)"],
       },
-      borderRadius: {
-        notebook: "var(--border-radius)",
-        "notebook-sm": "var(--border-radius-sm)",
-        "notebook-lg": "var(--border-radius-lg)",
-      },
       spacing: {
         "1.25": "5px", // For burger menu span gap
       },

@@ -13,8 +13,6 @@ import { Cases } from "@/components/Cases";
 import { CTASection } from "@/components/CTASection";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
-import { DoodleDecorations } from "@/components/DoodleDecorations";
-import { NotebookHoles } from "@/components/NotebookHoles";
 import { CursorTrail } from "@/components/CursorTrail";
 
 export default function Home() {
@@ -25,8 +23,6 @@ export default function Home() {
   return (
     <div className="relative min-h-screen bg-paper overflow-x-clip">
       {/* Decorative Elements */}
-      <NotebookHoles />
-      <DoodleDecorations />
       <CursorTrail />
 
       {/* Main Layout */}

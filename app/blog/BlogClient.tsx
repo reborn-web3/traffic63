@@ -5,8 +5,6 @@ import { Footer } from "@/components/Footer";
 import { CTASection } from "@/components/CTASection";
 import Image from "next/image";
 import Link from "next/link";
-import { DoodleDecorations } from "@/components/DoodleDecorations";
-import { NotebookHoles } from "@/components/NotebookHoles";
 import { CursorTrail } from "@/components/CursorTrail";
 import { useReveal } from "@/hooks/useReveal";
 import { urlFor } from "@/sanity/image";
@@ -19,6 +17,7 @@ interface BlogPost {
   readTime: string;
   category: string;
   author: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image?: any;
 }
 
@@ -42,8 +41,6 @@ export function BlogClient({ posts }: { posts: BlogPost[] }) {
 
   return (
     <div className="relative min-h-screen bg-paper overflow-x-clip font-body">
-      <NotebookHoles />
-      <DoodleDecorations />
       <CursorTrail />
 
       <Header />

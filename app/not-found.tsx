@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { DoodleDecorations } from "@/components/DoodleDecorations";
-import { NotebookHoles } from "@/components/NotebookHoles";
 import { CursorTrail } from "@/components/CursorTrail";
 import type { Metadata } from "next";
 
@@ -14,9 +12,6 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <div style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', overflowX: 'hidden' }}>
-      {/* Decorative Elements */}
-      <NotebookHoles />
-      <DoodleDecorations />
       <CursorTrail />
 
       <Header />
@@ -29,9 +24,6 @@ export default function NotFound() {
               4<span>0</span>4
             </h1>
             <div className="not-found-underline"></div>
-
-            {/* Tape decoration */}
-            <div className="tape tape-right" style={{ bottom: '-10px', right: '-30px' }}></div>
           </div>
 
           <div>

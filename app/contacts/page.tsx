@@ -1,13 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ContactForm } from "@/components/ContactForm";
-import { DoodleDecorations } from "@/components/DoodleDecorations";
-import { NotebookHoles } from "@/components/NotebookHoles";
 import { CursorTrail } from "@/components/CursorTrail";
 import { useReveal } from "@/hooks/useReveal";
 
@@ -68,9 +65,6 @@ export default function ContactsPage() {
 
   return (
     <div className="relative min-h-screen bg-paper overflow-x-clip font-body">
-      {/* Decorative notebook layout elements */}
-      <NotebookHoles />
-      <DoodleDecorations />
       <CursorTrail />
 
       <Header />
