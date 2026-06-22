@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Caveat, Nunito, Geist } from "next/font/google";
 import { jsonLdOrganization, jsonLdLocalBusiness, jsonLdWebSite } from "./seo/jsonld";
 import { CookieBanner } from "@/components/CookieBanner";
+import Script from "next/script";
 import "./globals.css";
 
 const caveat = Caveat({
@@ -95,6 +96,12 @@ export default function RootLayout({
         <main>{children}</main>
         <div className="bottom-blur-overlay" aria-hidden="true" />
         <CookieBanner />
+        {/* Traffic63 Chatbot Embed */}
+        <Script
+          src="http://localhost:3000/loader.js"
+          data-bot-id="e8c0b20c-d986-4f4e-8a52-7cd2b0e4347c"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

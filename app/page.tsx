@@ -7,11 +7,9 @@ import Hero from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { AgencyBanner } from "@/components/AgencyBanner";
 import { ServiceClimber } from "@/components/ServiceClimber";
-import { About } from "@/components/About";
 import { Process } from "@/components/Process";
 import { Cases } from "@/components/Cases";
 import { CTASection } from "@/components/CTASection";
-import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 import { CursorTrail } from "@/components/CursorTrail";
 
@@ -33,8 +31,6 @@ export default function Home() {
         <Marquee />
         <ServiceClimber />
         <AgencyBanner />
-        <About />
-        <FAQ />
         <CTASection />
       </main>
 

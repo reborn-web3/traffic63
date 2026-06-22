@@ -9,33 +9,151 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-paper text-ink-dark py-24 overflow-hidden border-t border-line-blue transition-colors duration-300">
+    <footer className="relative bg-paper text-ink-dark py-24 overflow-hidden transition-colors duration-300">
+      {/* Background Decorations */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 opacity-60 dark:opacity-30">
+        {/* Curved dotted lines */}
+        <svg
+          className="absolute inset-0 w-full h-full text-pencil/20 dark:text-white/10"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M -50,180 C 120,130 180,240 280,180 C 380,120 480,260 580,200 C 680,140 780,80 880,160 C 980,240 1080,320 1180,240 C 1280,160 1380,140 1550,220"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeDasharray="6 8"
+          />
+          <path
+            d="M -50,280 C 150,240 220,340 320,280 C 420,220 520,360 620,300 C 720,240 820,180 920,260 C 1020,340 1120,420 1220,340 C 1320,260 1420,240 1550,320"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            strokeDasharray="6 8"
+            opacity="0.5"
+          />
+        </svg>
+
+        {/* Floating Organic Blobs */}
+        <motion.div
+          className="absolute left-[3%] top-[15%] w-24 h-24 text-pencil/10 dark:text-white/5"
+          animate={{ rotate: 360, y: [0, -10, 0] }}
+          transition={{
+            rotate: { repeat: Infinity, duration: 50, ease: "linear" },
+            y: { repeat: Infinity, duration: 6, ease: "easeInOut" }
+          }}
+          whileHover={{ scale: 1.1, color: "var(--coral)", opacity: 0.8 }}
+        >
+          <svg viewBox="0 0 100 100" fill="none" className="w-full h-full stroke-current stroke-1">
+            <path d="M50 15 C55 25 65 25 75 25 C85 25 85 35 85 50 C85 65 85 75 75 75 C65 75 55 75 50 85 C45 75 35 75 25 75 C15 75 15 65 15 50 C15 35 15 25 25 25 C35 25 45 25 50 15 Z" />
+          </svg>
+        </motion.div>
+
+        <motion.div
+          className="absolute left-[26%] bottom-[15%] w-32 h-32 text-pencil/10 dark:text-white/5 hidden md:block"
+          animate={{ rotate: -360, y: [0, 15, 0] }}
+          transition={{
+            rotate: { repeat: Infinity, duration: 60, ease: "linear" },
+            y: { repeat: Infinity, duration: 8, ease: "easeInOut" }
+          }}
+          whileHover={{ scale: 1.1, color: "var(--coral)", opacity: 0.8 }}
+        >
+          <svg viewBox="0 0 100 100" fill="none" className="w-full h-full stroke-current stroke-1">
+            <path d="M50 15 C65 20 75 35 70 55 C65 75 45 75 35 75 C25 75 15 60 20 40 C25 20 35 10 50 15 Z" />
+          </svg>
+        </motion.div>
+
+        <motion.div
+          className="absolute left-[48%] top-[10%] w-20 h-20 text-pencil/10 dark:text-white/5 hidden lg:block"
+          animate={{ rotate: 360, x: [0, 8, 0] }}
+          transition={{
+            rotate: { repeat: Infinity, duration: 45, ease: "linear" },
+            x: { repeat: Infinity, duration: 5, ease: "easeInOut" }
+          }}
+          whileHover={{ scale: 1.1, color: "var(--coral)", opacity: 0.8 }}
+        >
+          <svg viewBox="0 0 100 100" fill="none" className="w-full h-full stroke-current stroke-1">
+            <path d="M50 15 C75 15 85 25 85 50 C85 75 75 85 50 85 C25 85 15 75 15 50 C15 25 25 15 50 15 Z" />
+          </svg>
+        </motion.div>
+
+        <motion.div
+          className="absolute right-[22%] bottom-[20%] w-28 h-28 text-pencil/10 dark:text-white/5 hidden md:block"
+          animate={{ rotate: -360, y: [0, -12, 0] }}
+          transition={{
+            rotate: { repeat: Infinity, duration: 55, ease: "linear" },
+            y: { repeat: Infinity, duration: 7, ease: "easeInOut" }
+          }}
+          whileHover={{ scale: 1.1, color: "var(--coral)", opacity: 0.8 }}
+        >
+          <svg viewBox="0 0 100 100" fill="none" className="w-full h-full stroke-current stroke-1">
+            <path d="M50 15 C55 25 65 25 75 25 C85 25 85 35 85 50 C85 65 85 75 75 75 C65 75 55 75 50 85 C45 75 35 75 25 75 C15 75 15 65 15 50 C15 35 15 25 25 25 C35 25 45 25 50 15 Z" />
+          </svg>
+        </motion.div>
+
+        <motion.div
+          className="absolute right-[3%] top-[20%] w-24 h-24 text-pencil/10 dark:text-white/5"
+          animate={{ rotate: 360, y: [0, 10, 0] }}
+          transition={{
+            rotate: { repeat: Infinity, duration: 40, ease: "linear" },
+            y: { repeat: Infinity, duration: 6, ease: "easeInOut" }
+          }}
+          whileHover={{ scale: 1.1, color: "var(--coral)", opacity: 0.8 }}
+        >
+          <svg viewBox="0 0 100 100" fill="none" className="w-full h-full stroke-current stroke-1">
+            <path d="M50 15 C65 20 75 35 70 55 C65 75 45 75 35 75 C25 75 15 60 20 40 C25 20 35 10 50 15 Z" />
+          </svg>
+        </motion.div>
+      </div>
+
       <div className="container mx-auto px-5 md:px-10 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
-          {/* Column 1: Brand */}
-          <div className="flex flex-col gap-6 items-start text-left">
-            <Link
-              href="/#hero"
-              className="font-serif italic text-2xl md:text-3xl font-black text-ink-dark tracking-tight transition-opacity hover:opacity-85"
-            >
-              traffic<span className="text-coral">6<span className="relative" style={{ top: '-0.16em' }}>3</span></span>
-            </Link>
-            <p className="font-body text-sm text-pencil leading-relaxed max-w-[280px]">
-              Performance-агентство, которое говорит на языке цифр. Рисуем стратегии роста и воплощаем их в жизнь с 2018 года.
-            </p>
-            <div className="flex gap-4 mt-2">
-              <SocialIcon href="https://t.me/traffic63" icon="telegram" />
-              <SocialIcon href="https://vk.com/traffic63" icon="vk" />
-              <SocialIcon href="https://wa.me/79991234567" icon="whatsapp" />
-            </div>
+        {/* Logo centered at the top */}
+        <div className="flex flex-col items-center mb-16 select-none">
+          <Link
+            href="/#hero"
+            className="flex items-center text-3xl md:text-4xl font-black text-ink-dark transition-opacity hover:opacity-85"
+          >
+            <svg className="inline-block h-[1.15em] w-auto align-middle" viewBox="0 0 130 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <text x="0" y="24" fontFamily="Georgia, ui-serif, serif" fontWeight="900" fontStyle="italic" fontSize="28px" fill="currentColor">
+                traffic
+              </text>
+              <text x="92" y="24" fontFamily="Georgia, ui-serif, serif" fontWeight="900" fontStyle="italic" fontSize="28px" fill="var(--coral)">
+                6
+              </text>
+              <text x="110" y="19.5" fontFamily="Georgia, ui-serif, serif" fontWeight="900" fontStyle="italic" fontSize="28px" fill="var(--coral)">
+                3
+              </text>
+            </svg>
+          </Link>
+        </div>
+
+        {/* 3 Columns centered without header text */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 max-w-4xl mx-auto w-full">
+          {/* Column 1: Услуги */}
+          <div className="flex flex-col items-center text-center">
+            <ul className="flex flex-col items-center gap-4">
+              {[
+                { label: "Создание сайтов", href: "/services/web-development" },
+                { label: "Настройка рекламы", href: "/services/advertising" },
+                { label: "Умные чат-боты", href: "/services/chatbots" },
+                { label: "Ведение соцсетей", href: "/services/smm" },
+              ].map((service, index) => (
+                <li key={index}>
+                  <Link
+                    href={service.href}
+                    className="group relative font-body text-sm font-semibold text-pencil hover:text-ink-dark transition-colors duration-300 py-1 inline-block"
+                  >
+                    {service.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-coral group-hover:w-full transition-all duration-300" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Column 2: Navigation */}
-          <div className="flex flex-col text-left">
-            <h4 className="font-heading text-xs font-extrabold uppercase tracking-widest text-pencil mb-6 select-none">
-              Компания
-            </h4>
-            <ul className="flex flex-col gap-4">
+          {/* Column 2: Компания */}
+          <div className="flex flex-col items-center text-center">
+            <ul className="flex flex-col items-center gap-4">
               {navigationLinks.map((link) => (
                 <li key={link.label}>
                   <Link
@@ -59,40 +177,12 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 3: Services */}
-          <div className="flex flex-col text-left">
-            <h4 className="font-heading text-xs font-extrabold uppercase tracking-widest text-pencil mb-6 select-none">
-              Услуги
-            </h4>
-            <ul className="flex flex-col gap-4">
-              {[
-                { label: "Контекстная реклама", href: "/#services" },
-                { label: "Таргетированная реклама", href: "/#services" },
-                { label: "SEO‑продвижение", href: "/#services" },
-                { label: "Создание сайтов", href: "/#services" },
-              ].map((service, index) => (
-                <li key={index}>
-                  <Link
-                    href={service.href}
-                    className="group relative font-body text-sm font-semibold text-pencil hover:text-ink-dark transition-colors duration-300 py-1 inline-block"
-                  >
-                    {service.label}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-coral group-hover:w-full transition-all duration-300" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4: Contacts */}
-          <div className="flex flex-col gap-4 items-start text-left">
-            <h4 className="font-heading text-xs font-extrabold uppercase tracking-widest text-pencil mb-6 select-none">
-              Контакты
-            </h4>
-            <div className="flex flex-col gap-4 items-start w-full">
+          {/* Column 3: Контакты & Документы */}
+          <div className="flex flex-col items-center text-center">
+            <div className="flex flex-col items-center gap-4 w-full">
               <a
                 href="tel:+79991234567"
-                className="font-heading text-xl font-extrabold text-ink-dark hover:text-coral transition-colors duration-300"
+                className="font-heading text-lg font-bold text-ink-dark hover:text-coral transition-colors duration-300"
               >
                 +7 (999) 123-45-67
               </a>
@@ -102,38 +192,41 @@ export const Footer = () => {
               >
                 hello@traffic63.ru
               </a>
-              <div className="bg-paper-dark/60 border border-line-blue rounded-2xl p-5 shadow-sm select-none text-left w-full mt-2 hover:shadow-md transition-shadow duration-300">
-                <p className="font-heading text-[9px] font-extrabold tracking-widest text-pencil uppercase mb-1">
-                  Офис в Самаре
-                </p>
-                <p className="font-body text-xs text-ink-dark leading-relaxed">
-                  ул. Ново-Садовая, 106, офис 402
-                </p>
+              <p className="font-body text-xs text-pencil leading-relaxed select-none">
+                ул. Ново-Садовая, 106, офис 402
+              </p>
+              
+              <div className="flex flex-col items-center gap-2 mt-2 pt-4 border-t border-line-blue/60 w-full">
+                <Link
+                  href="/privacy"
+                  className="font-body text-xs text-pencil hover:text-ink-dark transition-colors duration-300"
+                >
+                  Политика конфиденциальности
+                </Link>
+                <Link
+                  href="/terms"
+                  className="font-body text-xs text-pencil hover:text-ink-dark transition-colors duration-300"
+                >
+                  Публичная оферта
+                </Link>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-line-blue/60 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="font-body text-xs text-pencil/80 text-center md:text-left">
+        {/* Social Icons Centered */}
+        <div className="flex justify-center gap-6 mt-16">
+          <SocialIcon href="https://t.me/traffic63" icon="telegram" />
+          <SocialIcon href="https://vk.com/traffic63" icon="vk" />
+          <SocialIcon href="https://wa.me/79991234567" icon="whatsapp" />
+        </div>
+
+        {/* Bottom row centered */}
+        <div className="mt-16 pt-8 border-t border-line-blue/40 max-w-4xl mx-auto flex flex-col items-center gap-3 select-none text-center">
+          <div className="font-body text-xs text-pencil/80">
             © {currentYear} traffic63 — Performance-агентство.
           </div>
-          <div className="flex gap-6">
-            <Link
-              href="/privacy"
-              className="font-body text-xs text-pencil hover:text-ink-dark transition-colors duration-300"
-            >
-              Политика конфиденциальности
-            </Link>
-            <Link
-              href="/terms"
-              className="font-body text-xs text-pencil hover:text-ink-dark transition-colors duration-300"
-            >
-              Публичная оферта
-            </Link>
-          </div>
-          <div className="font-body text-xs text-pencil/80 flex items-center gap-1.5 select-none">
+          <div className="font-body text-xs text-pencil/80 flex items-center gap-1.5 justify-center">
             Нарисовано с любовью{" "}
             <motion.span
               className="inline-block text-coral"
@@ -177,10 +270,9 @@ const SocialIcon = ({ href, icon }: { href: string; icon: string }) => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="w-10 h-10 rounded-xl border border-line-blue hover:border-coral bg-paper/40 hover:bg-coral/10 text-pencil hover:text-coral transition-all duration-300 flex items-center justify-center hover:-translate-y-1 hover:rotate-3 shadow-sm hover:shadow"
+      className="w-8 h-8 text-pencil hover:text-ink-dark transition-colors duration-300 flex items-center justify-center hover:-translate-y-0.5"
     >
       {icons[icon] || null}
     </a>
   );
 };
-

@@ -1,48 +1,118 @@
 // traffic63\components\CTASection.tsx
 "use client";
 
+import React from "react";
+import { motion } from "framer-motion";
 import { ContactForm } from "./ContactForm";
-import { Reveal } from "./Reveal";
 
 export const CTASection = () => {
   return (
-    <section className="relative bg-paper py-24 md:py-32 overflow-hidden border-t border-line-blue" id="contact">
-      <div className="container mx-auto px-5 md:px-10 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Bold Editorial Heading & Subtitle */}
-          <div className="lg:col-span-6 flex flex-col items-start text-left">
-            <Reveal delay={0.1}>
-              <span className="font-heading text-[10px] font-extrabold tracking-widest text-coral uppercase mb-6 block select-none">
-                ✦ ОБСУДИТЬ ПРОЕКТ
-              </span>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <h2 className="font-heading text-4xl sm:text-7xl lg:text-[90px] font-black leading-[0.9] text-ink-dark tracking-tighter uppercase select-none">
-                Готовы <br />
-                <span className="font-serif italic text-coral lowercase font-normal tracking-normal">вырасти?</span>
-              </h2>
-            </Reveal>
-            <Reveal delay={0.3}>
-              <p className="font-body text-lg text-pencil leading-relaxed mt-6 max-w-[480px]">
-                Оставьте заявку — обсудим ваш проект бесплатно и составим индивидуальный план действий для вашего бизнеса.
-              </p>
-            </Reveal>
-            <Reveal delay={0.4}>
-              <span className="font-handwritten text-2xl text-ink-blue mt-8 -rotate-1 inline-block select-none">
-                ✦ Свяжемся в течение 15 минут
-              </span>
-            </Reveal>
-          </div>
+    <section className="relative bg-paper py-20 md:py-28 overflow-hidden border-t border-line-blue/40" id="contact">
+      <div className="container mx-auto px-5 md:px-10 relative z-10 text-center flex flex-col items-center">
+        
+        {/* Animated Parent Container */}
+        <motion.div
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.12,
+              },
+            },
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          className="w-full flex flex-col items-center"
+        >
+          {/* Title */}
+          <h2 className="font-heading text-4xl sm:text-6xl font-extrabold leading-[1.1] text-ink-dark tracking-tight mb-4 flex flex-wrap items-end justify-center gap-x-[0.22em]">
+            <span className="inline-block overflow-hidden">
+              <motion.span
+                variants={{
+                  hidden: { y: "100%" },
+                  visible: {
+                    y: 0,
+                    transition: {
+                      duration: 0.8,
+                      ease: [0.16, 1, 0.3, 1],
+                    },
+                  },
+                }}
+                className="inline-block"
+              >
+                Готовы
+              </motion.span>
+            </span>
+            <motion.span
+              variants={{
+                hidden: { opacity: 0, y: 15 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.8,
+                    delay: 0.12,
+                    ease: [0.16, 1, 0.3, 1],
+                  },
+                },
+              }}
+              style={{
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+              }}
+              className="font-serif italic text-coral font-normal inline-block will-change-[transform,opacity]"
+            >
+              вырасти?
+            </motion.span>
+          </h2>
+          
+          {/* Subtitle */}
+          <motion.p
+            variants={{
+              hidden: { opacity: 0, y: 15 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
+                },
+              },
+            }}
+            style={{
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+            }}
+            className="font-body text-sm md:text-base text-pencil/80 leading-relaxed max-w-[500px] mx-auto mb-12 will-change-[transform,opacity]"
+          >
+            Оставьте заявку — обсудим ваш проект бесплатно и составим индивидуальный план действий для вашего бизнеса.
+          </motion.p>
 
-          {/* Right Column: Premium Contact Form Card */}
-          <div className="lg:col-span-6 w-full">
-            <Reveal delay={0.3} className="w-full">
-              <div className="cta-card">
-                <ContactForm />
-              </div>
-            </Reveal>
-          </div>
-        </div>
+          {/* Minimalist Contact Form */}
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
+                },
+              },
+            }}
+            style={{
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+            }}
+            className="w-full max-w-[480px] mx-auto will-change-[transform,opacity]"
+          >
+            <ContactForm />
+          </motion.div>
+
+        </motion.div>
+
       </div>
     </section>
   );

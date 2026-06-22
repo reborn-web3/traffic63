@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence, MotionValue } from "framer-motion";
+import Link from "next/link";
 
 interface ServiceBlock {
   num: string;
@@ -10,6 +11,7 @@ interface ServiceBlock {
   titleItalic: string;
   titlePart2?: string;
   description: string;
+  slug: string;
 }
 
 const SERVICES: ServiceBlock[] = [
@@ -20,6 +22,7 @@ const SERVICES: ServiceBlock[] = [
     titleItalic: "реально продают",
     titlePart2: "ваши услуги.",
     description: "Создаем красивые и быстрые сайты для вашего бизнеса. Клиентам будет удобно найти информацию и оставить заявку, а все контакты сразу придут вам в Telegram или CRM.",
+    slug: "web-development",
   },
   {
     num: "02",
@@ -28,6 +31,7 @@ const SERVICES: ServiceBlock[] = [
     titleItalic: "за одну секунду",
     titlePart2: "в любое время.",
     description: "Подключаем к сайту умного робота. Он общается с клиентами, отвечает на вопросы о ценах и доставке круглосуточно и собирает контакты, пока вы и ваши менеджеры отдыхаете.",
+    slug: "chatbots",
   },
   {
     num: "03",
@@ -36,6 +40,7 @@ const SERVICES: ServiceBlock[] = [
     titleItalic: "готовых купить",
     titlePart2: "прямо сейчас.",
     description: "Настраиваем рекламу в Яндекс и соцсетях. Показываем объявления только тем, кто ищет ваши услуги прямо сейчас. Следим за ценой каждой заявки, чтобы окупать рекламный бюджет.",
+    slug: "advertising",
   },
   {
     num: "04",
@@ -44,6 +49,7 @@ const SERVICES: ServiceBlock[] = [
     titleItalic: "в Telegram и VK",
     titlePart2: "для роста доверия.",
     description: "Красиво оформляем ваши соцсети, пишем простые и интересные посты, делаем фото и видео. Помогаем вашим клиентам узнать о вас больше и начать доверять вашему бренду.",
+    slug: "smm",
   },
 ];
 
@@ -142,6 +148,7 @@ export const ServiceClimber = () => {
               <div
                 key={idx}
                 data-index={idx}
+                id={idx === 0 ? "service-sites" : idx === 1 ? "service-bots" : idx === 2 ? "service-ads" : "service-social"}
                 ref={idx === 1 ? block2Ref : undefined}
                 className={`service-scroll-block flex flex-col ${idx === 1 ? "justify-center md:justify-start min-h-[75vh] md:h-[220vh] relative py-0" : "justify-center min-h-[75vh] md:min-h-screen py-16 md:py-24"
                   }`}
@@ -163,7 +170,7 @@ export const ServiceClimber = () => {
                     </span>
                   </div>
 
-                  {/* Title styled like the hero section */}
+                   {/* Title styled like the hero section */}
                   <h3 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink-dark leading-tight select-none">
                     {svc.titlePart1}{" "}
                     <span className="font-serif italic text-coral font-normal lowercase tracking-normal">
@@ -176,6 +183,31 @@ export const ServiceClimber = () => {
                   <p className="font-body text-pencil text-base sm:text-lg leading-relaxed mt-6 max-w-md">
                     {svc.description}
                   </p>
+
+                  {/* Learn more button */}
+                  <div className="mt-8 flex justify-start">
+                    <Link
+                      href={`/services/${svc.slug}`}
+                      className="group/btn inline-flex items-center gap-2.5 font-body font-bold text-[13px] sm:text-sm uppercase tracking-widest text-pencil hover:text-coral transition-all duration-300 select-none pb-1 border-b border-dashed border-pencil/40 hover:border-coral hover:translate-x-1"
+                    >
+                      Подробнее
+                      <svg
+                        className="transition-transform duration-300 group-hover/btn:translate-x-1"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 8h10M9 4l4 4-4 4"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
