@@ -195,7 +195,7 @@ export const Footer = () => {
               <p className="font-body text-xs text-pencil leading-relaxed select-none">
                 ул. Ново-Садовая, 106, офис 402
               </p>
-              
+
               <div className="flex flex-col items-center gap-2 mt-2 pt-4 border-t border-line-blue/60 w-full">
                 <Link
                   href="/privacy"
@@ -224,22 +224,9 @@ export const Footer = () => {
         {/* Bottom row centered */}
         <div className="mt-16 pt-8 border-t border-line-blue/40 max-w-4xl mx-auto flex flex-col items-center gap-3 select-none text-center">
           <div className="font-body text-xs text-pencil/80">
-            © {currentYear} traffic63 — Performance-агентство.
+            © {currentYear} traffic63 — digital-агентство.
           </div>
-          <div className="font-body text-xs text-pencil/80 flex items-center gap-1.5 justify-center">
-            Нарисовано с любовью{" "}
-            <motion.span
-              className="inline-block text-coral"
-              animate={{ scale: [1, 1.25, 1] }}
-              transition={{
-                repeat: Infinity,
-                duration: 1.5,
-                ease: "easeInOut",
-              }}
-            >
-              💙
-            </motion.span>
-          </div>
+
         </div>
       </div>
     </footer>

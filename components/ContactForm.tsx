@@ -18,42 +18,40 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
     }
   }, [defaultMessage]);
 
-  // Phone input mask – formats Russian phone numbers as +7 (___) ___-__-__
-  const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target;
-    let value = input.value.replace(/\D/g, "");
-
-    if (!value.length) {
-      input.value = "";
-      return;
-    }
-
-    if (value[0] === "8") value = "7" + value.slice(1);
-    if (value[0] !== "7") value = "7" + value;
-
-    let formatted = "+7";
-    if (value.length > 1) formatted += " (" + value.slice(1, 4);
-    if (value.length > 4) formatted += ") " + value.slice(4, 7);
-    if (value.length > 7) formatted += "-" + value.slice(7, 9);
-    if (value.length > 9) formatted += "-" + value.slice(9, 11);
-    input.value = formatted;
-  };
-
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (isSubmitting || isSuccess) return;
 
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    formRef.current?.reset();
-    setMessage("");
-    setIsSubmitting(false);
-    setIsSuccess(true);
+    try {
+      const formData = new FormData(formRef.current!);
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const response = await fetch(`${apiUrl}/api/v1/submit/74dd9c86-572c-42dd-aef0-3877e2c7e63e`, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Accept": "application/json"
+        }
+      });
 
-    setTimeout(() => {
-      setIsSuccess(false);
-    }, 4000);
+      if (response.ok) {
+        formRef.current?.reset();
+        setMessage("");
+        setIsSuccess(true);
+
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 4000);
+      } else {
+        alert("Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.");
+      }
+    } catch (error) {
+      console.error("Submit error:", error);
+      alert("Не удалось отправить форму. Проверьте соединение с интернетом.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -63,7 +61,13 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
       onSubmit={handleFormSubmit}
       className="w-full text-left space-y-6"
     >
-      {/* Row 1: Name and Phone side-by-side */}
+      {/* Защита от спама (Honeypot). Невидима для людей */}
+      <input type="text" name="_gotcha" style={{ display: "none" }} />
+
+      {/* Название темы письма/уведомления */}
+      <input type="hidden" name="_subject" value="Новая заявка с сайта!" />
+
+      {/* Row 1: Name and Email side-by-side */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
         {/* Name Input */}
         <div className="relative flex flex-col items-start w-full">
@@ -76,49 +80,48 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
           <input
             type="text"
             id="name"
-            name="name"
+            name="Имя"
             placeholder="Как вас зовут?"
             required
             className="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b border-line-blue/70 dark:border-slate-800 rounded-none px-0 py-2 text-ink-dark dark:text-white placeholder:text-pencil/25 focus:border-coral focus:ring-0 focus:outline-none transition-all duration-300"
           />
         </div>
 
-        {/* Phone Input */}
+        {/* Email Input */}
         <div className="relative flex flex-col items-start w-full">
           <label
-            htmlFor="phone"
+            htmlFor="email"
             className="font-heading text-[10px] font-extrabold tracking-widest text-pencil/50 uppercase mb-1 select-none"
           >
-            Телефон
+            Ваш Email
           </label>
           <input
-            type="tel"
-            id="phone"
-            name="phone"
-            placeholder="+7 (___) ___-__-__"
+            type="email"
+            id="email"
+            name="Email"
+            placeholder="example@mail.ru"
             required
-            onChange={handlePhoneInput}
             className="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b border-line-blue/70 dark:border-slate-800 rounded-none px-0 py-2 text-ink-dark dark:text-white placeholder:text-pencil/25 focus:border-coral focus:ring-0 focus:outline-none transition-all duration-300"
           />
         </div>
       </div>
 
-      {/* Row 2: Message Input (Single line instead of large textarea) */}
+      {/* Row 2: Message Input */}
       <div className="relative flex flex-col items-start w-full">
         <label
           htmlFor="message"
           className="font-heading text-[10px] font-extrabold tracking-widest text-pencil/50 uppercase mb-1 select-none"
         >
-          Расскажите о проекте
+          Сообщение
         </label>
-        <input
-          type="text"
+        <textarea
           id="message"
-          name="message"
+          name="Сообщение"
           placeholder="Чем занимается ваш бизнес? Какие задачи хотите решить?"
+          required
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b border-line-blue/70 dark:border-slate-800 rounded-none px-0 py-2 text-ink-dark dark:text-white placeholder:text-pencil/25 focus:border-coral focus:ring-0 focus:outline-none transition-all duration-300"
+          className="w-full min-h-[100px] bg-transparent border-t-0 border-l-0 border-r-0 border-b border-line-blue/70 dark:border-slate-800 rounded-none px-0 py-2 text-ink-dark dark:text-white placeholder:text-pencil/25 focus:border-coral focus:ring-0 focus:outline-none transition-all duration-300 resize-none"
         />
       </div>
 
@@ -136,7 +139,7 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
         {isSuccess && "Заявка отправлена!"}
         {!isSubmitting && !isSuccess && (
           <>
-            Отправить заявку
+            Отправить форму
             <svg
               className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5"
               fill="none"

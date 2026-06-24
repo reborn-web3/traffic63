@@ -70,7 +70,7 @@ export const AgencyBanner = () => {
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",
               }}
-              className="font-serif italic text-coral font-normal inline-block origin-left mt-2 sm:mt-3 will-change-[transform,opacity]"
+              className="font-serif italic text-coral font-normal inline-block origin-left mt-2 sm:mt-3 will-change-[transform,opacity] pr-[0.15em] -mr-[0.15em]"
             >
               остальное сделаем мы.
             </motion.span>

@@ -61,7 +61,7 @@ export const CTASection = () => {
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",
               }}
-              className="font-serif italic text-coral font-normal inline-block will-change-[transform,opacity]"
+              className="font-serif italic text-coral font-normal inline-block will-change-[transform,opacity] pr-[0.15em] -mr-[0.15em]"
             >
               вырасти?
             </motion.span>
