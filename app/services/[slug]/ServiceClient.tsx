@@ -83,10 +83,6 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
               {/* Left Column: Text */}
               <div className="col-span-1 lg:col-span-7 flex flex-col items-start reveal">
-                <span className="section-label select-none">
-                  {data.hero.label}
-                </span>
-
                 <h1 className="font-heading text-4xl sm:text-5xl lg:text-[72px] font-black leading-[1.05] text-ink-dark tracking-tighter uppercase select-none mb-6">
                   {data.hero.titlePart1}{" "}
                   <span className="font-serif italic text-coral font-normal lowercase tracking-normal block sm:inline">
@@ -109,11 +105,6 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
                   </a>
-                  
-                  {/* Handwritten tooltip */}
-                  <span className="font-handwritten text-lg text-coral/80 sm:absolute sm:left-full sm:top-1/2 sm:-translate-y-1/2 sm:ml-4 sm:whitespace-nowrap select-none rotate-[-2deg] sm:rotate-[2deg] mt-2 sm:mt-0">
-                    {data.hero.ctaSubtext}
-                  </span>
                 </div>
               </div>
 
@@ -138,81 +129,12 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
           </div>
         </section>
 
-        {/* ── 2. PAINS & SOLUTIONS ── */}
-        <section className="relative py-20 md:py-28 bg-paper-dark/30 border-b border-line-blue">
-          <div className="container mx-auto px-5 md:px-10">
-            <div className="max-w-3xl mb-16 reveal">
-              <span className="section-label select-none">✦ боли и решения</span>
-              <h2 className="section-title">С какими проблемами вы сталкиваетесь?</h2>
-              <p className="font-body text-base text-pencil leading-relaxed max-w-[620px] text-left">
-                Мы знаем, как сложно бывает найти надежного партнера и контролировать каждый этап. Посмотрите, как мы превращаем боли бизнеса в оцифрованные результаты.
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-              {data.painsAndSolutions.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="reveal relative bg-paper border border-line-blue/60 rounded-[32px] p-8 overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:rotate-[0.3deg] hover:shadow-[12px_12px_0_var(--coral-light)] dark:hover:shadow-[12px_12px_0_rgba(255,107,107,0.15)] group"
-                  style={{ transitionDelay: `${idx * 100}ms` }}
-                >
-                  {/* Notebook sheet grid background */}
-                  <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none">
-                    <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <pattern id={`grid-pattern-${idx}`} width="18" height="18" patternUnits="userSpaceOnUse">
-                          <path d="M 18 0 L 0 0 0 18" fill="none" stroke="currentColor" strokeWidth="0.8" />
-                        </pattern>
-                      </defs>
-                      <rect width="100%" height="100%" fill={`url(#grid-pattern-${idx})`} />
-                    </svg>
-                  </div>
-
-                  <div className="flex flex-col gap-6 relative z-10 text-left h-full">
-                    {/* Pain block */}
-                    <div className="flex gap-4 items-start">
-                      <span className="w-6 h-6 rounded-full bg-red-500/10 dark:bg-red-500/20 flex items-center justify-center shrink-0 text-red-500 font-bold text-[10px] mt-1 select-none">
-                        ✕
-                      </span>
-                      <div>
-                        <span className="font-heading text-[9px] font-extrabold tracking-widest text-red-500/80 uppercase block mb-1 select-none">
-                          Проблема / Боль
-                        </span>
-                        <p className="font-body text-pencil text-sm sm:text-[15px] leading-relaxed font-medium">
-                          {item.pain}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Dotted separator */}
-                    <div className="border-t border-dashed border-line-blue/80 dark:border-white/10 my-1" />
-
-                    {/* Solution block */}
-                    <div className="flex gap-4 items-start mt-auto">
-                      <span className="w-6 h-6 rounded-full bg-mint/10 dark:bg-mint/20 flex items-center justify-center shrink-0 text-mint font-bold text-[10px] mt-1 select-none">
-                        ✓
-                      </span>
-                      <div>
-                        <span className="font-heading text-[9px] font-extrabold tracking-widest text-mint uppercase block mb-1 select-none">
-                          Решение от traffic63
-                        </span>
-                        <p className="font-body text-ink-dark font-semibold text-sm sm:text-[15px] leading-relaxed">
-                          {item.solution}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* ── 3. TARIFFS SECTION ── */}
         <section className="relative py-20 md:py-28 border-b border-line-blue">
           <div className="container mx-auto px-5 md:px-10">
             <div className="max-w-3xl mb-16 reveal">
-              <span className="section-label select-none">✦ тарифные планы</span>
               <h2 className="section-title">Выберите формат работы</h2>
               <p className="font-body text-base text-pencil leading-relaxed max-w-[620px] text-left">
                 Мы предлагаем прозрачное ценообразование и гибкие форматы работы в зависимости от масштаба и задач вашего бизнеса.
@@ -337,7 +259,6 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
         <section className="relative py-20 md:py-28 bg-paper-dark/30 border-b border-line-blue">
           <div className="container mx-auto px-5 md:px-10">
             <div className="max-w-3xl mb-16 reveal">
-              <span className="section-label select-none">✦ процесс работы</span>
               <h2 className="section-title">Как будет строиться работа</h2>
               <p className="font-body text-base text-pencil leading-relaxed max-w-[620px] text-left">
                 Мы выстроили прозрачную поэтапную систему сотрудничества. На каждом шаге вы четко понимаете действия команды и получаете оцифрованный артефакт.
@@ -383,7 +304,6 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
         <section className="relative py-20 md:py-28 border-b border-line-blue">
           <div className="container mx-auto px-5 md:px-10">
             <div className="max-w-3xl mb-16 reveal">
-              <span className="section-label select-none">✦ ответы на вопросы</span>
               <h2 className="section-title">Часто задаваемые вопросы</h2>
             </div>
 
@@ -452,8 +372,6 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               {/* Left Side text */}
               <div className="col-span-1 lg:col-span-6 flex flex-col items-start text-left reveal">
-                <span className="section-label select-none">✦ обсудим проект</span>
-                
                 <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-ink-dark tracking-tighter uppercase mb-6">
                   Готовы получить <br />
                   <span className="font-serif italic text-coral font-normal lowercase tracking-normal">поток клиентов?</span>

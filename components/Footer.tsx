@@ -9,7 +9,7 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-paper text-ink-dark py-24 overflow-hidden transition-colors duration-300">
+    <footer className="relative bg-paper text-ink-dark py-16 md:py-24 overflow-hidden transition-colors duration-300">
       {/* Background Decorations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0 opacity-60 dark:opacity-30">
         {/* Curved dotted lines */}
@@ -108,7 +108,7 @@ export const Footer = () => {
 
       <div className="container mx-auto px-5 md:px-10 relative z-10">
         {/* Logo centered at the top */}
-        <div className="flex flex-col items-center mb-16 select-none">
+        <div className="flex flex-col items-center mb-12 md:mb-16 select-none">
           <Link
             href="/#hero"
             className="flex items-center text-3xl md:text-4xl font-black text-ink-dark transition-opacity hover:opacity-85"
@@ -215,14 +215,14 @@ export const Footer = () => {
         </div>
 
         {/* Social Icons Centered */}
-        <div className="flex justify-center gap-6 mt-16">
+        <div className="flex justify-center gap-6 mt-12 md:mt-16">
           <SocialIcon href="https://t.me/traffic63" icon="telegram" />
           <SocialIcon href="https://vk.com/traffic63" icon="vk" />
           <SocialIcon href="https://wa.me/79991234567" icon="whatsapp" />
         </div>
 
         {/* Bottom row centered */}
-        <div className="mt-16 pt-8 border-t border-line-blue/40 max-w-4xl mx-auto flex flex-col items-center gap-3 select-none text-center">
+        <div className="mt-12 md:mt-16 pt-8 border-t border-line-blue/40 max-w-4xl mx-auto flex flex-col items-center gap-3 select-none text-center">
           <div className="font-body text-xs text-pencil/80">
             © {currentYear} traffic63 — digital-агентство.
           </div>

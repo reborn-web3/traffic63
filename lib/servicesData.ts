@@ -11,13 +11,11 @@ export interface ServiceData {
   };
   jsonLd: any;
   hero: {
-    label: string;
     titlePart1: string;
     titleItalic: string;
     titlePart2?: string;
     description: string;
     ctaText: string;
-    ctaSubtext: string;
     doodleImage: string;
   };
   painsAndSolutions: {
@@ -77,7 +75,7 @@ export const servicesData: Record<string, ServiceData> = {
       "offers": {
         "@type": "AggregateOffer",
         "priceCurrency": "RUB",
-        "lowPrice": "30000",
+        "lowPrice": "40000",
         "highPrice": "150000",
         "offerCount": "3"
       },
@@ -103,13 +101,11 @@ export const servicesData: Record<string, ServiceData> = {
       ]
     },
     hero: {
-      label: "✦ разработка на React & Next.js",
       titlePart1: "Делаем сайты, которые",
       titleItalic: "реально продают",
       titlePart2: "ваши услуги",
       description: "Проектируем и программируем быстрые веб-решения без конструкторов и шаблонов. Ваш сайт загружается за 0.8 секунды, идеально отображается на смартфонах и легко редактируется без участия программистов через Sanity CMS.",
       ctaText: "Обсудить проект ➔",
-      ctaSubtext: "✦ Спроектируем UX-прототип бесплатно",
       doodleImage: "/images/doodle_laptop.png"
     },
     painsAndSolutions: [
@@ -133,7 +129,7 @@ export const servicesData: Record<string, ServiceData> = {
     tariffs: [
       {
         name: "Landing Page (Лендинг)",
-        price: "от 30 000 ₽",
+        price: "от 40 000 ₽",
         period: "проект",
         description: "Идеально для быстрого тестирования ниши, запуска контекстной рекламы на один продукт или презентации конкретной услуги.",
         features: [
@@ -147,7 +143,7 @@ export const servicesData: Record<string, ServiceData> = {
       },
       {
         name: "Многостраничный сайт",
-        price: "от 70 000 ₽",
+        price: "от 80 000 ₽",
         period: "проект",
         description: "Для компаний, которым необходимо подробно представить спектр услуг, выстроить сильный бренд и получать бесплатный органический трафик из поиска.",
         features: [
@@ -251,7 +247,7 @@ export const servicesData: Record<string, ServiceData> = {
       "offers": {
         "@type": "AggregateOffer",
         "priceCurrency": "RUB",
-        "lowPrice": "25000",
+        "lowPrice": "20000",
         "highPrice": "65000",
         "offerCount": "3"
       },
@@ -277,13 +273,11 @@ export const servicesData: Record<string, ServiceData> = {
       ]
     },
     hero: {
-      label: "✦ трафик и лидогенерация",
       titlePart1: "Приводим клиентов,",
       titleItalic: "готовых купить",
       titlePart2: "прямо сейчас",
       description: "Настраиваем контекстную рекламу в Яндекс.Директ и таргетированную рекламу в VK Рекламе с оплатой за целевые действия. Не обещаем абстрактные клики — контролируем стоимость лида (CPL) и окупаемость ваших инвестиций.",
       ctaText: "Получить медиаплан ➔",
-      ctaSubtext: "✦ Сделаем аудит вашей старой рекламы за 24 часа",
       doodleImage: "/images/doodle_target.png"
     },
     painsAndSolutions: [
@@ -307,7 +301,7 @@ export const servicesData: Record<string, ServiceData> = {
     tariffs: [
       {
         name: "Тест-драйв (Старт)",
-        price: "25 000 ₽",
+        price: "от 20 000 ₽",
         period: "проект",
         description: "Подходит для микробизнеса и стартапов, которым нужно быстро запустить один рекламный источник и оценить стоимость заявки.",
         features: [
@@ -425,7 +419,7 @@ export const servicesData: Record<string, ServiceData> = {
       "offers": {
         "@type": "AggregateOffer",
         "priceCurrency": "RUB",
-        "lowPrice": "20000",
+        "lowPrice": "25000",
         "highPrice": "80000",
         "offerCount": "3"
       },
@@ -451,13 +445,11 @@ export const servicesData: Record<string, ServiceData> = {
       ]
     },
     hero: {
-      label: "✦ AI-агенты и автоматизация",
       titlePart1: "ИИ-помощник ответит",
       titleItalic: "за одну секунду",
       titlePart2: "в любое время",
       description: "Разрабатываем умных чат-ботов на базе нейросетей (LLM/GPT) с технологией RAG. Бот общается человеческим языком, отвечает строго на основе базы знаний вашей компании и автоматически заносит контакты клиентов в CRM.",
       ctaText: "Протестировать демо-бота ➔",
-      ctaSubtext: "✦ Обучим бота на ваших данных за 3 дня",
       doodleImage: "/images/doodle_rocket.png"
     },
     painsAndSolutions: [
@@ -481,7 +473,7 @@ export const servicesData: Record<string, ServiceData> = {
     tariffs: [
       {
         name: "AI-Консультант на сайт",
-        price: "от 20 000 ₽",
+        price: "от 25 000 ₽",
         period: "проект",
         description: "Подходит для компаний, желающих разгрузить техподдержку на сайте и повысить конверсию из посетителя в лид.",
         features: [
@@ -622,13 +614,11 @@ export const servicesData: Record<string, ServiceData> = {
       ]
     },
     hero: {
-      label: "✦ бренд-маркетинг & SMM",
       titlePart1: "Оживляем страницы в Telegram и VK",
       titleItalic: "для роста доверия",
       titlePart2: "",
       description: "Разрабатываем уникальную контент-стратегию и оформление для ваших социальных сетей. Пишем глубокие экспертные посты без «воды», монтируем вовлекающие вертикальные видео (Reels/Clips) и привлекаем живую целевую аудиторию.",
       ctaText: "Рассчитать стоимость ➔",
-      ctaSubtext: "✦ Разработаем контент-план на 7 дней в подарок",
       doodleImage: "/images/doodle_idea.png"
     },
     painsAndSolutions: [
@@ -652,7 +642,7 @@ export const servicesData: Record<string, ServiceData> = {
     tariffs: [
       {
         name: "Визуальный Старт",
-        price: "20 000 ₽",
+        price: "от 20 000 ₽",
         period: "месяц",
         description: "Идеально для компаний, которым нужно профессионально оформить сообщество и поддерживать базовую регулярную активность.",
         features: [
