@@ -22,17 +22,35 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'mainImage',
+      name: 'author',
+      title: 'Автор',
+      type: 'string',
+    }),
+    defineField({
+      name: 'category',
+      title: 'Категория',
+      type: 'string',
+    }),
+    defineField({
+      name: 'date',
+      title: 'Дата публикации',
+      type: 'date',
+      options: {
+        dateFormat: 'YYYY-MM-DD',
+      }
+    }),
+    defineField({
+      name: 'readTime',
+      title: 'Время чтения',
+      type: 'string',
+    }),
+    defineField({
+      name: 'image',
       title: 'Главное изображение',
       type: 'image',
       options: {
         hotspot: true,
       },
-    }),
-    defineField({
-      name: 'publishedAt',
-      title: 'Дата публикации',
-      type: 'datetime',
     }),
     defineField({
       name: 'excerpt',
@@ -41,7 +59,7 @@ export default defineType({
       rows: 3,
     }),
     defineField({
-      name: 'body',
+      name: 'content',
       title: 'Текст статьи',
       type: 'array',
       of: [
@@ -53,8 +71,8 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      media: 'mainImage',
-      subtitle: 'publishedAt',
+      media: 'image',
+      subtitle: 'date',
     },
   },
 })
