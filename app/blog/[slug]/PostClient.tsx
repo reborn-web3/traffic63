@@ -14,15 +14,15 @@ import { formatRussianDate } from "../BlogClient";
 interface BlogPost {
   slug: { current: string };
   title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  category: string;
-  author: string;
+  excerpt?: string;
+  date?: string;
+  readTime?: string;
+  category?: string;
+  author?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image?: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  content: any[];
+  content?: any[];
 }
 
 const portableTextComponents: PortableTextComponents = {
@@ -139,10 +139,10 @@ export function PostClient({ post }: { post: BlogPost }) {
               {/* Category + Meta details */}
               <div className="flex items-center gap-4 mb-6">
                 <span className="font-heading text-[10px] font-bold tracking-wider text-coral uppercase bg-coral-light/10 border border-coral/10 px-3.5 py-1 rounded-full">
-                  {post.category}
+                  {post.category || 'Блог'}
                 </span>
                 <span className="text-sm text-pencil font-medium">
-                  {formatRussianDate(post.date)} • {post.readTime} чтения
+                  {formatRussianDate(post.date || '')} • {post.readTime || '5 мин'} чтения
                 </span>
               </div>
 
@@ -154,14 +154,14 @@ export function PostClient({ post }: { post: BlogPost }) {
               {/* Author & Info */}
               <div className="flex items-center gap-4 border-y border-line-blue/60 py-5">
                 <div className="w-10 h-10 rounded-full bg-coral-light/25 border border-coral-light/20 flex items-center justify-center font-heading text-xs font-black text-coral select-none">
-                  {post.author.slice(0, 1)}
+                  {post.author ? post.author.slice(0, 1) : 'T'}
                 </div>
                 <div>
                   <span className="block text-sm font-bold text-ink-dark leading-none">
-                    {post.author}
+                    {post.author || 'traffic63 Team'}
                   </span>
                   <span className="text-xs text-pencil mt-1 block">
-                    traffic63 Team
+                    Редакция
                   </span>
                 </div>
               </div>
@@ -197,7 +197,7 @@ export function PostClient({ post }: { post: BlogPost }) {
 
             {/* ── Article Content ── */}
             <div className="reveal prose max-w-none mb-16">
-              <PortableText value={post.content} components={portableTextComponents} />
+              <PortableText value={post.content || []} components={portableTextComponents} />
             </div>
           </article>
 

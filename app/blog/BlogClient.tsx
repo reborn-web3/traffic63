@@ -12,11 +12,11 @@ import { urlFor } from "@/sanity/image";
 interface BlogPost {
   slug: { current: string };
   title: string;
-  excerpt: string;
-  date: string;
-  readTime: string;
-  category: string;
-  author: string;
+  excerpt?: string;
+  date?: string;
+  readTime?: string;
+  category?: string;
+  author?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image?: any;
 }
@@ -90,10 +90,10 @@ export function BlogClient({ posts }: { posts: BlogPost[] }) {
                   <div>
                     <div className="flex flex-wrap items-center gap-4 mb-6">
                       <span className="font-heading text-[10px] font-bold tracking-wider text-coral uppercase bg-coral-light/10 border border-coral/10 px-3 py-1 rounded-full">
-                        🔥 Главная статья / {featuredPost.category}
+                        🔥 Главная статья / {featuredPost.category || 'Блог'}
                       </span>
                       <span className="text-xs text-pencil font-medium">
-                        {formatRussianDate(featuredPost.date)} • {featuredPost.readTime} чтения
+                        {formatRussianDate(featuredPost.date || '')} • {featuredPost.readTime || '5 мин'} чтения
                       </span>
                     </div>
 
@@ -108,7 +108,7 @@ export function BlogClient({ posts }: { posts: BlogPost[] }) {
 
                   <div className="flex items-center justify-between border-t border-line-blue/60 pt-6">
                     <span className="text-xs text-pencil font-semibold">
-                      {featuredPost.author}
+                      {featuredPost.author || 'traffic63 Team'}
                     </span>
                     <div className="inline-flex items-center gap-2 text-ink-blue font-bold text-xs uppercase tracking-widest group-hover:text-coral transition-colors duration-300">
                       Читать статью
@@ -174,10 +174,10 @@ export function BlogClient({ posts }: { posts: BlogPost[] }) {
                       {/* Category + Meta details */}
                       <div className="flex items-center justify-between gap-4 mb-6">
                         <span className="font-heading text-[9px] font-extrabold tracking-widest text-coral uppercase bg-coral-light/10 border border-coral/10 px-2.5 py-0.5 rounded-full">
-                          {post.category}
+                          {post.category || 'Блог'}
                         </span>
                         <span className="text-[10px] text-pencil font-medium">
-                          {formatRussianDate(post.date)} • {post.readTime}
+                          {formatRussianDate(post.date || '')} • {post.readTime || '5 мин'}
                         </span>
                       </div>
 
@@ -195,7 +195,7 @@ export function BlogClient({ posts }: { posts: BlogPost[] }) {
                     {/* Footer Row */}
                     <div className="border-t border-line-blue/60 pt-5 flex items-center justify-between gap-4 mt-auto">
                       <span className="text-xs text-pencil font-semibold">
-                        {post.author}
+                        {post.author || 'traffic63 Team'}
                       </span>
                       <div className="inline-flex items-center gap-1.5 text-ink-blue font-bold text-xs uppercase tracking-widest group-hover:text-coral transition-colors duration-300">
                         Читать
