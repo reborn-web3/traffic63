@@ -17,8 +17,8 @@ export const Hero = () => {
           className="max-w-[1100px] text-left mb-12 sm:mb-16"
         >
           <h1 className="font-heading text-[44px] leading-[0.9] sm:text-7xl lg:text-[110px] font-black sm:leading-[0.95] text-ink-dark tracking-tighter uppercase select-none">
-            <span className="md:whitespace-nowrap">Поможем бизнесу</span> <br />
-            <span className="font-serif italic text-coral lowercase font-normal tracking-normal">вырасти.</span>
+            <span className="md:whitespace-nowrap">Делаем бизнес</span> <br />
+            <span className="font-serif italic text-coral lowercase font-normal tracking-normal">заметным</span>
           </h1>
         </motion.div>
 
