@@ -142,7 +142,12 @@ export function PostClient({ post }: { post: BlogPost }) {
                   {post.category || 'Блог'}
                 </span>
                 <span className="text-sm text-pencil font-medium">
-                  {formatRussianDate(post.date || '')} • {post.readTime || '5 мин'} чтения
+                  {post.date ? (
+                    <time dateTime={post.date}>{formatRussianDate(post.date)}</time>
+                  ) : (
+                    <span>{formatRussianDate('')}</span>
+                  )}
+                  {" • "}{post.readTime || '5 мин'} чтения
                 </span>
               </div>
 
@@ -168,9 +173,9 @@ export function PostClient({ post }: { post: BlogPost }) {
             </div>
 
             {/* ── Featured Image Illustration ── */}
-            <div className="reveal relative w-full aspect-[16/9] bg-paper-dark border border-line-blue/60 rounded-[32px] overflow-hidden flex items-center justify-center p-8 mb-12">
+            <div className="reveal relative w-full aspect-[16/9] bg-paper-dark border border-line-blue/60 rounded-[32px] overflow-hidden flex items-center justify-center mb-12 group">
               {/* SVG Blueprint Grid Background */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-25" xmlns="http://www.w3.org/2000/svg">
+              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-25 z-10" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <pattern id="post-grid" width="30" height="30" patternUnits="userSpaceOnUse">
                     <path d="M 30 0 L 0 0 0 30" fill="none" stroke="var(--line-blue)" strokeWidth="0.8" />
@@ -179,20 +184,38 @@ export function PostClient({ post }: { post: BlogPost }) {
                 <rect width="100%" height="100%" fill="url(#post-grid)" />
               </svg>
 
-              <div className="relative w-40 h-40 sm:w-56 sm:h-56">
-                {post.image ? (
-                  <Image
-                    src={urlFor(post.image).width(600).url()}
-                    alt={post.title}
-                    fill
-                    sizes="(max-width: 992px) 100vw, 50vw"
-                    className="object-contain dark-theme-image"
-                    priority
-                  />
-                ) : (
+              {post.image ? (
+                <>
+                  {/* Premium Ambient Blur Background */}
+                  <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
+                    <Image
+                      src={urlFor(post.image).width(200).url()}
+                      alt="blur background"
+                      fill
+                      className="object-cover blur-3xl scale-125 opacity-40 transition-all duration-700 ease-out group-hover:scale-150 group-hover:opacity-60"
+                      aria-hidden="true"
+                    />
+                  </div>
+
+                  {/* Main Foreground Image */}
+                  <div className="relative w-full h-full z-20 p-4 sm:p-8 flex items-center justify-center">
+                    <div className="relative w-full h-full transition-transform duration-700 ease-out group-hover:scale-105">
+                      <Image
+                        src={urlFor(post.image).width(1200).url()}
+                        alt={post.title}
+                        fill
+                        sizes="(max-width: 992px) 100vw, 80vw"
+                        className="object-contain drop-shadow-2xl dark-theme-image"
+                        priority
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="relative z-20 w-full h-full p-8">
                   <div className="w-full h-full bg-line-blue/10 rounded-2xl" />
-                )}
-              </div>
+                </div>
+              )}
             </div>
 
             {/* ── Article Content ── */}

@@ -74,3 +74,48 @@ export const jsonLdWebSite = {
     "query-input": "required name=search_term_string",
   },
 } as const;
+
+export function getBlogJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": "https://traffic63.ru/blog/#blog",
+    name: "Блог traffic63 — Практический опыт и кейсы маркетинга",
+    description: "Делимся практическим опытом, кейсами автоматизации и секретами performance-маркетинга.",
+    url: "https://traffic63.ru/blog",
+    publisher: {
+      "@id": "https://traffic63.ru/#organization",
+    },
+  };
+}
+
+export function getArticleJsonLd(post: {
+  title: string;
+  excerpt?: string;
+  date?: string;
+  author?: string;
+  imageUrl?: string;
+  url: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${post.url}/#article`,
+    headline: post.title,
+    description: post.excerpt,
+    image: post.imageUrl || "https://traffic63.ru/favicon.svg",
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Person",
+      name: post.author || "traffic63 Team",
+    },
+    publisher: {
+      "@id": "https://traffic63.ru/#organization",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": post.url,
+    },
+  };
+}

@@ -1,16 +1,28 @@
 "use client";
 
-import React, { useState, useRef, FormEvent, useEffect } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 
 interface ContactFormProps {
   defaultMessage?: string;
 }
 
+// Strict email regex requiring a valid TLD (domain extension of at least 2 chars, e.g. .ru, .com)
+const isValidEmail = (emailStr: string): boolean => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(emailStr.trim());
+};
+
 export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
-  const formRef = useRef<HTMLFormElement>(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState(defaultMessage || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [message, setMessage] = useState(defaultMessage || "");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Email validation state
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [isEmailTouched, setIsEmailTouched] = useState(false);
 
   useEffect(() => {
     if (defaultMessage) {
@@ -18,37 +30,83 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
     }
   }, [defaultMessage]);
 
+  const handleEmailChange = (val: string) => {
+    setEmail(val);
+    if (isEmailTouched) {
+      if (!val.trim()) {
+        setEmailError("Укажите ваш email");
+      } else if (!isValidEmail(val)) {
+        setEmailError("Укажите верный email с доменной зоной (например, example@mail.ru)");
+      } else {
+        setEmailError(null);
+      }
+    }
+  };
+
+  const handleEmailBlur = () => {
+    setIsEmailTouched(true);
+    if (!email.trim()) {
+      setEmailError("Укажите ваш email");
+    } else if (!isValidEmail(email)) {
+      setEmailError("Укажите верный email с доменной зоной (например, example@mail.ru)");
+    } else {
+      setEmailError(null);
+    }
+  };
+
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (isSubmitting || isSuccess) return;
+    if (isSubmitting) return;
+
+    // Validate email strictly before submission
+    setIsEmailTouched(true);
+    if (!isValidEmail(email)) {
+      setEmailError("Укажите верный email с доменной зоной (например, example@mail.ru)");
+      return;
+    }
+    setEmailError(null);
 
     setIsSubmitting(true);
+    setErrorMessage(null);
 
     try {
-      const formData = new FormData(formRef.current!);
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-      const response = await fetch(`${apiUrl}/api/v1/submit/74dd9c86-572c-42dd-aef0-3877e2c7e63e`, {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData,
         headers: {
-          "Accept": "application/json"
-        }
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "31736206-741a-4808-a284-d19e067cdc6c",
+          name: name.trim(),
+          email: email.trim(),
+          message: message.trim(),
+          subject: "Новая заявка с сайта Traffic63",
+          from_name: "Traffic63 Website",
+        }),
       });
 
-      if (response.ok) {
-        formRef.current?.reset();
+      const data = await response.json();
+
+      if (data.success) {
+        setName("");
+        setEmail("");
         setMessage("");
+        setIsEmailTouched(false);
+        setEmailError(null);
         setIsSuccess(true);
 
         setTimeout(() => {
           setIsSuccess(false);
-        }, 4000);
+        }, 6000);
       } else {
-        alert("Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.");
+        setErrorMessage(
+          data.message || "Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз."
+        );
       }
     } catch (error) {
-      console.error("Submit error:", error);
-      alert("Не удалось отправить форму. Проверьте соединение с интернетом.");
+      console.error("Web3Forms submit error:", error);
+      setErrorMessage("Не удалось отправить форму. Проверьте подключение к интернету.");
     } finally {
       setIsSubmitting(false);
     }
@@ -57,15 +115,16 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
   return (
     <form
       id="contactForm"
-      ref={formRef}
       onSubmit={handleFormSubmit}
       className="w-full text-left space-y-6"
     >
-      {/* Защита от спама (Honeypot). Невидима для людей */}
-      <input type="text" name="_gotcha" style={{ display: "none" }} />
+      {/* Hidden Web3Forms Access Key */}
+      <input type="hidden" name="access_key" value="31736206-741a-4808-a284-d19e067cdc6c" />
+      <input type="hidden" name="subject" value="Новая заявка с сайта Traffic63" />
+      <input type="hidden" name="from_name" value="Traffic63 Website" />
 
-      {/* Название темы письма/уведомления */}
-      <input type="hidden" name="_subject" value="Новая заявка с сайта!" />
+      {/* Honeypot Spam Protection */}
+      <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} />
 
       {/* Row 1: Name and Email side-by-side */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
@@ -73,17 +132,19 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
         <div className="relative flex flex-col items-start w-full">
           <label
             htmlFor="name"
-            className="font-heading text-[10px] font-extrabold tracking-widest text-pencil/50 uppercase mb-1 select-none"
+            className="font-heading text-[10px] font-extrabold tracking-widest text-pencil/60 uppercase mb-1 select-none"
           >
             Ваше имя
           </label>
           <input
             type="text"
             id="name"
-            name="Имя"
+            name="name"
             placeholder="Как вас зовут?"
             required
-            className="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b border-line-blue/70 dark:border-slate-800 rounded-none px-0 py-2 text-ink-dark dark:text-white placeholder:text-pencil/25 focus:border-coral focus:ring-0 focus:outline-none transition-all duration-300"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b border-line-blue/70 rounded-none px-0 py-2 text-ink-dark placeholder:text-pencil/35 focus:border-coral focus:ring-0 focus:outline-none transition-all duration-300 font-body text-base"
           />
         </div>
 
@@ -91,18 +152,30 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
         <div className="relative flex flex-col items-start w-full">
           <label
             htmlFor="email"
-            className="font-heading text-[10px] font-extrabold tracking-widest text-pencil/50 uppercase mb-1 select-none"
+            className="font-heading text-[10px] font-extrabold tracking-widest text-pencil/60 uppercase mb-1 select-none"
           >
             Ваш Email
           </label>
           <input
             type="email"
             id="email"
-            name="Email"
+            name="email"
             placeholder="example@mail.ru"
             required
-            className="w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b border-line-blue/70 dark:border-slate-800 rounded-none px-0 py-2 text-ink-dark dark:text-white placeholder:text-pencil/25 focus:border-coral focus:ring-0 focus:outline-none transition-all duration-300"
+            value={email}
+            onChange={(e) => handleEmailChange(e.target.value)}
+            onBlur={handleEmailBlur}
+            className={`w-full bg-transparent border-t-0 border-l-0 border-r-0 border-b rounded-none px-0 py-2 text-ink-dark placeholder:text-pencil/35 focus:ring-0 focus:outline-none transition-all duration-300 font-body text-base ${
+              emailError
+                ? "border-rose-500 focus:border-rose-500"
+                : "border-line-blue/70 focus:border-coral"
+            }`}
           />
+          {emailError && (
+            <span className="text-[11px] text-rose-500 font-medium mt-1 select-none animate-fadeIn">
+              {emailError}
+            </span>
+          )}
         </div>
       </div>
 
@@ -110,32 +183,54 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
       <div className="relative flex flex-col items-start w-full">
         <label
           htmlFor="message"
-          className="font-heading text-[10px] font-extrabold tracking-widest text-pencil/50 uppercase mb-1 select-none"
+          className="font-heading text-[10px] font-extrabold tracking-widest text-pencil/60 uppercase mb-1 select-none"
         >
           Сообщение
         </label>
         <textarea
           id="message"
-          name="Сообщение"
+          name="message"
           placeholder="Чем занимается ваш бизнес? Какие задачи хотите решить?"
           required
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="w-full min-h-[100px] bg-transparent border-t-0 border-l-0 border-r-0 border-b border-line-blue/70 dark:border-slate-800 rounded-none px-0 py-2 text-ink-dark dark:text-white placeholder:text-pencil/25 focus:border-coral focus:ring-0 focus:outline-none transition-all duration-300 resize-none"
+          className="w-full min-h-[100px] bg-transparent border-t-0 border-l-0 border-r-0 border-b border-line-blue/70 rounded-none px-0 py-2 text-ink-dark placeholder:text-pencil/35 focus:border-coral focus:ring-0 focus:outline-none transition-all duration-300 font-body text-base resize-none"
         />
       </div>
+
+      {/* Success Notification */}
+      {isSuccess && (
+        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-sm font-medium text-center animate-fadeIn">
+          ✓ Спасибо! Ваша заявка успешно отправлена. Мы свяжемся с вами в ближайшее время.
+        </div>
+      )}
+
+      {/* Error Notification */}
+      {errorMessage && (
+        <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-sm font-medium text-center animate-fadeIn">
+          ✕ {errorMessage}
+        </div>
+      )}
 
       {/* Submit Button */}
       <button
         type="submit"
         disabled={isSubmitting || isSuccess}
-        className={`px-8 py-3 rounded-full text-white font-heading text-xs font-extrabold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed mx-auto mt-8 active:scale-95 hover:shadow-lg group ${
+        className={`px-8 py-3.5 rounded-full text-white font-heading text-xs font-extrabold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed mx-auto mt-8 active:scale-95 hover:shadow-lg group ${
           isSuccess
             ? "bg-emerald-600 hover:bg-emerald-600 shadow-md"
             : "bg-ink-dark hover:bg-coral hover:shadow-coral/20"
         }`}
       >
-        {isSubmitting && "Отправка..."}
+        {isSubmitting && (
+          <>
+            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Отправка...
+          </>
+        )}
         {isSuccess && "Заявка отправлена!"}
         {!isSubmitting && !isSuccess && (
           <>
@@ -159,3 +254,5 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
     </form>
   );
 };
+
+
