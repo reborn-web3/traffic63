@@ -113,14 +113,11 @@ export default function ContactsPage() {
                 </svg>
 
                 <div className="relative z-10">
-                  <span className="font-heading text-[10px] font-extrabold tracking-widest text-coral uppercase mb-2 block select-none">
-                    ✦ ОТВЕЧАЕМ ЗА 10 МИНУТ
-                  </span>
                   <h3 className="font-heading font-extrabold text-xl text-ink-dark mb-6">Быстрая связь</h3>
 
                   <div className="flex flex-col gap-4">
                     <a
-                      href="https://t.me/traffic63_support"
+                      href="https://t.me/manager_traffic63"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-4 p-4 border border-line-blue bg-paper rounded-2xl hover:border-coral transition-all duration-300 hover:shadow-sm"
@@ -133,7 +130,7 @@ export default function ContactsPage() {
                       </div>
                       <div>
                         <span className="block font-semibold text-ink-dark">Telegram</span>
-                        <span className="text-sm text-pencil">@traffic63_support</span>
+                        <span className="text-sm text-pencil">@manager_traffic63</span>
                       </div>
                       <svg className="ml-auto w-5 h-5 text-pencil" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -141,7 +138,7 @@ export default function ContactsPage() {
                     </a>
 
                     <a
-                      href="https://wa.me/79991234567"
+                      href="https://wa.me/79198037232"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-4 p-4 border border-line-blue bg-paper rounded-2xl hover:border-coral transition-all duration-300 hover:shadow-sm"
@@ -154,7 +151,7 @@ export default function ContactsPage() {
                       </div>
                       <div>
                         <span className="block font-semibold text-ink-dark">WhatsApp</span>
-                        <span className="text-sm text-pencil">+7 (999) 123-45-67</span>
+                        <span className="text-sm text-pencil">+7 (919) 803-72-32</span>
                       </div>
                       <svg className="ml-auto w-5 h-5 text-pencil" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -180,9 +177,6 @@ export default function ContactsPage() {
 
                 <div className="relative z-10 flex flex-col gap-6">
                   <div>
-                    <span className="font-heading text-[10px] font-extrabold tracking-widest text-coral uppercase mb-2 block select-none">
-                      ✦ КОНТАКТЫ
-                    </span>
                     <h3 className="font-heading font-extrabold text-xl text-ink-dark">Контакты агентства</h3>
                   </div>
 
@@ -195,8 +189,8 @@ export default function ContactsPage() {
                       </div>
                       <div>
                         <span className="block text-sm text-pencil">Номер телефона</span>
-                        <a href="tel:+79991234567" className="font-heading font-bold text-lg text-ink-dark hover:text-coral transition-colors">
-                          +7 (999) 123-45-67
+                        <a href="tel:+79198037232" className="font-heading font-bold text-lg text-ink-dark hover:text-coral transition-colors">
+                          +7 (919) 803-72-32
                         </a>
                       </div>
                     </div>
