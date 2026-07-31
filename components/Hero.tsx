@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { TypewriterWord } from "./TypewriterWord";
 
 export const Hero = () => {
   return (
@@ -18,7 +19,10 @@ export const Hero = () => {
         >
           <h1 className="font-heading text-[44px] leading-[0.9] sm:text-7xl lg:text-[110px] font-black sm:leading-[0.95] text-ink-dark tracking-tighter uppercase select-none">
             <span className="md:whitespace-nowrap">Делаем бизнес</span> <br />
-            <span className="font-serif italic text-coral lowercase font-normal tracking-normal">заметным</span>
+            <TypewriterWord
+              words={["заметным", "узнаваемым", "успешным"]}
+              className="font-serif italic text-coral lowercase font-normal tracking-normal"
+            />
           </h1>
         </motion.div>
 

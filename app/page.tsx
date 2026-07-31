@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import Hero from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { AgencyBanner } from "@/components/AgencyBanner";
+import { FormulaBanner } from "@/components/FormulaBanner";
 import { ServiceClimber } from "@/components/ServiceClimber";
 import { Process } from "@/components/Process";
 import { Cases } from "@/components/Cases";
@@ -30,6 +31,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <ServiceClimber />
+        <FormulaBanner />
         <AgencyBanner />
         <CTASection />
       </main>

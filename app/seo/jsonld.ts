@@ -8,16 +8,17 @@ export const jsonLdOrganization = {
   contactPoint: [
     {
       "@type": "ContactPoint",
-      telephone: "+7 (999) 123-45-67",
+      telephone: "+7 (919) 803-72-32",
       contactType: "customer service",
       areaServed: "RU",
       availableLanguage: ["Russian", "English"],
     },
   ],
   sameAs: [
-    "https://t.me/traffic63",
+    "https://t.me/manager_traffic63",
     "https://vk.com/traffic63",
-    "https://wa.me/79991234567",
+    "https://wa.me/79198037232",
+    "https://instagram.com/traffic63.ru",
   ],
 } as const;
 
@@ -28,37 +29,18 @@ export const jsonLdLocalBusiness = {
   name: "traffic63",
   image: "https://traffic63.ru/favicon.svg",
   url: "https://traffic63.ru",
-  telephone: "+7 (999) 123-45-67",
+  telephone: "+7 (919) 803-72-32",
   priceRange: "$$",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "ул. Ново-Садовая, 106, офис 402",
-    addressLocality: "Самара",
-    addressRegion: "Самарская область",
-    postalCode: "443068",
+    addressLocality: "Москва / Онлайн по РФ",
     addressCountry: "RU",
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 53.21245,
-    longitude: 50.14441,
-  },
-  openingHoursSpecification: {
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday"
-    ],
-    opens: "09:00",
-    closes: "18:00",
-  },
   sameAs: [
-    "https://t.me/traffic63",
+    "https://t.me/manager_traffic63",
     "https://vk.com/traffic63",
-    "https://wa.me/79991234567",
+    "https://wa.me/79198037232",
+    "https://instagram.com/traffic63.ru",
   ],
 } as const;
 

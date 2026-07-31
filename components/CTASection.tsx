@@ -86,7 +86,7 @@ export const CTASection = () => {
             }}
             className="font-body text-sm md:text-base text-pencil/80 leading-relaxed max-w-[500px] mx-auto mb-12 will-change-[transform,opacity]"
           >
-            Оставьте заявку — обсудим ваш проект бесплатно и составим индивидуальный план действий для вашего бизнеса.
+            Расскажите о проекте — разберем вашу ситуацию и подскажем понятные шаги для привлечения клиентов.
           </motion.p>
 
           {/* Minimalist Contact Form */}

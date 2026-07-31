@@ -20,7 +20,6 @@ export const Header = () => {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [lang, setLang] = useState<"ru" | "en">("ru");
   const [isAtBottom, setIsAtBottom] = useState(false);
 
   useEffect(() => {
@@ -61,16 +60,19 @@ export const Header = () => {
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  const toggleTheme = () => {
-    const nextTheme = theme === "light" ? "dark" : "light";
-    setTheme(nextTheme);
-    document.documentElement.setAttribute("data-theme", nextTheme);
-    if (nextTheme === "dark") {
+  const setThemeMode = (newTheme: "light" | "dark") => {
+    setTheme(newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+    if (newTheme === "dark") {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
-    localStorage.setItem("theme", nextTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
+  const toggleTheme = () => {
+    setThemeMode(theme === "light" ? "dark" : "light");
   };
 
   useEffect(() => {
@@ -218,20 +220,25 @@ export const Header = () => {
               </Link>
             </nav>
 
-            <div className="hidden md:flex items-center gap-3">
-              {/* Theme Toggle Button */}
-              <button
-                onClick={toggleTheme}
-                className="w-8 h-8 rounded-full border border-line-blue hover:border-coral flex items-center justify-center text-ink-dark hover:text-coral transition-colors cursor-pointer select-none"
-                aria-label="Переключить тему"
-              >
-                {!mounted ? (
-                  <div className="w-4 h-4" />
-                ) : theme === "light" ? (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                  </svg>
-                ) : (
+            <div className="hidden md:flex items-center">
+              {/* Theme Switcher Pill */}
+              <div className="relative flex items-center bg-line-blue-light dark:bg-white/5 rounded-full p-0.5 border border-line-blue dark:border-white/5 h-8 w-20 select-none">
+                {/* Sliding backdrop */}
+                <div
+                  className="absolute top-0.5 bottom-0.5 left-0.5 bg-paper dark:bg-paper-dark shadow-[0_1px_3px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.4)] border border-line-blue/20 dark:border-white/10 rounded-full transition-all duration-300 ease-out"
+                  style={{
+                    width: "calc(50% - 1px)",
+                    transform: theme === "light" ? "translateX(0)" : "translateX(100%)",
+                  }}
+                />
+                
+                <button
+                  onClick={() => setThemeMode("light")}
+                  className={`relative z-10 w-1/2 h-full flex items-center justify-center transition-colors duration-300 cursor-pointer ${
+                    theme === "light" ? "text-ink-dark" : "text-pencil/40 hover:text-coral"
+                  }`}
+                  aria-label="Светлая тема"
+                >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="5"></circle>
                     <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -243,35 +250,17 @@ export const Header = () => {
                     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                   </svg>
-                )}
-              </button>
-
-              {/* Language Switcher */}
-              <div className="relative flex items-center bg-line-blue-light dark:bg-white/5 rounded-full p-0.5 border border-line-blue dark:border-white/5 h-8 w-20 select-none">
-                {/* Sliding backdrop */}
-                <div
-                  className="absolute top-0.5 bottom-0.5 left-0.5 bg-paper dark:bg-paper-dark shadow-[0_1px_3px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.4)] border border-line-blue/20 dark:border-white/10 rounded-full transition-all duration-300 ease-out"
-                  style={{
-                    width: "calc(50% - 1px)",
-                    transform: lang === "ru" ? "translateX(0)" : "translateX(100%)",
-                  }}
-                />
-                
-                <button
-                  onClick={() => setLang("ru")}
-                  className={`relative z-10 w-1/2 h-full flex items-center justify-center text-[9px] font-extrabold uppercase tracking-wider transition-colors duration-300 cursor-pointer ${
-                    lang === "ru" ? "text-ink-dark" : "text-pencil/40 hover:text-pencil"
-                  }`}
-                >
-                  RU
                 </button>
                 <button
-                  onClick={() => setLang("en")}
-                  className={`relative z-10 w-1/2 h-full flex items-center justify-center text-[9px] font-extrabold uppercase tracking-wider transition-colors duration-300 cursor-pointer ${
-                    lang === "en" ? "text-ink-dark" : "text-pencil/40 hover:text-pencil"
+                  onClick={() => setThemeMode("dark")}
+                  className={`relative z-10 w-1/2 h-full flex items-center justify-center transition-colors duration-300 cursor-pointer ${
+                    theme === "dark" ? "text-ink-dark" : "text-pencil/40 hover:text-coral"
                   }`}
+                  aria-label="Темная тема"
                 >
-                  EN
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                  </svg>
                 </button>
               </div>
             </div>
@@ -375,20 +364,23 @@ export const Header = () => {
             </Link>
           </div>
 
-          {/* Mobile Theme/Lang Controls */}
-          <div className="flex items-center gap-4 mt-8 pt-8 border-t border-line-blue/30 w-full max-w-xs justify-center">
-            <button
-              onClick={toggleTheme}
-              className="w-12 h-12 rounded-full border border-line-blue flex items-center justify-center text-ink-dark transition-colors cursor-pointer select-none"
-              aria-label="Переключить тему"
-            >
-              {!mounted ? (
-                <div className="w-5 h-5" />
-              ) : theme === "light" ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-              ) : (
+          {/* Mobile Theme Control */}
+          <div className="flex items-center mt-8 pt-8 border-t border-line-blue/30 w-full max-w-xs justify-center">
+            <div className="relative flex items-center bg-line-blue-light dark:bg-white/5 rounded-full p-1 border border-line-blue dark:border-white/5 h-12 w-28 select-none">
+              <div
+                className="absolute top-1 bottom-1 left-1 bg-paper dark:bg-paper-dark shadow-[0_1px_3px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.4)] border border-line-blue/20 dark:border-white/10 rounded-full transition-all duration-300 ease-out"
+                style={{
+                  width: "calc(50% - 2px)",
+                  transform: theme === "light" ? "translateX(0)" : "translateX(100%)",
+                }}
+              />
+              <button
+                onClick={() => setThemeMode("light")}
+                className={`relative z-10 w-1/2 h-full flex items-center justify-center transition-colors duration-300 cursor-pointer ${
+                  theme === "light" ? "text-ink-dark" : "text-pencil/40 hover:text-coral"
+                }`}
+                aria-label="Светлая тема"
+              >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="5"></circle>
                   <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -400,32 +392,17 @@ export const Header = () => {
                   <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                   <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                 </svg>
-              )}
-            </button>
-
-            <div className="relative flex items-center bg-line-blue-light dark:bg-white/5 rounded-full p-1 border border-line-blue dark:border-white/5 h-12 w-28 select-none">
-              <div
-                className="absolute top-1 bottom-1 left-1 bg-paper dark:bg-paper-dark shadow-[0_1px_3px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.4)] border border-line-blue/20 dark:border-white/10 rounded-full transition-all duration-300 ease-out"
-                style={{
-                  width: "calc(50% - 2px)",
-                  transform: lang === "ru" ? "translateX(0)" : "translateX(100%)",
-                }}
-              />
-              <button
-                onClick={() => setLang("ru")}
-                className={`relative z-10 w-1/2 h-full flex items-center justify-center text-[10px] font-extrabold uppercase tracking-wider transition-colors duration-300 cursor-pointer ${
-                  lang === "ru" ? "text-ink-dark" : "text-pencil/40 hover:text-pencil"
-                }`}
-              >
-                RU
               </button>
               <button
-                onClick={() => setLang("en")}
-                className={`relative z-10 w-1/2 h-full flex items-center justify-center text-[10px] font-extrabold uppercase tracking-wider transition-colors duration-300 cursor-pointer ${
-                  lang === "en" ? "text-ink-dark" : "text-pencil/40 hover:text-pencil"
+                onClick={() => setThemeMode("dark")}
+                className={`relative z-10 w-1/2 h-full flex items-center justify-center transition-colors duration-300 cursor-pointer ${
+                  theme === "dark" ? "text-ink-dark" : "text-pencil/40 hover:text-coral"
                 }`}
+                aria-label="Темная тема"
               >
-                EN
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
               </button>
             </div>
           </div>
