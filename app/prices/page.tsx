@@ -322,13 +322,13 @@ export default function PricesPage() {
             <div className="bg-paper border-2 border-line-blue rounded-[32px] p-8 sm:p-12 flex flex-col sm:flex-row sm:items-center justify-between gap-8 shadow-sm relative overflow-hidden group hover:border-coral/40 transition-colors duration-500">
               <div className="relative z-10">
                 <span className="font-heading text-[10px] md:text-xs font-black uppercase tracking-widest text-coral block mb-2">
-                  Нетиповая задача
+                  Особая задача
                 </span>
                 <h3 className="font-heading text-xl md:text-3xl font-black text-ink-dark mb-2">
-                  Соберем индивидуальный стек
+                  Нужно что-то другое?
                 </h3>
                 <p className="font-body text-sm text-pencil max-w-sm">
-                  Подберем состав команды и подготовим смету под ваш проект за 24 часа.
+                  Расскажите о вашей задаче — предложим подходящее решение и подготовим расчет.
                 </p>
               </div>
 
@@ -337,7 +337,7 @@ export default function PricesPage() {
                   href="/#contact"
                   className="inline-flex items-center justify-center gap-2 bg-ink-dark text-paper font-heading text-xs font-extrabold uppercase tracking-wider py-4 px-8 rounded-full shadow-lg hover:bg-coral transition-colors duration-300 cursor-pointer"
                 >
-                  Обсудить задачу →
+                  Обсудить проект →
                 </Link>
               </div>
             </div>
