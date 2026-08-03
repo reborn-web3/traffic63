@@ -198,7 +198,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
 
   const msgVariants = {
     hidden: { opacity: 0, y: 15, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 400, damping: 25 } }
+    visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, stiffness: 400, damping: 25 } }
   };
 
   const typingVariants = {
