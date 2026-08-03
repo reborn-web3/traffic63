@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../tailwind.config.ts";
 
 @theme {
   /* Fonts */
@@ -65,7 +66,7 @@
 
   /* Spacing */
   --section-padding: 100px 0;
-  --container-width: 1200px;
+  --container-width: 1320px;
   --border-radius: 16px;
   --border-radius-sm: 8px;
   --border-radius-lg: 24px;
@@ -1412,8 +1413,8 @@ h1, h2, h3, p, span, button, a {
 
 @media (min-width: 1024px) {
   .hero-grid {
-    grid-template-columns: 0.88fr 1.12fr;
-    gap: 24px;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 32px;
     margin-bottom: 64px;
     align-items: center;
   }
@@ -1424,7 +1425,7 @@ h1, h2, h3, p, span, button, a {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 540px;
+  max-width: 640px;
   position: relative;
   z-index: 5;
 }
@@ -1465,24 +1466,28 @@ h1, h2, h3, p, span, button, a {
 
 /* Headline */
 .hero-headline {
-  font-size: clamp(42px, 5.2vw, 66px);
+  font-size: clamp(44px, 5.5vw, 70px);
   font-weight: 900;
   line-height: 0.93;
   letter-spacing: -0.035em;
   color: var(--ink-dark);
   margin-bottom: 24px;
+  width: 100%;
 }
 
 .hero-headline__main {
-  display: inline-block;
+  display: block;
   text-transform: uppercase;
   color: var(--ink-dark);
+  white-space: nowrap;
+  font-weight: 900;
 }
 
 .hero-headline__accent {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-handwritten), 'Caveat', cursive, serif;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 700;
+  font-size: 1.15em;
   text-transform: lowercase;
   color: #2563eb !important;
   letter-spacing: -0.01em;
@@ -1647,17 +1652,17 @@ h1, h2, h3, p, span, button, a {
   border-radius: 24px;
   padding: 30px 32px 24px 32px;
   box-shadow:
-    0 25px 60px -15px rgba(37, 99, 235, 0.18),
-    0 10px 30px -10px rgba(15, 23, 42, 0.08),
+    -15px 30px 70px -10px rgba(37, 99, 235, 0.22),
+    0 15px 35px -10px rgba(15, 23, 42, 0.1),
     0 0 0 1px rgba(255, 255, 255, 0.8) inset;
-  transform: perspective(1200px) rotateY(-20deg) rotateX(11deg) rotateZ(-2deg);
+  transform: perspective(950px) rotateY(-28deg) rotateX(14deg) rotateZ(-3deg);
   transform-style: preserve-3d;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 2;
 }
 
 .hero-dashboard__card:hover {
-  transform: perspective(1200px) rotateY(-15deg) rotateX(8deg) rotateZ(-1deg);
+  transform: perspective(950px) rotateY(-22deg) rotateX(10deg) rotateZ(-1deg);
 }
 
 [data-theme="dark"] .hero-dashboard__card {
@@ -1842,6 +1847,9 @@ h1, h2, h3, p, span, button, a {
   justify-content: center;
   gap: 16px;
   z-index: 5;
+  transform: perspective(950px) rotateY(-14deg) rotateX(8deg) translateZ(10px);
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Blue Connecting Arc Line behind the 3 partner cards */

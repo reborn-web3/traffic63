@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export const FormulaBanner = () => {
   return (
@@ -30,20 +31,28 @@ export const FormulaBanner = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="group relative bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 hover:border-coral/40 rounded-[32px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] transition-all duration-500 flex flex-col justify-between h-full"
+            className="group relative [perspective:1000px] h-full min-h-[260px] lg:min-h-[280px]"
           >
-            <div>
-              <div className="font-heading text-4xl sm:text-5xl font-light text-coral mb-6 tracking-tight">
-                01
+            <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+              {/* Front Face */}
+              <div className="h-full w-full bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 rounded-[32px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between overflow-hidden [backface-visibility:hidden]">
+                <div className="absolute -bottom-4 -right-4 w-[220px] h-[220px] opacity-95 transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-6 pointer-events-none">
+                  <Image src="/images/cards/website_nobg.png" alt="Website" fill className="object-cover" />
+                </div>
+                
+                <div className="relative z-10 text-left">
+                  <h3 className="font-heading text-3xl sm:text-4xl font-bold text-ink-dark tracking-tight">
+                    Сайт
+                  </h3>
+                </div>
               </div>
-
-              <h3 className="font-heading text-2xl sm:text-[28px] font-semibold text-ink-dark tracking-tight mb-4">
-                Сайт
-              </h3>
-
-              <p className="font-body text-sm sm:text-base text-pencil leading-relaxed font-normal">
-                Витрина бизнеса. Понятно рассказывает о продукте и вызывает доверие с первых секунд.
-              </p>
+              
+              {/* Back Face */}
+              <div className="absolute inset-0 h-full w-full bg-paper-dark/90 backdrop-blur-xl border border-coral/40 rounded-[32px] p-8 sm:p-10 shadow-[0_16px_40px_rgba(0,0,0,0.06)] flex flex-col justify-center items-center text-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                <p className="font-body text-sm sm:text-base text-pencil leading-relaxed font-normal">
+                  Витрина бизнеса. Понятно рассказывает о продукте и вызывает доверие с первых секунд.
+                </p>
+              </div>
             </div>
           </motion.div>
 
@@ -66,20 +75,28 @@ export const FormulaBanner = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="group relative bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 hover:border-coral/40 rounded-[32px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] transition-all duration-500 flex flex-col justify-between h-full"
+            className="group relative [perspective:1000px] h-full min-h-[260px] lg:min-h-[280px]"
           >
-            <div>
-              <div className="font-heading text-4xl sm:text-5xl font-light text-coral mb-6 tracking-tight">
-                02
+            <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+              {/* Front Face */}
+              <div className="h-full w-full bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 rounded-[32px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between overflow-hidden [backface-visibility:hidden]">
+                <div className="absolute -bottom-4 -right-4 w-[220px] h-[220px] opacity-95 transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-6 pointer-events-none">
+                  <Image src="/images/cards/ads_nobg.png" alt="Ads" fill className="object-cover" />
+                </div>
+                
+                <div className="relative z-10 text-left">
+                  <h3 className="font-heading text-3xl sm:text-4xl font-bold text-ink-dark tracking-tight">
+                    Реклама
+                  </h3>
+                </div>
               </div>
 
-              <h3 className="font-heading text-2xl sm:text-[28px] font-semibold text-ink-dark tracking-tight mb-4">
-                Реклама
-              </h3>
-
-              <p className="font-body text-sm sm:text-base text-pencil leading-relaxed font-normal">
-                Поток новых клиентов. Привлекает аудиторию, которая прямо сейчас ищет продукт или услугу.
-              </p>
+              {/* Back Face */}
+              <div className="absolute inset-0 h-full w-full bg-paper-dark/90 backdrop-blur-xl border border-coral/40 rounded-[32px] p-8 sm:p-10 shadow-[0_16px_40px_rgba(0,0,0,0.06)] flex flex-col justify-center items-center text-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                <p className="font-body text-sm sm:text-base text-pencil leading-relaxed font-normal">
+                  Поток новых клиентов. Привлекает аудиторию, которая прямо сейчас ищет продукт или услугу.
+                </p>
+              </div>
             </div>
           </motion.div>
 
@@ -102,20 +119,28 @@ export const FormulaBanner = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="group relative bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 hover:border-coral/40 rounded-[32px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] transition-all duration-500 flex flex-col justify-between h-full"
+            className="group relative [perspective:1000px] h-full min-h-[260px] lg:min-h-[280px]"
           >
-            <div>
-              <div className="font-heading text-4xl sm:text-5xl font-light text-coral mb-6 tracking-tight">
-                03
+            <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+              {/* Front Face */}
+              <div className="h-full w-full bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 rounded-[32px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between overflow-hidden [backface-visibility:hidden]">
+                <div className="absolute -bottom-4 -right-4 w-[220px] h-[220px] opacity-95 transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-6 pointer-events-none">
+                  <Image src="/images/cards/crm_nobg.png" alt="CRM" fill className="object-cover" />
+                </div>
+                
+                <div className="relative z-10 text-left">
+                  <h3 className="font-heading text-3xl sm:text-4xl font-bold text-ink-dark tracking-tight">
+                    CRM
+                  </h3>
+                </div>
               </div>
 
-              <h3 className="font-heading text-2xl sm:text-[28px] font-semibold text-ink-dark tracking-tight mb-4">
-                CRM
-              </h3>
-
-              <p className="font-body text-sm sm:text-base text-pencil leading-relaxed font-normal">
-                Порядок в продажах. Сохраняет каждое обращение и помогает контролировать статус всех заказов.
-              </p>
+              {/* Back Face */}
+              <div className="absolute inset-0 h-full w-full bg-paper-dark/90 backdrop-blur-xl border border-coral/40 rounded-[32px] p-8 sm:p-10 shadow-[0_16px_40px_rgba(0,0,0,0.06)] flex flex-col justify-center items-center text-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                <p className="font-body text-sm sm:text-base text-pencil leading-relaxed font-normal">
+                  Порядок в продажах. Сохраняет каждое обращение и помогает контролировать статус всех заказов.
+                </p>
+              </div>
             </div>
           </motion.div>
 

@@ -82,78 +82,6 @@ const trustBadges = [
   },
 ];
 
-/* ── Client logos data (Authentic SVG Brand Logos) ───────────────── */
-const clientLogos = [
-  {
-    name: "INVITRO",
-    svg: (
-      <svg height="20" viewBox="0 0 110 24" fill="currentColor">
-        <text x="0" y="19" fontFamily="Georgia, serif" fontSize="19" fontWeight="900" fontStyle="italic" letterSpacing="1">
-          INVITRO
-        </text>
-      </svg>
-    ),
-  },
-  {
-    name: "СБЕР",
-    svg: (
-      <svg height="22" viewBox="0 0 85 24" fill="none">
-        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.2" />
-        <path d="M7 13.5l4 3.5 7.5-8" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-        <text x="28" y="17.5" fill="currentColor" fontFamily="var(--font-heading), sans-serif" fontSize="15" fontWeight="800" letterSpacing="0.5">
-          СБЕР
-        </text>
-      </svg>
-    ),
-  },
-  {
-    name: "DODO PIZZA",
-    svg: (
-      <svg height="22" viewBox="0 0 115 24" fill="none">
-        <path d="M4 14c0-4 3.5-8 9-8s8 3 8 7c0 3-2.5 5.5-6 5.5-3 0-5.5-1.5-6.5-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="16" cy="10" r="1.5" fill="currentColor" />
-        <path d="M18 13h4l-2 3-2-3z" fill="currentColor" />
-        <text x="28" y="17.5" fill="currentColor" fontFamily="var(--font-heading), sans-serif" fontSize="15" fontWeight="900" letterSpacing="0.5">
-          DODO PIZZA
-        </text>
-      </svg>
-    ),
-  },
-  {
-    name: "СОГАЗ",
-    svg: (
-      <svg height="20" viewBox="0 0 80 24" fill="currentColor">
-        <text x="0" y="18" fontFamily="var(--font-heading), sans-serif" fontSize="18" fontWeight="900" letterSpacing="0.5">
-          СОГАЗ
-        </text>
-      </svg>
-    ),
-  },
-  {
-    name: "Литрес",
-    svg: (
-      <svg height="22" viewBox="0 0 95 24" fill="none">
-        <rect x="0" y="5" width="16" height="2.5" rx="1.25" fill="currentColor" />
-        <rect x="0" y="10.5" width="12" height="2.5" rx="1.25" fill="currentColor" />
-        <rect x="0" y="16" width="16" height="2.5" rx="1.25" fill="currentColor" />
-        <text x="24" y="18" fill="currentColor" fontFamily="var(--font-heading), sans-serif" fontSize="17" fontWeight="800" letterSpacing="0.5">
-          Литрес
-        </text>
-      </svg>
-    ),
-  },
-  {
-    name: "АТОЛ",
-    svg: (
-      <svg height="20" viewBox="0 0 75 24" fill="currentColor">
-        <text x="0" y="18" fontFamily="var(--font-heading), sans-serif" fontSize="18" fontWeight="900" letterSpacing="1">
-          АТОЛ
-        </text>
-      </svg>
-    ),
-  },
-];
-
 /* ── Stagger animation variants ──────────────────────────────────── */
 const containerVariants = {
   hidden: {},
@@ -347,16 +275,9 @@ export const Hero = () => {
             initial="hidden"
             animate="visible"
           >
-            {/* Badge */}
-            <motion.div variants={itemVariants} className="hero-badge">
-              <span className="hero-badge__icon">✦</span>
-              PERFORMANCE-МАРКЕТИНГ ДЛЯ РОСТА БИЗНЕСА
-            </motion.div>
-
             {/* Headline */}
             <motion.h1 variants={itemVariants} className="hero-headline">
               <span className="hero-headline__main">ДЕЛАЕМ БИЗНЕС</span>
-              <br />
               <TypewriterWord
                 words={["успешным", "заметным", "узнаваемым"]}
                 className="hero-headline__accent"
@@ -409,22 +330,6 @@ export const Hero = () => {
           ))}
         </motion.div>
 
-        {/* Client logos (with authentic SVG brand symbols) */}
-        <motion.div
-          className="hero-clients"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.85 }}
-        >
-          <span className="hero-clients__label">НАМ ДОВЕРЯЮТ</span>
-          <div className="hero-clients__logos">
-            {clientLogos.map((logo, index) => (
-              <div key={index} className="hero-clients__logo" title={logo.name}>
-                {logo.svg}
-              </div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

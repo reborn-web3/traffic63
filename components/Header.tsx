@@ -124,9 +124,27 @@ export const Header = () => {
         }}
       >
         <div className="container mx-auto px-5 md:px-10 flex items-center justify-between h-[80px] relative">
-          {/* Left Column: Navigation Links */}
-          <div className="hidden md:flex md:w-1/3 justify-end items-center pr-12 lg:pr-16">
-            <nav className="hidden md:flex items-center gap-6">
+          {/* Left Column: Logo & Main Navigation */}
+          <div className="flex items-center gap-8 lg:gap-12">
+            <Link
+              href="/"
+              className="flex items-center text-2xl md:text-3xl font-black text-ink-dark transition-opacity hover:opacity-85 select-none"
+              onClick={handleLogoClick}
+            >
+              <svg className="inline-block h-[1.15em] w-auto align-middle select-none" viewBox="0 0 130 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <text x="0" y="24" fontFamily="Georgia, ui-serif, serif" fontWeight="900" fontStyle="italic" fontSize="28px" fill="currentColor">
+                  traffic
+                </text>
+                <text x="92" y="24" fontFamily="Georgia, ui-serif, serif" fontWeight="900" fontStyle="italic" fontSize="28px" fill="var(--coral)">
+                  6
+                </text>
+                <text x="110" y="19.5" fontFamily="Georgia, ui-serif, serif" fontWeight="900" fontStyle="italic" fontSize="28px" fill="var(--coral)">
+                  3
+                </text>
+              </svg>
+            </Link>
+
+            <nav className="hidden md:flex items-center gap-6 lg:gap-8">
               {/* Dropdown Container */}
               <div
                 className="relative py-4"
@@ -134,7 +152,7 @@ export const Header = () => {
                 onMouseLeave={() => setIsDropdownOpen(false)}
               >
                 <button
-                  className="flex items-center gap-1.5 font-body text-[11px] font-bold uppercase tracking-widest text-pencil hover:text-ink-dark transition-colors cursor-pointer outline-none select-none"
+                  className="flex items-center gap-1.5 font-body text-[12px] lg:text-[13px] font-bold uppercase tracking-wider text-pencil hover:text-ink-dark transition-colors cursor-pointer outline-none select-none"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   aria-expanded={isDropdownOpen}
                   aria-haspopup="true"
@@ -175,51 +193,33 @@ export const Header = () => {
 
               <Link
                 href="/prices"
-                className="font-body text-[11px] font-bold uppercase tracking-widest text-pencil hover:text-ink-dark transition-colors"
+                className="font-body text-[12px] lg:text-[13px] font-bold uppercase tracking-wider text-pencil hover:text-ink-dark transition-colors"
               >
                 Цены
               </Link>
-            </nav>
-          </div>
-
-          {/* Center Column: Logo */}
-          <div className="absolute left-1/2 -translate-x-1/2 md:static md:left-auto md:translate-x-0 md:w-1/3 flex justify-center z-10">
-            <Link
-              href="/"
-              className="flex items-center text-2xl md:text-3xl font-black text-ink-dark transition-opacity hover:opacity-85"
-              onClick={handleLogoClick}
-            >
-              <svg className="inline-block h-[1.15em] w-auto align-middle select-none" viewBox="0 0 130 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <text x="0" y="24" fontFamily="Georgia, ui-serif, serif" fontWeight="900" fontStyle="italic" fontSize="28px" fill="currentColor">
-                  traffic
-                </text>
-                <text x="92" y="24" fontFamily="Georgia, ui-serif, serif" fontWeight="900" fontStyle="italic" fontSize="28px" fill="var(--coral)">
-                  6
-                </text>
-                <text x="110" y="19.5" fontFamily="Georgia, ui-serif, serif" fontWeight="900" fontStyle="italic" fontSize="28px" fill="var(--coral)">
-                  3
-                </text>
-              </svg>
-            </Link>
-          </div>
-
-          {/* Right Column: Secondary Links & Burger */}
-          <div className="w-auto md:w-1/3 flex justify-end md:justify-between items-center gap-4 md:gap-0 pl-12 lg:pl-16 ml-auto z-10 relative">
-            <nav className="hidden md:flex items-center gap-6">
+              <Link
+                href="/#cases"
+                className="font-body text-[12px] lg:text-[13px] font-bold uppercase tracking-wider text-pencil hover:text-ink-dark transition-colors"
+              >
+                Кейсы
+              </Link>
               <Link
                 href="/blog"
-                className="font-body text-[11px] font-bold uppercase tracking-widest text-pencil hover:text-ink-dark transition-colors"
+                className="font-body text-[12px] lg:text-[13px] font-bold uppercase tracking-wider text-pencil hover:text-ink-dark transition-colors"
               >
                 Блог
               </Link>
               <Link
                 href="/contacts"
-                className="font-body text-[11px] font-bold uppercase tracking-widest text-pencil hover:text-ink-dark transition-colors"
+                className="font-body text-[12px] lg:text-[13px] font-bold uppercase tracking-wider text-pencil hover:text-ink-dark transition-colors"
               >
                 Контакты
               </Link>
             </nav>
+          </div>
 
+          {/* Right Column: Theme Toggle & CTA Button */}
+          <div className="flex items-center gap-4 lg:gap-6 z-10">
             <div className="hidden md:flex items-center">
               {/* Theme Switcher Pill */}
               <div className="relative flex items-center bg-line-blue-light dark:bg-white/5 rounded-full p-0.5 border border-line-blue dark:border-white/5 h-8 w-20 select-none">
@@ -264,6 +264,18 @@ export const Header = () => {
                 </button>
               </div>
             </div>
+
+            {/* Header Primary CTA Button */}
+            <Link
+              href="/contacts"
+              className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-body text-xs font-bold transition-all duration-300 shadow-md shadow-blue-600/20 hover:shadow-lg hover:shadow-blue-600/30 hover:-translate-y-0.5"
+            >
+              <span>Обсудить проект</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </Link>
 
             {/* Mobile Burger */}
             <button
@@ -355,6 +367,9 @@ export const Header = () => {
 
             <Link href="/prices" className="font-heading text-3xl font-extrabold text-ink-dark py-4" onClick={closeMenu}>
               Цены
+            </Link>
+            <Link href="/#cases" className="font-heading text-3xl font-extrabold text-ink-dark py-4" onClick={closeMenu}>
+              Кейсы
             </Link>
             <Link href="/blog" className="font-heading text-3xl font-extrabold text-ink-dark py-4" onClick={closeMenu}>
               Блог

@@ -217,9 +217,9 @@ export const Footer = () => {
         {/* Social Icons Centered */}
         <div className="flex justify-center gap-6 mt-12 md:mt-16">
           <SocialIcon href="https://t.me/manager_traffic63" icon="telegram" />
-          <SocialIcon href="https://vk.com/traffic63" icon="vk" />
+          <SocialIcon href="https://vk.ru/traffic63.agency" icon="vk" />
           <SocialIcon href="https://wa.me/79198037232" icon="whatsapp" />
-          <SocialIcon href="https://instagram.com/traffic63.ru" icon="instagram" />
+          <SocialIcon href="https://www.instagram.com/traffic63.agency/" icon="instagram" />
         </div>
 
         {/* Bottom row centered */}

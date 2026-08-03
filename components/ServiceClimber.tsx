@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence, MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence, MotionValue, useInView } from "framer-motion";
 import Link from "next/link";
 
 interface ServiceBlock {
@@ -54,113 +54,21 @@ const SERVICES: ServiceBlock[] = [
 ];
 
 export const ServiceClimber = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [prevIndex, setPrevIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
-
-  if (activeIndex !== prevIndex) {
-    setDirection(activeIndex > prevIndex ? 1 : -1);
-    setPrevIndex(activeIndex);
-  }
-
-  const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? 120 : -120,
-      opacity: 0,
-      scale: 0.95,
-      filter: "blur(4px)",
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      filter: "blur(0px)",
-    },
-    exit: (dir: number) => ({
-      x: dir > 0 ? -120 : 120,
-      opacity: 0,
-      scale: 0.95,
-      filter: "blur(4px)",
-    }),
-  };
-
-  // Set up Framer Motion scroll hooks for scroll-linked animation properties
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const block2Ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: block2Progress } = useScroll({
-    target: block2Ref,
-    offset: ["start 25vh", "end 75vh"],
-  });
-
-  // Smooth out the scroll value for rotation and scaling transitions
-  const scrollRotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
-  const smoothRotate = useSpring(scrollRotate, { damping: 20, stiffness: 70 });
-
-  const scrollSkew = useTransform(scrollYProgress, [0, 0.5, 1], [0, 12, 0]);
-  const smoothSkew = useSpring(scrollSkew, { damping: 25, stiffness: 60 });
-
-  const scrollTranslate = useTransform(scrollYProgress, [0, 1], [-20, 20]);
-  const smoothTranslate = useSpring(scrollTranslate, { damping: 20, stiffness: 75 });
-
-  // IntersectionObserver to detect active left-side text block
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "-49% 0px -49% 0px", // Triggers almost exactly at the center line of the viewport
-      threshold: 0.0,
-    };
-
-    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const index = parseInt(entry.target.getAttribute("data-index") || "0", 10);
-          setActiveIndex(index);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    const blocks = containerRef.current?.querySelectorAll(".service-scroll-block");
-    blocks?.forEach((block) => observer.observe(block));
-
-    return () => {
-      blocks?.forEach((block) => observer.unobserve(block));
-    };
-  }, []);
-
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full bg-paper border-t border-line-blue"
-      id="services-scrolly"
-    >
+    <div className="relative w-full bg-paper border-t border-line-blue py-16 md:py-32" id="services">
       <div className="mx-auto px-5 md:px-10 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 relative">
-
-          {/* LEFT COLUMN: Scrollable service text blocks */}
-          <div className="col-span-1 md:col-span-6 flex flex-col z-10">
-            {SERVICES.map((svc, idx) => (
+        <div className="flex flex-col gap-16 md:gap-32">
+          {SERVICES.map((svc, idx) => {
+            const isReversed = idx % 2 !== 0;
+            return (
               <div
                 key={idx}
-                data-index={idx}
-                id={idx === 0 ? "service-sites" : idx === 1 ? "service-bots" : idx === 2 ? "service-ads" : "service-social"}
-                ref={idx === 1 ? block2Ref : undefined}
-                className={`service-scroll-block flex flex-col ${idx === 1 ? "justify-center md:justify-start min-h-[75vh] md:h-[220vh] relative py-0" : "justify-center min-h-[75vh] md:min-h-screen py-16 md:py-24"
-                  }`}
+                className={`flex flex-col md:flex-row items-center gap-10 md:gap-20 ${
+                  isReversed ? "md:flex-row-reverse" : ""
+                }`}
               >
-                <div className={idx === 1 ? "md:sticky md:top-[25vh] md:h-[50vh] flex flex-col justify-center w-full" : "flex flex-col justify-center w-full"}>
-                  {/* Visual inline on mobile (hidden on desktop) */}
-                  <div className={`block md:hidden mb-8 aspect-square max-w-[320px] mx-auto bg-paper-dark border border-line-blue rounded-2xl overflow-hidden relative transition-all duration-300 ${idx === 1 ? "p-0" : "p-4"
-                    }`}>
-                    <MobileVisual index={idx} progress={scrollYProgress} block2Progress={block2Progress} />
-                  </div>
-
-                  {/* Subtitle / Category metadata */}
+                {/* Text Content */}
+                <div className="w-full md:w-1/2 flex flex-col justify-center">
                   <div className="flex items-center gap-4 border-t border-line-blue pt-4 mb-6">
                     <span className="font-body text-xs font-black text-ink-dark select-none">
                       {svc.num}
@@ -170,7 +78,6 @@ export const ServiceClimber = () => {
                     </span>
                   </div>
 
-                   {/* Title styled like the hero section */}
                   <h3 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink-dark leading-tight select-none">
                     {svc.titlePart1}{" "}
                     <span className="font-serif italic text-coral font-normal lowercase tracking-normal">
@@ -179,12 +86,10 @@ export const ServiceClimber = () => {
                     {svc.titlePart2 && ` ${svc.titlePart2}`}
                   </h3>
 
-                  {/* Paragraph description */}
                   <p className="font-body text-pencil text-base sm:text-lg leading-relaxed mt-6 max-w-md">
                     {svc.description}
                   </p>
 
-                  {/* Learn more button */}
                   <div className="mt-8 flex justify-start">
                     <Link
                       href={`/services/${svc.slug}`}
@@ -209,72 +114,38 @@ export const ServiceClimber = () => {
                     </Link>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
 
-          {/* RIGHT COLUMN: Sticky canvas (hidden on mobile) */}
-          <div className="hidden md:block md:col-span-6 sticky top-0 h-screen overflow-hidden">
-            <div className="w-full h-full flex items-center justify-center pl-6">
+                {/* Media/Video Player Mockup */}
+                <div className="w-full md:w-1/2 flex justify-center items-center">
+                  <div className={`relative w-full aspect-square max-w-[500px] bg-paper-dark/30 border border-line-blue/60 rounded-[32px] shadow-sm overflow-hidden flex items-center justify-center backdrop-blur-[2px] ${idx === 1 ? "p-0 md:p-6" : "p-6 md:p-8"}`}>
+                    
+                    {/* SVG Blueprint Grid Background */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40" xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <pattern id="blueprint-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+                          <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="0.8" />
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill="url(#blueprint-grid)" />
+                    </svg>
 
-              {/* Decorative design frame */}
-              <div className={`relative w-full aspect-square max-w-[460px] bg-paper-dark/30 border border-line-blue/60 rounded-[32px] shadow-sm overflow-hidden flex items-center justify-center backdrop-blur-[2px] transition-all duration-300 ${activeIndex === 1 ? "p-0" : "p-8"
-                }`}>
+                    {/* Corner indicators */}
+                    <div className="absolute top-4 left-4 font-heading text-[9px] font-bold tracking-widest text-pencil/50 select-none z-0">
+                      SYS / VISUAL_0{idx + 1}
+                    </div>
+                    <div className="absolute bottom-4 right-4 font-heading text-[9px] font-bold tracking-widest text-pencil/50 select-none z-0">
+                      REC / PLAYING
+                    </div>
 
-                {/* SVG Blueprint Grid Background */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="blueprint-grid" width="24" height="24" patternUnits="userSpaceOnUse">
-                      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="0.8" />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#blueprint-grid)" />
-                  {/* Subtle circular boundary */}
-                  <circle cx="50%" cy="50%" r="44%" fill="none" stroke="rgba(255, 255, 255, 0.02)" strokeWidth="1.5" strokeDasharray="5 5" />
-                </svg>
-
-                {/* Visual Canvas containing animations */}
-                <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-                  <AnimatePresence mode="popLayout" custom={direction}>
-                    <motion.div
-                      key={activeIndex}
-                      custom={direction}
-                      variants={slideVariants}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      transition={{
-                        x: { type: "spring", stiffness: 220, damping: 28 },
-                        opacity: { duration: 0.35, ease: "easeInOut" },
-                        scale: { duration: 0.45, ease: "easeOut" },
-                        filter: { duration: 0.3 }
-                      }}
-                      className="w-full h-full"
-                    >
-                      <DesktopVisual
-                        index={activeIndex}
-                        smoothRotate={smoothRotate}
-                        smoothSkew={smoothSkew}
-                        smoothTranslate={smoothTranslate}
-                        block2Progress={block2Progress}
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                {/* Corner indicators for architectural blueprint feel */}
-                <div className={`absolute top-4 left-4 font-heading text-[9px] font-bold tracking-widest text-pencil/50 select-none transition-opacity duration-300 ${activeIndex === 1 ? "opacity-0 pointer-events-none" : "opacity-100"
-                  }`}>
-                  SYS / ACTIVE_VISUAL_0{activeIndex + 1}
-                </div>
-                <div className={`absolute bottom-4 right-4 font-heading text-[9px] font-bold tracking-widest text-pencil/50 select-none transition-opacity duration-300 ${activeIndex === 1 ? "opacity-0 pointer-events-none" : "opacity-100"
-                  }`}>
-                  COORD / [63.00, 4.00]
+                    {/* The Visual Animation */}
+                    <div className="relative w-full h-full flex items-center justify-center z-10">
+                      <DesktopVisual index={idx} />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-
+            );
+          })}
         </div>
       </div>
     </div>
@@ -284,46 +155,66 @@ export const ServiceClimber = () => {
 /* ==========================================
    AI CHAT BOT WIDGET MOCKUP
    ========================================== */
-const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
-  const msg1Opacity = 1;
-  const msg1Y = 0;
+const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<number> }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Trigger animation when the chat widget comes into view
+  const isInView = useInView(containerRef, { once: false, margin: "-10%" });
+  const [step, setStep] = useState(0);
 
-  const msg2Opacity = useTransform(scrollYProgress, [0.10, 0.22], [0, 1], { clamp: true });
-  const msg2Y = useTransform(scrollYProgress, [0.10, 0.22], [12, 0], { clamp: true });
+  // Reset or start sequence
+  useEffect(() => {
+    if (isInView) {
+      if (step === 0) setStep(1);
+    } else {
+      // Reset when out of view so it replays next time
+      setStep(0);
+    }
+  }, [isInView]);
 
-  const typing1Opacity = useTransform(scrollYProgress, [0.26, 0.28, 0.36, 0.40], [0, 1, 1, 0], { clamp: true });
-  const typing1Display = useTransform(scrollYProgress, (p) => (p >= 0.26 && p <= 0.39 ? "flex" : "none"));
+  // Sequence orchestration
+  useEffect(() => {
+    if (step === 0 || step >= 9) return;
+    
+    let timer: NodeJS.Timeout;
+    // Delays between steps for a natural feel
+    const delays = [0, 800, 1500, 800, 1500, 1000, 800, 1500, 1000];
+    timer = setTimeout(() => setStep(s => s + 1), delays[step]);
 
-  const msg3Opacity = useTransform(scrollYProgress, [0.40, 0.50], [0, 1], { clamp: true });
-  const msg3Y = useTransform(scrollYProgress, [0.40, 0.50], [12, 0], { clamp: true });
+    return () => clearTimeout(timer);
+  }, [step]);
 
-  const msg4Opacity = useTransform(scrollYProgress, [0.56, 0.66], [0, 1], { clamp: true });
-  const msg4Y = useTransform(scrollYProgress, [0.56, 0.66], [12, 0], { clamp: true });
+  // Auto-scroll to bottom
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      const scrollEl = scrollContainerRef.current;
+      scrollEl.scrollTo({
+        top: scrollEl.scrollHeight,
+        behavior: "smooth"
+      });
+    }
+  }, [step]);
 
-  const typing2Opacity = useTransform(scrollYProgress, [0.70, 0.72, 0.78, 0.82], [0, 1, 1, 0], { clamp: true });
-  const typing2Display = useTransform(scrollYProgress, (p) => (p >= 0.70 && p <= 0.81 ? "flex" : "none"));
+  const msgVariants = {
+    hidden: { opacity: 0, y: 15, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 400, damping: 25 } }
+  };
 
-  const msg5Opacity = useTransform(scrollYProgress, [0.82, 0.90], [0, 1], { clamp: true });
-  const msg5Y = useTransform(scrollYProgress, [0.82, 0.90], [12, 0], { clamp: true });
-
-  const chatScrollY = useTransform(
-    scrollYProgress,
-    [0.00, 0.40, 0.50, 0.56, 0.66, 0.82, 0.90, 0.92, 0.98],
-    [0, 0, -45, -45, -95, -95, -145, -145, -180],
-    { clamp: true }
-  );
-
-  const quickReplyOpacity = useTransform(scrollYProgress, [0.92, 0.98], [0, 1], { clamp: true });
-  const quickReplyY = useTransform(scrollYProgress, [0.92, 0.98], [10, 0], { clamp: true });
+  const typingVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.2 } },
+    exit: { opacity: 0, scale: 0.8, transition: { duration: 0.2 } }
+  };
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center select-none">
+    <div ref={containerRef} className="relative w-full h-full flex items-center justify-center select-none">
       {/* Chat window card */}
-      <motion.div
+      <div
         className="w-full h-full rounded-2xl md:rounded-[32px] bg-paper border border-line-blue shadow-[0_8px_30px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col z-10 transition-shadow hover:shadow-[0_12px_40px_rgba(96,165,250,0.15)]"
       >
         {/* Header */}
-        <div className="bg-ink-blue px-4 py-3.5 flex items-center justify-between select-none">
+        <div className="bg-ink-blue px-4 py-3.5 flex items-center justify-between select-none shrink-0 z-20 shadow-sm">
           <div className="flex items-center gap-1.5">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -341,117 +232,128 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress: MotionValue<nu
         </div>
 
         {/* Message body */}
-        <div className="flex-1 p-4 overflow-hidden flex flex-col justify-start min-h-0 bg-paper-dark/50 relative">
-          <motion.div style={{ y: chatScrollY }} className="flex flex-col space-y-3 w-full">
+        <div 
+          ref={scrollContainerRef}
+          className="flex-1 p-4 overflow-y-auto flex flex-col justify-start min-h-0 bg-paper-dark/50 relative scrollbar-hide"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          <div className="flex flex-col space-y-3 w-full pb-2">
             {/* Message 1 */}
-            <motion.div
-              style={{ opacity: msg1Opacity, y: msg1Y }}
-              className="self-start max-w-[85%]"
-            >
-              <div className="bg-paper border border-line-blue text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug">
+            <motion.div variants={msgVariants} initial="hidden" animate="visible" className="self-start max-w-[85%]">
+              <div className="bg-paper border border-line-blue text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug shadow-sm">
                 Привет! Чем я могу помочь вам сегодня?
               </div>
               <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pl-1">10:00</span>
             </motion.div>
 
-            {/* Message 2 */}
-            <motion.div
-              style={{ opacity: msg2Opacity, y: msg2Y }}
-              className="self-end max-w-[85%]"
-            >
-              <div className="bg-ink-blue text-white text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tr-sm font-body leading-snug">
-                Сколько стоит доставка?
-              </div>
-              <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pr-1 text-right">10:01</span>
-            </motion.div>
-
             {/* Typing 1 */}
-            <motion.div
-              style={{ opacity: typing1Opacity, display: typing1Display }}
-              className="self-start bg-paper border border-line-blue px-3.5 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1"
-            >
-              <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-              <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-              <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
-            </motion.div>
+            <AnimatePresence>
+              {step === 1 && (
+                <motion.div variants={typingVariants} initial="hidden" animate="visible" exit="exit" className="self-start bg-paper border border-line-blue px-3.5 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1 shadow-sm">
+                  <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-            {/* Message 3 */}
-            <motion.div
-              style={{ opacity: msg3Opacity, y: msg3Y }}
-              className="self-start max-w-[85%]"
-            >
-              <div className="bg-paper border border-line-blue text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug">
-                Доставка бесплатна при заказе от 3000 ₽. Подсказать условия для вашего города?
-              </div>
-              <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pl-1">10:01</span>
-            </motion.div>
-
-            {/* Message 4 */}
-            <motion.div
-              style={{ opacity: msg4Opacity, y: msg4Y }}
-              className="self-end max-w-[85%]"
-            >
-              <div className="bg-ink-blue text-white text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tr-sm font-body leading-snug">
-                Для Москвы
-              </div>
-              <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pr-1 text-right">10:02</span>
-            </motion.div>
+            {/* Message 2 */}
+            {step >= 2 && (
+              <motion.div variants={msgVariants} initial="hidden" animate="visible" className="self-end max-w-[85%]">
+                <div className="bg-ink-blue text-white text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tr-sm font-body leading-snug shadow-sm">
+                  Сколько стоит доставка?
+                </div>
+                <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pr-1 text-right">10:01</span>
+              </motion.div>
+            )}
 
             {/* Typing 2 */}
-            <motion.div
-              style={{ opacity: typing2Opacity, display: typing2Display }}
-              className="self-start bg-paper border border-line-blue px-3.5 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1"
-            >
-              <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-              <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-              <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
-            </motion.div>
+            <AnimatePresence>
+              {step === 3 && (
+                <motion.div variants={typingVariants} initial="hidden" animate="visible" exit="exit" className="self-start bg-paper border border-line-blue px-3.5 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1 shadow-sm">
+                  <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Message 3 */}
+            {step >= 4 && (
+              <motion.div variants={msgVariants} initial="hidden" animate="visible" className="self-start max-w-[85%]">
+                <div className="bg-paper border border-line-blue text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug shadow-sm">
+                  Доставка бесплатна при заказе от 3000 ₽. Подсказать условия для вашего города?
+                </div>
+                <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pl-1">10:01</span>
+              </motion.div>
+            )}
+
+            {/* Message 4 */}
+            {step >= 5 && (
+              <motion.div variants={msgVariants} initial="hidden" animate="visible" className="self-end max-w-[85%]">
+                <div className="bg-ink-blue text-white text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tr-sm font-body leading-snug shadow-sm">
+                  Для Москвы
+                </div>
+                <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pr-1 text-right">10:02</span>
+              </motion.div>
+            )}
+
+            {/* Typing 3 */}
+            <AnimatePresence>
+              {step === 6 && (
+                <motion.div variants={typingVariants} initial="hidden" animate="visible" exit="exit" className="self-start bg-paper border border-line-blue px-3.5 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1 shadow-sm">
+                  <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Message 5 */}
-            <motion.div
-              style={{ opacity: msg5Opacity, y: msg5Y }}
-              className="self-start max-w-[85%]"
-            >
-              <div className="bg-paper border border-line-blue text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug">
-                В Москве доставляем бесплатно на следующий день курьером
-              </div>
-              <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pl-1">10:02</span>
-            </motion.div>
+            {step >= 7 && (
+              <motion.div variants={msgVariants} initial="hidden" animate="visible" className="self-start max-w-[85%]">
+                <div className="bg-paper border border-line-blue text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug shadow-sm">
+                  В Москве доставляем бесплатно на следующий день курьером
+                </div>
+                <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pl-1">10:02</span>
+              </motion.div>
+            )}
 
             {/* Quick reply action button */}
-            <motion.div
-              style={{ opacity: quickReplyOpacity, y: quickReplyY }}
-              className="self-center pt-2 pb-1"
-            >
-              <a
-                href="#contacts"
-                className="inline-flex items-center gap-1.5 bg-ink-blue hover:bg-coral text-white text-[10px] sm:text-[11px] font-bold px-4 py-2.5 rounded-full shadow-md transition-all hover:scale-105 active:scale-95"
-              >
-                <span>Заказать ИИ-ассистента</span>
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </a>
-            </motion.div>
-          </motion.div>
+            {step >= 8 && (
+              <motion.div variants={msgVariants} initial="hidden" animate="visible" className="self-center pt-2 pb-1">
+                <a
+                  href="#contacts"
+                  className="inline-flex items-center gap-1.5 bg-ink-blue hover:bg-coral text-white text-[10px] sm:text-[11px] font-bold px-4 py-2.5 rounded-full shadow-md transition-all hover:scale-105 active:scale-95"
+                >
+                  <span>Заказать ИИ-ассистента</span>
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </a>
+              </motion.div>
+            )}
+            {/* Added empty div to ensure scrolling padding at bottom */}
+            <div className="h-1" />
+          </div>
         </div>
 
         {/* Footer */}
-        <div className="p-3 bg-paper border-t border-line-blue flex items-center gap-2 select-none">
+        <div className="p-3 bg-paper border-t border-line-blue flex items-center gap-2 select-none shrink-0 z-20">
           <div className="flex-1 border border-line-blue rounded-xl px-3 py-2 bg-paper-dark text-left text-[10px] text-pencil">
             Введите вопрос...
           </div>
-          <div className="w-8 h-8 rounded-lg bg-ink-blue flex items-center justify-center text-white cursor-pointer hover:bg-coral transition-colors">
+          <div className="w-8 h-8 rounded-lg bg-ink-blue flex items-center justify-center text-white cursor-pointer hover:bg-coral transition-colors shadow-sm">
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Floating launcher icon */}
       <motion.div
-        className="absolute bottom-3 right-3 md:bottom-4 md:right-4 w-11 h-11 rounded-full bg-ink-blue shadow-md flex items-center justify-center text-white cursor-pointer hover:scale-105 transition-transform z-20"
+        className="absolute bottom-3 right-3 md:bottom-4 md:right-4 w-11 h-11 rounded-full bg-ink-blue shadow-lg flex items-center justify-center text-white cursor-pointer hover:scale-105 transition-transform z-30"
       >
         <svg className="w-5.5 h-5.5" fill="currentColor" viewBox="0 0 24 24">
           <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
@@ -466,13 +368,9 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress: MotionValue<nu
    ========================================== */
 interface DesktopVisualProps {
   index: number;
-  smoothRotate: MotionValue<number>;
-  smoothSkew: MotionValue<number> | number;
-  smoothTranslate: MotionValue<number> | number;
-  block2Progress: MotionValue<number>;
 }
 
-const DesktopVisual = ({ index, smoothRotate, smoothSkew, smoothTranslate, block2Progress }: DesktopVisualProps) => {
+const DesktopVisual = ({ index }: DesktopVisualProps) => {
   switch (index) {
     case 0: // 01 / Web Development
       return (
@@ -485,7 +383,7 @@ const DesktopVisual = ({ index, smoothRotate, smoothSkew, smoothTranslate, block
           </g>
 
           {/* Browser Window Mockup */}
-          <motion.g style={{ y: smoothTranslate }}>
+          <motion.g animate={{ y: [-5, 5, -5] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}>
             <rect x="80" y="100" width="240" height="200" rx="12" fill="var(--paper)" stroke="var(--ink-dark)" strokeWidth="2" />
             {/* Window Header */}
             <line x1="80" y1="125" x2="320" y2="125" stroke="var(--ink-dark)" strokeWidth="1.5" />
@@ -589,7 +487,7 @@ const DesktopVisual = ({ index, smoothRotate, smoothSkew, smoothTranslate, block
       );
 
     case 1: // 02 / AI Bot
-      return <ChatWidgetMockup scrollYProgress={block2Progress} />;
+      return <ChatWidgetMockup />;
 
     case 2: // 03 / Advertising & Analytics
       return (
@@ -600,13 +498,13 @@ const DesktopVisual = ({ index, smoothRotate, smoothSkew, smoothTranslate, block
           <circle cx="200" cy="180" r="60" stroke="var(--ink-dark)" strokeWidth="0.75" opacity="0.1" />
 
           {/* Radar Sweep line */}
-          <motion.g style={{ rotate: smoothRotate, originX: "200px", originY: "180px" }}>
+          <motion.g animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 4, ease: "linear" }} style={{ originX: "200px", originY: "180px" }}>
             <line x1="200" y1="180" x2="200" y2="40" stroke="var(--ink-dark)" strokeWidth="1" opacity="0.2" />
             <polygon points="200,180 200,40 225,43" fill="var(--ink-dark)" opacity="0.02" />
           </motion.g>
 
           {/* Funnel structure */}
-          <motion.g style={{ skewY: smoothSkew, originX: "200px", originY: "180px" }}>
+          <motion.g animate={{ skewY: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }} style={{ originX: "200px", originY: "180px" }}>
             {/* Top Funnel Ring */}
             <ellipse cx="200" cy="100" rx="80" ry="20" stroke="var(--ink-dark)" strokeWidth="2" fill="var(--paper)" />
             
@@ -701,7 +599,7 @@ const DesktopVisual = ({ index, smoothRotate, smoothSkew, smoothTranslate, block
             <circle cx="200" cy="200" r="140" stroke="var(--ink-dark)" strokeWidth="0.5" />
           </g>
 
-          <motion.g style={{ y: smoothTranslate, skewX: smoothSkew, originX: "200px", originY: "200px" }}>
+          <motion.g animate={{ y: [-5, 5, -5], skewX: [0, 2, 0] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }} style={{ originX: "200px", originY: "200px" }}>
             {/* Social Post Card */}
             <rect x="90" y="80" width="220" height="240" rx="20" fill="var(--paper)" stroke="var(--ink-dark)" strokeWidth="2" />
             
@@ -836,38 +734,4 @@ const DesktopVisual = ({ index, smoothRotate, smoothSkew, smoothTranslate, block
   }
 };
 
-/* ==========================================
-   MOBILE VISUAL ANIMATIONS (STACKED INLINE)
-   ========================================== */
-interface MobileVisualProps {
-  index: number;
-  progress: MotionValue<number>;
-  block2Progress: MotionValue<number>;
-}
 
-const MobileVisual = ({ index, progress, block2Progress }: MobileVisualProps) => {
-  // Use scroll progress to rotate mobile graphics slightly
-  const rotateVal = useTransform(progress, [0, 1], [0, 120]);
-  const smoothRotate = useSpring(rotateVal, { damping: 20, stiffness: 80 });
-
-  return (
-    <div className="w-full h-full flex items-center justify-center relative bg-slate-50/20 rounded-xl">
-      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="mobile-grid" width="16" height="16" patternUnits="userSpaceOnUse">
-            <path d="M 16 0 L 0 0 0 16" fill="none" stroke="rgba(15, 23, 42, 0.05)" strokeWidth="0.7" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#mobile-grid)" />
-      </svg>
-
-      <DesktopVisual
-        index={index}
-        smoothRotate={smoothRotate}
-        smoothSkew={0}
-        smoothTranslate={0}
-        block2Progress={index === 1 ? block2Progress : progress}
-      />
-    </div>
-  );
-};

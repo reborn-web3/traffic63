@@ -1,7 +1,5 @@
 export const navigationLinks = [
-  { label: "Услуги", href: "/services" },
   { label: "Цены", href: "/prices" },
-  { label: "Как работаем", href: "/#process" },
   { label: "Блог", href: "/blog" },
   { label: "Контакты", href: "/contacts" },
 ];

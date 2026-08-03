@@ -16,9 +16,9 @@ export const jsonLdOrganization = {
   ],
   sameAs: [
     "https://t.me/manager_traffic63",
-    "https://vk.com/traffic63",
+    "https://vk.ru/traffic63.agency",
     "https://wa.me/79198037232",
-    "https://instagram.com/traffic63.ru",
+    "https://www.instagram.com/traffic63.agency/",
   ],
 } as const;
 
@@ -38,9 +38,9 @@ export const jsonLdLocalBusiness = {
   },
   sameAs: [
     "https://t.me/manager_traffic63",
-    "https://vk.com/traffic63",
+    "https://vk.ru/traffic63.agency",
     "https://wa.me/79198037232",
-    "https://instagram.com/traffic63.ru",
+    "https://www.instagram.com/traffic63.agency/",
   ],
 } as const;
 

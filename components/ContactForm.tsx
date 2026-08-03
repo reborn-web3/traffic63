@@ -216,10 +216,10 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
       <button
         type="submit"
         disabled={isSubmitting || isSuccess}
-        className={`px-8 py-3.5 rounded-full text-white font-heading text-xs font-extrabold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed mx-auto mt-8 active:scale-95 hover:shadow-lg group ${
+        className={`px-8 py-3.5 rounded-full font-heading text-xs font-extrabold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed mx-auto mt-8 active:scale-95 hover:shadow-lg group ${
           isSuccess
-            ? "bg-emerald-600 hover:bg-emerald-600 shadow-md"
-            : "bg-ink-dark hover:bg-coral hover:shadow-coral/20"
+            ? "bg-emerald-600 hover:bg-emerald-600 shadow-md text-white"
+            : "bg-ink-dark hover:bg-coral hover:shadow-coral/20 text-paper hover:text-white"
         }`}
       >
         {isSubmitting && (

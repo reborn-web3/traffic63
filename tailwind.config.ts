@@ -72,11 +72,11 @@ const config: Config = {
         ".section-padding": {
           paddingTop: theme("spacing.20"), // 80px
           paddingBottom: theme("spacing.20"), // 80px
-          "@screen md": {
+          "@media (min-width: 768px)": {
             paddingTop: theme("spacing.24"), // 96px
             paddingBottom: theme("spacing.24"), // 96px
           },
-          "@screen lg": {
+          "@media (min-width: 1024px)": {
             paddingTop: theme("spacing.28"), // 112px
             paddingBottom: theme("spacing.28"), // 112px
           },
@@ -86,10 +86,10 @@ const config: Config = {
       addComponents({
         ".container": {
           width: "100%",
-          maxWidth: "1200px",
+          maxWidth: "1320px",
           margin: "0 auto",
           padding: "0 20px",
-          "@screen md": {
+          "@media (min-width: 768px)": {
             padding: "0 40px",
           },
         },
