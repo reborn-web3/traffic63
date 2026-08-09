@@ -2,6 +2,7 @@
 
 import { ServiceCard } from "./ServiceCard";
 import { Reveal } from "./Reveal";
+import { motion } from "framer-motion";
 
 /**
  * Services section component.
@@ -65,23 +66,48 @@ export const Services = () => {
     },
   ];
 
-  return (
-    <section className="section" id="services">
-      <div className="container mx-auto px-5 md:px-10">
-        <Reveal delay={0}>
-          <span className="section-label">📌 Что мы делаем</span>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <h2 className="section-title">Наши услуги</h2>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <p className="section-subtitle">
-            Полный цикл performance‑маркетинга: от стратегии до масштабирования
-            результатов
-          </p>
-        </Reveal>
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
 
-        <div className="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+  return (
+    <section className="py-24 relative overflow-hidden" id="services">
+      {/* Мягкий фон */}
+      <div className="absolute inset-0 bg-paper-dark pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-line-blue-light/50 to-transparent pointer-events-none" />
+
+      <div className="container mx-auto px-5 md:px-10 relative z-10">
+        <div className="max-w-3xl mb-16">
+          <Reveal delay={0}>
+            <span className="font-handwritten text-2xl text-coral block mb-3 -rotate-2">
+              📌 Что мы делаем
+            </span>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-extrabold text-ink-dark leading-tight mb-6">
+              Наши услуги
+            </h2>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className="text-pencil text-lg md:text-xl leading-relaxed max-w-2xl">
+              Полный цикл performance‑маркетинга: от стратегии до масштабирования
+              результатов. Делаем прозрачно и с фокусом на окупаемость.
+            </p>
+          </Reveal>
+        </div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+        >
           {services.map((svc, idx) => (
             <ServiceCard
               key={idx}
@@ -90,10 +116,10 @@ export const Services = () => {
               title={svc.title}
               description={svc.description}
               tag={svc.tag}
-              delay={svc.delay}
+              delay={svc.delay} // delay passes to ServiceCard
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

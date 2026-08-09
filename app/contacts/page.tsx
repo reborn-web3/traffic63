@@ -253,7 +253,7 @@ export default function ContactsPage() {
 
                 {/* Email */}
                 <a
-                  href="mailto:hello@traffic63.ru"
+                  href="mailto:traffic63.agency@mail.ru"
                   className="group bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 hover:border-coral/40 rounded-[24px] p-5 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.05)] flex items-center gap-3.5"
                   style={{ textDecoration: "none" }}
                 >
@@ -265,7 +265,7 @@ export default function ContactsPage() {
                   <div className="min-w-0">
                     <span className="block text-[11px] font-semibold text-pencil">Email</span>
                     <span className="text-sm font-bold text-ink-dark group-hover:text-coral transition-colors truncate block">
-                      hello@traffic63.ru
+                      traffic63.agency@mail.ru
                     </span>
                   </div>
                 </a>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 interface TypewriterWordProps {
   word?: string;
@@ -35,6 +35,7 @@ export const TypewriterWord: React.FC<TypewriterWordProps> = ({
   const [wordIndex, setWordIndex] = useState(0);
   const [displayedCount, setDisplayedCount] = useState(0);
   const [phase, setPhase] = useState<"initial_pause" | "typing" | "paused" | "deleting">("initial_pause");
+  const shouldReduceMotion = useReducedMotion();
 
   const currentWord = wordList[wordIndex % wordList.length];
 
@@ -123,7 +124,7 @@ export const TypewriterWord: React.FC<TypewriterWordProps> = ({
             phase === "typing" || phase === "deleting"
               ? undefined
               : [0, 0.45, 0.55, 0.75, 1],
-          repeat: phase === "typing" || phase === "deleting" ? 0 : Infinity,
+          repeat: (phase === "typing" || phase === "deleting" || shouldReduceMotion) ? 0 : Infinity,
           ease: "easeInOut",
         }}
         className="inline-block w-[3px] sm:w-[3.5px] h-[0.74em] ml-[3px] sm:ml-[4px] bg-coral rounded-full"

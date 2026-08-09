@@ -20,6 +20,9 @@ export const CursorTrail = () => {
   useEffect(() => {
     // Disable on touch-only devices to save resources and prevent tap lag/glitches
     if (window.matchMedia("(pointer: coarse)").matches) return;
+    
+    // Disable if the user prefers reduced motion
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       const now = Date.now();

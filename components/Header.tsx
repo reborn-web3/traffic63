@@ -198,12 +198,6 @@ export const Header = () => {
                 Цены
               </Link>
               <Link
-                href="/#cases"
-                className="font-body text-[12px] lg:text-[13px] font-bold uppercase tracking-wider text-pencil hover:text-ink-dark transition-colors"
-              >
-                Кейсы
-              </Link>
-              <Link
                 href="/blog"
                 className="font-body text-[12px] lg:text-[13px] font-bold uppercase tracking-wider text-pencil hover:text-ink-dark transition-colors"
               >
@@ -367,9 +361,6 @@ export const Header = () => {
 
             <Link href="/prices" className="font-heading text-3xl font-extrabold text-ink-dark py-4" onClick={closeMenu}>
               Цены
-            </Link>
-            <Link href="/#cases" className="font-heading text-3xl font-extrabold text-ink-dark py-4" onClick={closeMenu}>
-              Кейсы
             </Link>
             <Link href="/blog" className="font-heading text-3xl font-extrabold text-ink-dark py-4" onClick={closeMenu}>
               Блог

@@ -35,9 +35,9 @@ export const FormulaBanner = () => {
           >
             <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
               {/* Front Face */}
-              <div className="h-full w-full bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 rounded-[32px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between overflow-hidden [backface-visibility:hidden]">
+              <div className="h-full w-full bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
                 <div className="absolute -bottom-4 -right-4 w-[220px] h-[220px] opacity-95 transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-6 pointer-events-none">
-                  <Image src="/images/cards/website_nobg.png" alt="Website" fill className="object-cover" />
+                  <Image src="/images/cards/website_nobg_v4.webp" alt="Разработка конверсионного сайта для бизнеса" fill sizes="220px" className="object-cover" />
                 </div>
                 
                 <div className="relative z-10 text-left">
@@ -48,9 +48,12 @@ export const FormulaBanner = () => {
               </div>
               
               {/* Back Face */}
-              <div className="absolute inset-0 h-full w-full bg-paper-dark/90 backdrop-blur-xl border border-coral/40 rounded-[32px] p-8 sm:p-10 shadow-[0_16px_40px_rgba(0,0,0,0.06)] flex flex-col justify-center items-center text-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+              <div className="absolute inset-0 h-full w-full bg-paper-dark backdrop-blur-xl border border-coral/40 rounded-[32px] p-8 sm:p-10 flex flex-col justify-end items-start text-left [transform:rotateY(180deg)] [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
+                <h4 className="font-heading text-xl sm:text-2xl font-bold text-ink-dark mb-2">
+                  Витрина бизнеса.
+                </h4>
                 <p className="font-body text-sm sm:text-base text-pencil leading-relaxed font-normal">
-                  Витрина бизнеса. Понятно рассказывает о продукте и вызывает доверие с первых секунд.
+                  Понятно рассказывает о продукте и вызывает доверие с первых секунд.
                 </p>
               </div>
             </div>
@@ -79,9 +82,9 @@ export const FormulaBanner = () => {
           >
             <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
               {/* Front Face */}
-              <div className="h-full w-full bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 rounded-[32px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between overflow-hidden [backface-visibility:hidden]">
+              <div className="h-full w-full bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
                 <div className="absolute -bottom-4 -right-4 w-[220px] h-[220px] opacity-95 transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-6 pointer-events-none">
-                  <Image src="/images/cards/ads_nobg.png" alt="Ads" fill className="object-cover" />
+                  <Image src="/images/cards/ads_nobg_v4.webp" alt="Настройка эффективной рекламы и лидогенерация" fill sizes="220px" className="object-cover" />
                 </div>
                 
                 <div className="relative z-10 text-left">
@@ -92,9 +95,12 @@ export const FormulaBanner = () => {
               </div>
 
               {/* Back Face */}
-              <div className="absolute inset-0 h-full w-full bg-paper-dark/90 backdrop-blur-xl border border-coral/40 rounded-[32px] p-8 sm:p-10 shadow-[0_16px_40px_rgba(0,0,0,0.06)] flex flex-col justify-center items-center text-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+              <div className="absolute inset-0 h-full w-full bg-paper-dark backdrop-blur-xl border border-coral/40 rounded-[32px] p-8 sm:p-10 flex flex-col justify-end items-start text-left [transform:rotateY(180deg)] [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
+                <h4 className="font-heading text-xl sm:text-2xl font-bold text-ink-dark mb-2">
+                  Поток новых клиентов.
+                </h4>
                 <p className="font-body text-sm sm:text-base text-pencil leading-relaxed font-normal">
-                  Поток новых клиентов. Привлекает аудиторию, которая прямо сейчас ищет продукт или услугу.
+                  Привлекает аудиторию, которая прямо сейчас ищет продукт или услугу.
                 </p>
               </div>
             </div>
@@ -123,9 +129,9 @@ export const FormulaBanner = () => {
           >
             <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
               {/* Front Face */}
-              <div className="h-full w-full bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 rounded-[32px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex flex-col justify-between overflow-hidden [backface-visibility:hidden]">
+              <div className="h-full w-full bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
                 <div className="absolute -bottom-4 -right-4 w-[220px] h-[220px] opacity-95 transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-6 pointer-events-none">
-                  <Image src="/images/cards/crm_nobg.png" alt="CRM" fill className="object-cover" />
+                  <Image src="/images/cards/crm_nobg_v4.webp" alt="Внедрение CRM системы для автоматизации продаж" fill sizes="220px" className="object-cover" />
                 </div>
                 
                 <div className="relative z-10 text-left">
@@ -136,9 +142,12 @@ export const FormulaBanner = () => {
               </div>
 
               {/* Back Face */}
-              <div className="absolute inset-0 h-full w-full bg-paper-dark/90 backdrop-blur-xl border border-coral/40 rounded-[32px] p-8 sm:p-10 shadow-[0_16px_40px_rgba(0,0,0,0.06)] flex flex-col justify-center items-center text-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+              <div className="absolute inset-0 h-full w-full bg-paper-dark backdrop-blur-xl border border-coral/40 rounded-[32px] p-8 sm:p-10 flex flex-col justify-end items-start text-left [transform:rotateY(180deg)] [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
+                <h4 className="font-heading text-xl sm:text-2xl font-bold text-ink-dark mb-2">
+                  Порядок в продажах.
+                </h4>
                 <p className="font-body text-sm sm:text-base text-pencil leading-relaxed font-normal">
-                  Порядок в продажах. Сохраняет каждое обращение и помогает контролировать статус всех заказов.
+                  Сохраняет каждое обращение и помогает контролировать статус всех заказов.
                 </p>
               </div>
             </div>

@@ -187,10 +187,10 @@ export const Footer = () => {
                 +7 (919) 803-72-32
               </a>
               <a
-                href="mailto:hello@traffic63.ru"
+                href="mailto:traffic63.agency@mail.ru"
                 className="font-body text-sm text-pencil hover:text-ink-dark transition-colors duration-300 border-b border-dashed border-pencil/40 hover:border-ink-dark pb-0.5"
               >
-                hello@traffic63.ru
+                traffic63.agency@mail.ru
               </a>
               <p className="font-body text-xs text-pencil leading-relaxed select-none">
                 Работаем онлайн по всей России

@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence, MotionValue, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence, MotionValue, useInView, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 
 interface ServiceBlock {
-  num: string;
   tag: string;
   titlePart1: string;
   titleItalic: string;
@@ -16,16 +15,14 @@ interface ServiceBlock {
 
 const SERVICES: ServiceBlock[] = [
   {
-    num: "01",
     tag: "РАЗРАБОТКА САЙТОВ",
     titlePart1: "Делаем сайты, которые",
     titleItalic: "реально продают",
     titlePart2: "ваши услуги.",
-    description: "Создаем красивые и быстрые сайты для вашего бизнеса. Клиентам будет удобно найти информацию и оставить заявку, а все контакты сразу придут вам в Telegram или CRM.",
+    description: "Создаем современные сайты под ключ: от стильного дизайна до настройки заявок. Упакуем ваш продукт так, чтобы клиентам хотелось купить, а вам было удобно получать новые заказы.",
     slug: "web-development",
   },
   {
-    num: "02",
     tag: "УМНЫЕ ЧАТ-БОТЫ",
     titlePart1: "ИИ-помощник ответит",
     titleItalic: "за одну секунду",
@@ -34,7 +31,6 @@ const SERVICES: ServiceBlock[] = [
     slug: "chatbots",
   },
   {
-    num: "03",
     tag: "РЕКЛАМА & НАСТРОЙКА",
     titlePart1: "Приводим клиентов,",
     titleItalic: "готовых купить",
@@ -43,7 +39,6 @@ const SERVICES: ServiceBlock[] = [
     slug: "advertising",
   },
   {
-    num: "04",
     tag: "ВЕДЕНИЕ СОЦСЕТЕЙ",
     titlePart1: "Оживляем страницы",
     titleItalic: "в Telegram и VK",
@@ -63,20 +58,12 @@ export const ServiceClimber = () => {
             return (
               <div
                 key={idx}
-                className={`flex flex-col md:flex-row items-center gap-10 md:gap-20 ${
-                  isReversed ? "md:flex-row-reverse" : ""
-                }`}
+                className={`flex flex-col md:flex-row items-center gap-10 md:gap-20 ${isReversed ? "md:flex-row-reverse" : ""
+                  }`}
               >
                 {/* Text Content */}
                 <div className="w-full md:w-1/2 flex flex-col justify-center">
-                  <div className="flex items-center gap-4 border-t border-line-blue pt-4 mb-6">
-                    <span className="font-body text-xs font-black text-ink-dark select-none">
-                      {svc.num}
-                    </span>
-                    <span className="font-heading text-[10px] font-extrabold tracking-widest text-pencil select-none uppercase">
-                      {svc.tag}
-                    </span>
-                  </div>
+                  {/* The tag/eyebrow has been removed per user request */}
 
                   <h3 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-ink-dark leading-tight select-none">
                     {svc.titlePart1}{" "}
@@ -117,31 +104,32 @@ export const ServiceClimber = () => {
 
                 {/* Media/Video Player Mockup */}
                 <div className="w-full md:w-1/2 flex justify-center items-center">
-                  <div className={`relative w-full aspect-square max-w-[500px] bg-paper-dark/30 border border-line-blue/60 rounded-[32px] shadow-sm overflow-hidden flex items-center justify-center backdrop-blur-[2px] ${idx === 1 ? "p-0 md:p-6" : "p-6 md:p-8"}`}>
-                    
-                    {/* SVG Blueprint Grid Background */}
-                    <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40" xmlns="http://www.w3.org/2000/svg">
-                      <defs>
-                        <pattern id="blueprint-grid" width="24" height="24" patternUnits="userSpaceOnUse">
-                          <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(255, 255, 255, 0.04)" strokeWidth="0.8" />
-                        </pattern>
-                      </defs>
-                      <rect width="100%" height="100%" fill="url(#blueprint-grid)" />
-                    </svg>
+                  {idx === 0 ? (
+                    <div className="relative w-full aspect-[16/10] max-w-[600px] rounded-[24px] shadow-xl overflow-hidden flex items-center justify-center bg-black border border-line-blue/20 transform transition-transform hover:scale-[1.02] duration-500">
+                      <video
+                        aria-label="Демонстрация разработанного сайта"
+                        className="w-full h-full object-cover scale-[1.35]"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="auto"
+                      >
+                        <source src="/videos/0809.webm" type="video/webm" />
+                        <source src="/videos/0809.mp4" type="video/mp4" />
+                      </video>
+                    </div>
+                  ) : (
+                    <div className={`relative w-full aspect-square max-w-[500px] flex items-center justify-center ${idx === 1 ? "" : "p-6 md:p-8"}`}>
 
-                    {/* Corner indicators */}
-                    <div className="absolute top-4 left-4 font-heading text-[9px] font-bold tracking-widest text-pencil/50 select-none z-0">
-                      SYS / VISUAL_0{idx + 1}
-                    </div>
-                    <div className="absolute bottom-4 right-4 font-heading text-[9px] font-bold tracking-widest text-pencil/50 select-none z-0">
-                      REC / PLAYING
-                    </div>
+                      {/* Corner indicators removed per user request */}
 
-                    {/* The Visual Animation */}
-                    <div className="relative w-full h-full flex items-center justify-center z-10">
-                      <DesktopVisual index={idx} />
+                      {/* The Visual Animation */}
+                      <div className="relative w-full h-full flex items-center justify-center z-10">
+                        <DesktopVisual index={idx} />
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             );
@@ -158,7 +146,7 @@ export const ServiceClimber = () => {
 const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<number> }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  
+
   // Trigger animation when the chat widget comes into view
   const isInView = useInView(containerRef, { once: false, margin: "-10%" });
   const [step, setStep] = useState(0);
@@ -176,7 +164,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
   // Sequence orchestration
   useEffect(() => {
     if (step === 0 || step >= 9) return;
-    
+
     let timer: NodeJS.Timeout;
     // Delays between steps for a natural feel
     const delays = [0, 800, 1500, 800, 1500, 1000, 800, 1500, 1000];
@@ -211,7 +199,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
     <div ref={containerRef} className="relative w-full h-full flex items-center justify-center select-none">
       {/* Chat window card */}
       <div
-        className="w-full h-full rounded-2xl md:rounded-[32px] bg-paper border border-line-blue shadow-[0_8px_30px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col z-10 transition-shadow hover:shadow-[0_12px_40px_rgba(96,165,250,0.15)]"
+        className="w-full h-full rounded-2xl md:rounded-[32px] bg-paper shadow-[0_8px_30px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col z-10 transition-shadow hover:shadow-[0_12px_40px_rgba(96,165,250,0.15)]"
       >
         {/* Header */}
         <div className="bg-ink-blue px-4 py-3.5 flex items-center justify-between select-none shrink-0 z-20 shadow-sm">
@@ -232,7 +220,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
         </div>
 
         {/* Message body */}
-        <div 
+        <div
           ref={scrollContainerRef}
           className="flex-1 p-4 overflow-y-auto flex flex-col justify-start min-h-0 bg-paper-dark/50 relative scrollbar-hide"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -240,7 +228,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
           <div className="flex flex-col space-y-3 w-full pb-2">
             {/* Message 1 */}
             <motion.div variants={msgVariants} initial="hidden" animate="visible" className="self-start max-w-[85%]">
-              <div className="bg-paper border border-line-blue text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug shadow-sm">
+              <div className="bg-paper text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug shadow-sm">
                 Привет! Чем я могу помочь вам сегодня?
               </div>
               <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pl-1">10:00</span>
@@ -249,7 +237,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
             {/* Typing 1 */}
             <AnimatePresence>
               {step === 1 && (
-                <motion.div variants={typingVariants} initial="hidden" animate="visible" exit="exit" className="self-start bg-paper border border-line-blue px-3.5 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1 shadow-sm">
+                <motion.div variants={typingVariants} initial="hidden" animate="visible" exit="exit" className="self-start bg-paper px-3.5 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1 shadow-sm">
                   <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
                   <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
                   <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
@@ -270,7 +258,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
             {/* Typing 2 */}
             <AnimatePresence>
               {step === 3 && (
-                <motion.div variants={typingVariants} initial="hidden" animate="visible" exit="exit" className="self-start bg-paper border border-line-blue px-3.5 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1 shadow-sm">
+                <motion.div variants={typingVariants} initial="hidden" animate="visible" exit="exit" className="self-start bg-paper px-3.5 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1 shadow-sm">
                   <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
                   <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
                   <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
@@ -281,7 +269,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
             {/* Message 3 */}
             {step >= 4 && (
               <motion.div variants={msgVariants} initial="hidden" animate="visible" className="self-start max-w-[85%]">
-                <div className="bg-paper border border-line-blue text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug shadow-sm">
+                <div className="bg-paper text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug shadow-sm">
                   Доставка бесплатна при заказе от 3000 ₽. Подсказать условия для вашего города?
                 </div>
                 <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pl-1">10:01</span>
@@ -301,7 +289,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
             {/* Typing 3 */}
             <AnimatePresence>
               {step === 6 && (
-                <motion.div variants={typingVariants} initial="hidden" animate="visible" exit="exit" className="self-start bg-paper border border-line-blue px-3.5 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1 shadow-sm">
+                <motion.div variants={typingVariants} initial="hidden" animate="visible" exit="exit" className="self-start bg-paper px-3.5 py-2.5 rounded-2xl rounded-tl-sm flex items-center gap-1 shadow-sm">
                   <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
                   <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
                   <span className="w-1.5 h-1.5 bg-pencil rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
@@ -312,7 +300,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
             {/* Message 5 */}
             {step >= 7 && (
               <motion.div variants={msgVariants} initial="hidden" animate="visible" className="self-start max-w-[85%]">
-                <div className="bg-paper border border-line-blue text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug shadow-sm">
+                <div className="bg-paper text-ink-dark text-[11px] sm:text-xs px-3.5 py-2.5 rounded-2xl rounded-tl-sm font-body leading-snug shadow-sm">
                   В Москве доставляем бесплатно на следующий день курьером
                 </div>
                 <span className="text-[8px] sm:text-[9px] text-pencil mt-0.5 block pl-1">10:02</span>
@@ -323,7 +311,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
             {step >= 8 && (
               <motion.div variants={msgVariants} initial="hidden" animate="visible" className="self-center pt-2 pb-1">
                 <a
-                  href="#contacts"
+                  href="contacts"
                   className="inline-flex items-center gap-1.5 bg-ink-blue hover:bg-coral text-white text-[10px] sm:text-[11px] font-bold px-4 py-2.5 rounded-full shadow-md transition-all hover:scale-105 active:scale-95"
                 >
                   <span>Заказать ИИ-ассистента</span>
@@ -339,8 +327,8 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
         </div>
 
         {/* Footer */}
-        <div className="p-3 bg-paper border-t border-line-blue flex items-center gap-2 select-none shrink-0 z-20">
-          <div className="flex-1 border border-line-blue rounded-xl px-3 py-2 bg-paper-dark text-left text-[10px] text-pencil">
+        <div className="p-3 bg-paper flex items-center gap-2 select-none shrink-0 z-20">
+          <div className="flex-1 rounded-xl px-3 py-2 bg-paper-dark text-left text-[10px] text-pencil">
             Введите вопрос...
           </div>
           <div className="w-8 h-8 rounded-lg bg-ink-blue flex items-center justify-center text-white cursor-pointer hover:bg-coral transition-colors shadow-sm">
@@ -351,14 +339,7 @@ const ChatWidgetMockup = ({ scrollYProgress }: { scrollYProgress?: MotionValue<n
         </div>
       </div>
 
-      {/* Floating launcher icon */}
-      <motion.div
-        className="absolute bottom-3 right-3 md:bottom-4 md:right-4 w-11 h-11 rounded-full bg-ink-blue shadow-lg flex items-center justify-center text-white cursor-pointer hover:scale-105 transition-transform z-30"
-      >
-        <svg className="w-5.5 h-5.5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
-        </svg>
-      </motion.div>
+      {/* Floating launcher icon removed per user request */}
     </div>
   );
 };
@@ -371,120 +352,11 @@ interface DesktopVisualProps {
 }
 
 const DesktopVisual = ({ index }: DesktopVisualProps) => {
+  const shouldReduceMotion = useReducedMotion();
+
   switch (index) {
-    case 0: // 01 / Web Development
-      return (
-        <svg viewBox="0 0 400 400" className="w-full h-full" fill="none">
-          {/* Decorative isometric/grid lines */}
-          <g opacity="0.15">
-            <line x1="50" y1="50" x2="350" y2="350" stroke="var(--ink-dark)" strokeWidth="0.5" />
-            <rect x="60" y="60" width="280" height="280" stroke="var(--ink-dark)" strokeWidth="0.5" />
-            <circle cx="200" cy="200" r="130" stroke="var(--ink-dark)" strokeWidth="0.5" />
-          </g>
-
-          {/* Browser Window Mockup */}
-          <motion.g animate={{ y: [-5, 5, -5] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}>
-            <rect x="80" y="100" width="240" height="200" rx="12" fill="var(--paper)" stroke="var(--ink-dark)" strokeWidth="2" />
-            {/* Window Header */}
-            <line x1="80" y1="125" x2="320" y2="125" stroke="var(--ink-dark)" strokeWidth="1.5" />
-            {/* Window Dots */}
-            <circle cx="95" cy="112" r="3" fill="var(--ink-dark)" opacity="0.4" />
-            <circle cx="105" cy="112" r="3" fill="var(--ink-dark)" opacity="0.4" />
-            <circle cx="115" cy="112" r="3" fill="var(--ink-dark)" opacity="0.4" />
-
-            {/* Layout Blocks (representing sections of a website) */}
-            {/* Hero text lines */}
-            <rect x="100" y="145" width="80" height="10" rx="3" fill="var(--coral)" opacity="0.8" />
-            <rect x="100" y="162" width="120" height="6" rx="2" fill="var(--ink-dark)" opacity="0.15" />
-            <rect x="100" y="174" width="100" height="6" rx="2" fill="var(--ink-dark)" opacity="0.15" />
-
-            {/* CTA Button */}
-            <motion.rect
-              x="100"
-              y="195"
-              width="45"
-              height="15"
-              rx="4"
-              fill="var(--ink-blue)"
-              whileHover={{ scale: 1.05 }}
-              animate={{ fill: ["var(--ink-blue)", "var(--coral)", "var(--ink-blue)"] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            />
-            <rect x="108" y="200" width="29" height="5" rx="1" fill="var(--paper)" />
-
-            {/* Visual element (Mockup image/graph) */}
-            <rect x="235" y="145" width="65" height="65" rx="8" stroke="var(--ink-dark)" strokeWidth="1.5" strokeDasharray="3 3" />
-            <motion.path
-              d="M 245 195 L 260 170 L 275 185 L 290 155"
-              stroke="var(--coral)"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-            />
-            <circle cx="260" cy="170" r="3" fill="var(--ink-dark)" />
-            <circle cx="290" cy="155" r="3" fill="var(--ink-dark)" />
-
-            {/* Cards layout below */}
-            <rect x="100" y="235" width="60" height="45" rx="6" fill="var(--paper)" stroke="var(--ink-dark)" strokeWidth="1" />
-            <circle cx="115" cy="250" r="6" fill="var(--coral)" opacity="0.2" />
-            <rect x="126" y="247" width="28" height="4" rx="1" fill="var(--ink-dark)" opacity="0.2" />
-            <rect x="126" y="255" width="20" height="3" rx="1" fill="var(--ink-dark)" opacity="0.1" />
-
-            <rect x="170" y="235" width="60" height="45" rx="6" fill="var(--paper)" stroke="var(--ink-dark)" strokeWidth="1" />
-            <circle cx="185" cy="250" r="6" fill="var(--ink-blue)" opacity="0.2" />
-            <rect x="196" y="247" width="28" height="4" rx="1" fill="var(--ink-dark)" opacity="0.2" />
-            <rect x="196" y="255" width="20" height="3" rx="1" fill="var(--ink-dark)" opacity="0.1" />
-
-            <rect x="240" y="235" width="60" height="45" rx="6" fill="var(--paper)" stroke="var(--ink-dark)" strokeWidth="1" />
-            <circle cx="255" cy="250" r="6" fill="var(--coral)" opacity="0.2" />
-            <rect x="266" y="247" width="28" height="4" rx="1" fill="var(--ink-dark)" opacity="0.2" />
-            <rect x="266" y="255" width="20" height="3" rx="1" fill="var(--ink-dark)" opacity="0.1" />
-
-            {/* Interactive Mouse Cursor */}
-            <motion.g
-              animate={{
-                x: [280, 120, 120, 280],
-                y: [280, 205, 205, 280],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 6,
-                times: [0, 0.3, 0.45, 1],
-                ease: "easeInOut",
-              }}
-            >
-              <path
-                d="M 0 0 L 12 12 L 7 13 L 5 18 Z"
-                fill="var(--ink-dark)"
-                stroke="var(--paper)"
-                strokeWidth="1.5"
-              />
-              {/* Click pulse effect */}
-              <motion.circle
-                cx="0"
-                cy="0"
-                r="10"
-                stroke="var(--coral)"
-                strokeWidth="1.5"
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{
-                  scale: [0, 1.5, 0],
-                  opacity: [0, 0.8, 0],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 6,
-                  times: [0, 0.35, 0.45],
-                  ease: "easeOut",
-                }}
-              />
-            </motion.g>
-          </motion.g>
-        </svg>
-      );
+    case 0: // 01 / Web Development (Now handled in the main component)
+      return null;
 
     case 1: // 02 / AI Bot
       return <ChatWidgetMockup />;
@@ -498,23 +370,23 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
           <circle cx="200" cy="180" r="60" stroke="var(--ink-dark)" strokeWidth="0.75" opacity="0.1" />
 
           {/* Radar Sweep line */}
-          <motion.g animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 4, ease: "linear" }} style={{ originX: "200px", originY: "180px" }}>
+          <motion.g animate={{ rotate: 360 }} transition={{ repeat: shouldReduceMotion ? 0 : Infinity, duration: 6, ease: "linear" }} style={{ originX: "200px", originY: "180px" }}>
             <line x1="200" y1="180" x2="200" y2="40" stroke="var(--ink-dark)" strokeWidth="1" opacity="0.2" />
             <polygon points="200,180 200,40 225,43" fill="var(--ink-dark)" opacity="0.02" />
           </motion.g>
 
           {/* Funnel structure */}
-          <motion.g animate={{ skewY: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }} style={{ originX: "200px", originY: "180px" }}>
+          <motion.g animate={{ skewY: [0, 5, 0] }} transition={{ repeat: shouldReduceMotion ? 0 : Infinity, duration: 9, ease: "easeInOut" }} style={{ originX: "200px", originY: "180px" }}>
             {/* Top Funnel Ring */}
             <ellipse cx="200" cy="100" rx="80" ry="20" stroke="var(--ink-dark)" strokeWidth="2" fill="var(--paper)" />
-            
+
             {/* Funnel body */}
             <path d="M 120 100 L 170 220 L 230 220 L 280 100" stroke="var(--ink-dark)" strokeWidth="2" strokeLinejoin="round" />
             <ellipse cx="200" cy="220" rx="30" ry="8" stroke="var(--ink-dark)" strokeWidth="1.5" fill="var(--paper)" />
 
             {/* Conversions dropping out */}
             <path d="M 200 228 L 200 290" stroke="var(--coral)" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.6" />
-            
+
             {/* Converted leads at the bottom */}
             <motion.g
               animate={{
@@ -523,8 +395,8 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
                 scale: [0.8, 1.2, 0.8]
               }}
               transition={{
-                repeat: Infinity,
-                duration: 2.5,
+                repeat: shouldReduceMotion ? 0 : Infinity,
+                duration: 4,
                 ease: "easeIn"
               }}
             >
@@ -537,8 +409,8 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
                 rotate: 360
               }}
               transition={{
-                repeat: Infinity,
-                duration: 8,
+                repeat: shouldReduceMotion ? 0 : Infinity,
+                duration: 12,
                 ease: "linear"
               }}
               style={{ originX: "200px", originY: "100px" }}
@@ -552,8 +424,8 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
                 rotate: -360
               }}
               transition={{
-                repeat: Infinity,
-                duration: 12,
+                repeat: shouldReduceMotion ? 0 : Infinity,
+                duration: 18,
                 ease: "linear"
               }}
               style={{ originX: "200px", originY: "100px" }}
@@ -582,7 +454,7 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
             stroke="var(--coral)"
             strokeWidth="1.5"
             animate={{ scale: [1, 1.6, 1], opacity: [0.6, 0, 0.6] }}
-            transition={{ repeat: Infinity, duration: 2 }}
+            transition={{ repeat: shouldReduceMotion ? 0 : Infinity, duration: 3 }}
           />
           <circle cx="200" cy="290" r="3" fill="var(--paper)" stroke="var(--ink-dark)" strokeWidth="1.5" />
           <circle cx="60" cy="330" r="3" fill="var(--paper)" stroke="var(--ink-dark)" strokeWidth="1.5" />
@@ -599,10 +471,10 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
             <circle cx="200" cy="200" r="140" stroke="var(--ink-dark)" strokeWidth="0.5" />
           </g>
 
-          <motion.g animate={{ y: [-5, 5, -5], skewX: [0, 2, 0] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }} style={{ originX: "200px", originY: "200px" }}>
+          <motion.g animate={{ y: [-5, 5, -5], skewX: [0, 2, 0] }} transition={{ repeat: shouldReduceMotion ? 0 : Infinity, duration: 7.5, ease: "easeInOut" }} style={{ originX: "200px", originY: "200px" }}>
             {/* Social Post Card */}
             <rect x="90" y="80" width="220" height="240" rx="20" fill="var(--paper)" stroke="var(--ink-dark)" strokeWidth="2" />
-            
+
             {/* Profile Header */}
             <circle cx="120" cy="110" r="14" fill="var(--paper)" stroke="var(--ink-dark)" strokeWidth="1.5" />
             {/* Inside avatar - abstract user icon */}
@@ -619,13 +491,13 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
 
             {/* Post Image Container */}
             <rect x="106" y="136" width="188" height="118" rx="10" fill="var(--paper)" stroke="var(--ink-dark)" strokeWidth="1.5" />
-            
+
             {/* Aesthetic design within image - camera grid, mountains/vector shapes or camera focus */}
             <rect x="116" y="146" width="168" height="98" rx="6" fill="var(--paper-dark)" opacity="0.5" />
             {/* Camera reticle */}
             <circle cx="200" cy="195" r="18" stroke="var(--ink-dark)" strokeWidth="1" strokeDasharray="3 2" opacity="0.3" />
             <circle cx="200" cy="195" r="3" fill="var(--coral)" />
-            
+
             {/* Sparkles / Magic wand effect representing content creation */}
             <motion.path
               d="M 240 170 L 250 170 M 245 165 L 245 175"
@@ -633,7 +505,7 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
               strokeWidth="1.5"
               strokeLinecap="round"
               animate={{ opacity: [0.2, 1, 0.2], scale: [0.8, 1.2, 0.8] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              transition={{ repeat: shouldReduceMotion ? 0 : Infinity, duration: 3, ease: "easeInOut" }}
             />
             <motion.path
               d="M 155 210 L 163 210 M 159 206 L 159 214"
@@ -641,7 +513,7 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
               strokeWidth="1"
               strokeLinecap="round"
               animate={{ opacity: [1, 0.2, 1], scale: [1.1, 0.8, 1.1] }}
-              transition={{ repeat: Infinity, duration: 2.3, ease: "easeInOut" }}
+              transition={{ repeat: shouldReduceMotion ? 0 : Infinity, duration: 3.5, ease: "easeInOut" }}
             />
 
             {/* Interactive footer (Likes, Comments) */}
@@ -653,7 +525,7 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
                 stroke="var(--ink-dark)"
                 strokeWidth="1.5"
                 animate={{ scale: [1, 1.15, 1] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                transition={{ repeat: shouldReduceMotion ? 0 : Infinity, duration: 2.5, ease: "easeInOut" }}
               />
             </g>
 
@@ -689,8 +561,8 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
                 scale: [0.6, 1, 0.6]
               }}
               transition={{
-                repeat: Infinity,
-                duration: 3,
+                repeat: shouldReduceMotion ? 0 : Infinity,
+                duration: 4.5,
                 ease: "easeOut"
               }}
               style={{ originX: "122px", originY: "276px" }}
@@ -711,8 +583,8 @@ const DesktopVisual = ({ index }: DesktopVisualProps) => {
                 scale: [0.5, 0.9, 0.5]
               }}
               transition={{
-                repeat: Infinity,
-                duration: 3.5,
+                repeat: shouldReduceMotion ? 0 : Infinity,
+                duration: 5,
                 delay: 1.2,
                 ease: "easeOut"
               }}

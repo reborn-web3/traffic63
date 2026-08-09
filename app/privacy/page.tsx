@@ -56,7 +56,7 @@ const sections: PrivacySection[] = [
     title: "Управление вашими данными",
     paragraphs: [
       "Вы имеете полное право в любой момент запросить информацию о том, какие именно персональные данные о вас у нас хранятся, а также потребовать их изменения, уточнения или полного удаления из нашей базы.",
-      "Для отзыва согласия на обработку данных просто напишите нам на электронную почту hello@traffic63.ru с пометкой в теме «Отзыв персональных данных»."
+      "Для отзыва согласия на обработку данных просто напишите нам на электронную почту traffic63.agency@mail.ru с пометкой в теме «Отзыв персональных данных»."
     ]
   }
 ];
@@ -131,34 +131,6 @@ export default function PrivacyPage() {
             <div className="border-t border-line-blue"></div>
           </div>
 
-          {/* ── Footer Contact CTA ── */}
-          <div className="max-w-[720px] mx-auto text-center reveal border border-line-blue rounded-[32px] p-8 md:p-12 bg-paper-dark relative overflow-hidden">
-            {/* SVG Grid background */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-40" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <pattern id="privacy-grid" width="24" height="24" patternUnits="userSpaceOnUse">
-                  <path d="M 24 0 L 0 0 0 24" fill="none" stroke="var(--line-blue)" strokeWidth="0.8" />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#privacy-grid)" />
-            </svg>
-
-            <div className="relative z-10 flex flex-col items-center">
-              <span className="font-heading text-[10px] font-extrabold tracking-widest text-coral uppercase mb-2 select-none">
-                ✦ ОСТАЛИСЬ ВОПРОСЫ?
-              </span>
-              <h3 className="font-heading font-extrabold text-xl md:text-2xl text-ink-dark mb-4">Напишите нам</h3>
-              <p className="font-body text-sm text-pencil leading-relaxed mb-6 max-w-[500px]">
-                Если у вас возникли вопросы по поводу обработки ваших данных, вы хотите отозвать согласие или обновить информацию, свяжитесь с нами напрямую.
-              </p>
-              <a 
-                href="mailto:hello@traffic63.ru" 
-                className="font-heading text-xs font-black uppercase tracking-widest bg-coral hover:bg-coral-dark text-white py-4 px-8 rounded-full transition-all hover:shadow-md cursor-pointer select-none"
-              >
-                hello@traffic63.ru
-              </a>
-            </div>
-          </div>
 
         </div>
       </main>

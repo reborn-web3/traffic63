@@ -152,10 +152,10 @@ export default function TermsPage() {
                 Если вам требуется согласовать индивидуальный договор услуг или уточнить условия оплаты, свяжитесь с нами по почте.
               </p>
               <a 
-                href="mailto:hello@traffic63.ru" 
+                href="mailto:traffic63.agency@mail.ru" 
                 className="font-heading text-xs font-black uppercase tracking-widest bg-coral hover:bg-coral-dark text-white py-4 px-8 rounded-full transition-all hover:shadow-md cursor-pointer select-none"
               >
-                hello@traffic63.ru
+                traffic63.agency@mail.ru
               </a>
             </div>
           </div>

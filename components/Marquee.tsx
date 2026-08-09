@@ -12,16 +12,16 @@ import {
 } from "framer-motion";
 
 const MARQUEE_ITEMS = [
-  "Рост",
-  "Трафик",
-  "Клиенты",
-  "Performance",
-  "Design",
-  "Analytics",
   "traffic63",
-  "Развитие",
-  "Конверсия",
-  "Креативность",
+  "traffic63",
+  "traffic63",
+  "traffic63",
+  "traffic63",
+  "traffic63",
+  "traffic63",
+  "traffic63",
+  "traffic63",
+  "traffic63",
 ];
 
 // Helper to wrap the value between min and max
@@ -61,7 +61,7 @@ export const Marquee = ({
   const directionFactor = useRef<number>(1);
   useAnimationFrame((time, delta) => {
     const deltaSeconds = delta / 1000;
-    
+
     // Determine movement direction based on scroll velocity (reverses direction on scroll up)
     const currentVelocity = velocityFactor.get();
     if (currentVelocity < 0) {
@@ -72,7 +72,7 @@ export const Marquee = ({
 
     // Base speed translates left (negative translation)
     let moveBy = -speed * deltaSeconds;
-    
+
     if (directionFactor.current === 1) {
       // Scrolling down (page moves up): speed up moving left (negative baseX change)
       moveBy -= Math.abs(currentVelocity) * deltaSeconds;
