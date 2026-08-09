@@ -57,11 +57,11 @@ const trustBadges = [
   {
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
       </svg>
     ),
-    title: "PAGESPEED: 95+",
-    subtitle: "Идеальная скорость работы",
+    title: "PAGESPEED 95+",
+    subtitle: "Оценка скорости сайта",
   },
   {
     icon: (
