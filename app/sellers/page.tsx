@@ -163,8 +163,18 @@ export default function SellersPage() {
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
                   <p className="text-gray-600 mb-8 flex-grow">{service.desc}</p>
                   <div className="flex items-center justify-between pt-6 border-t border-gray-100">
-                    <span className="text-gray-500 font-medium">Стоимость</span>
-                    <span className="text-blue-600 font-bold text-lg">{service.price}</span>
+                    <span className="text-gray-500 font-medium font-body">Стоимость</span>
+                    <span className="font-heading font-medium text-ink-dark shrink-0 whitespace-nowrap flex items-baseline gap-1.5">
+                      {service.price.includes('от') && service.price.includes('₽') && /\d/.test(service.price) ? (
+                        <>
+                          <span className="text-xs md:text-sm text-slate-400 font-medium font-body">от</span>
+                          <span className="text-base md:text-lg font-semibold tracking-tight">{service.price.replace(/[^\d\s]/g, '').trim()}</span>
+                          <span className="text-sm text-slate-400 font-medium font-body">₽</span>
+                        </>
+                      ) : (
+                        <span className="text-base md:text-lg font-semibold text-blue-600">{service.price}</span>
+                      )}
+                    </span>
                   </div>
                 </div>
               ))}

@@ -126,8 +126,16 @@ export default function PricesPage() {
                           <span className="text-sm md:text-base text-ink-dark font-medium pr-4 leading-tight">
                             {item.name}
                           </span>
-                          <span className="font-heading text-base md:text-lg font-bold text-ink-dark shrink-0 whitespace-nowrap">
-                            {item.price}
+                          <span className="font-heading font-medium text-ink-dark shrink-0 whitespace-nowrap flex items-baseline gap-1.5">
+                            {item.price.includes('от') && item.price.includes('₽') && /\d/.test(item.price) ? (
+                              <>
+                                <span className="text-xs md:text-sm text-slate-400 font-medium font-body">от</span>
+                                <span className="text-base md:text-lg font-semibold tracking-tight">{item.price.replace(/[^\d\s]/g, '').trim()}</span>
+                                <span className="text-sm text-slate-400 font-medium font-body">₽</span>
+                              </>
+                            ) : (
+                              <span className="text-base md:text-lg font-semibold tracking-tight">{item.price}</span>
+                            )}
                           </span>
                         </li>
                       ))}

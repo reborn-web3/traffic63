@@ -216,18 +216,25 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
                         ))}
                       </ul>
 
-                      {/* Price & CTA */}
-                      <div className="border-t border-line-blue/60 pt-6 flex items-center justify-between gap-4 mt-auto">
-                        <div>
-                          <span className="text-[9px] font-extrabold text-coral uppercase tracking-wider block mb-1">
-                            {tariff.period === "месяц" ? "ежемесячно" : "за проект"}
-                          </span>
-                          <span className="font-heading text-2xl font-black text-ink-dark tracking-tight leading-none">
-                            {tariff.price}
-                          </span>
-                        </div>
+                        <div className="border-t border-line-blue/60 pt-6 flex items-center justify-between gap-4 mt-auto">
+                          <div>
+                            <span className="text-[9px] font-extrabold text-coral uppercase tracking-wider block mb-1">
+                              {tariff.period === "месяц" ? "ежемесячно" : "за проект"}
+                            </span>
+                            <span className="font-heading font-medium text-ink-dark shrink-0 whitespace-nowrap flex items-baseline gap-1.5">
+                              {tariff.price.includes('от') && tariff.price.includes('₽') && /\d/.test(tariff.price) ? (
+                                <>
+                                  <span className="text-xs md:text-sm text-slate-400 font-medium font-body">от</span>
+                                  <span className="text-xl md:text-2xl font-semibold tracking-tight">{tariff.price.replace(/[^\d\s]/g, '').trim()}</span>
+                                  <span className="text-sm md:text-base text-slate-400 font-medium font-body">₽</span>
+                                </>
+                              ) : (
+                                <span className="text-xl md:text-2xl font-semibold tracking-tight text-ink-dark">{tariff.price}</span>
+                              )}
+                            </span>
+                          </div>
 
-                        <button
+                          <button
                           onClick={() => handleTariffSelect(tariff.name)}
                           className={`inline-flex items-center gap-1.5 font-body font-extrabold text-xs uppercase tracking-widest py-3.5 px-6 rounded-full shadow-md transition-all duration-300 cursor-pointer select-none ${
                             tariff.recommended

@@ -198,6 +198,12 @@ export const Footer = () => {
 
               <div className="flex flex-col items-center gap-2 mt-2 pt-4 border-t border-line-blue/60 w-full">
                 <Link
+                  href="/rkn"
+                  className="font-body text-xs text-pencil hover:text-ink-dark transition-colors duration-300"
+                >
+                  Помощь с регистрацией в РКН
+                </Link>
+                <Link
                   href="/privacy"
                   className="font-body text-xs text-pencil hover:text-ink-dark transition-colors duration-300"
                 >

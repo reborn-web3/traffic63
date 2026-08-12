@@ -227,12 +227,12 @@ export default function PricesPage() {
                         </div>
 
                         {/* Price */}
-                        <div className="mb-6 pb-6 border-b border-line-blue/60">
-                          <span className="font-heading text-3xl font-black text-ink-dark tracking-tight">
-                            {svc.price}
+                        <div className="mb-6 pb-6 border-b border-line-blue/60 flex items-baseline gap-1.5">
+                          <span className="font-heading text-2xl font-semibold tracking-tight text-ink-dark">
+                            {svc.price.replace('₽', '').trim()}
                           </span>
-                          <span className="font-body text-pencil text-xs ml-1 font-normal">
-                            {svc.period}
+                          <span className="font-body text-slate-400 text-sm md:text-base font-medium">
+                            ₽ {svc.period}
                           </span>
                         </div>
 
@@ -304,8 +304,16 @@ export default function PricesPage() {
                             <span className="font-body text-sm font-semibold text-pencil group-hover:text-ink-dark transition-colors duration-300">
                               {item.name}
                             </span>
-                            <span className="font-heading text-sm font-bold text-ink-dark shrink-0 whitespace-nowrap">
-                              {item.price}
+                            <span className="font-heading font-medium text-ink-dark shrink-0 whitespace-nowrap flex items-baseline gap-1.5">
+                              {item.price.includes('от') && item.price.includes('₽') && /\d/.test(item.price) ? (
+                                <>
+                                  <span className="text-xs md:text-sm text-slate-400 font-medium font-body">от</span>
+                                  <span className="text-base md:text-lg font-semibold tracking-tight">{item.price.replace(/[^\d\s]/g, '').trim()}</span>
+                                  <span className="text-sm text-slate-400 font-medium font-body">₽</span>
+                                </>
+                              ) : (
+                                <span className="text-base md:text-lg font-semibold tracking-tight">{item.price}</span>
+                              )}
                             </span>
                           </li>
                         ))}

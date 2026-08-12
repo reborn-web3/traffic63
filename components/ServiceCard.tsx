@@ -56,9 +56,19 @@ export const ServiceCard = ({
         </p>
         
         <div className="flex items-center gap-2">
-          <span className="inline-block font-handwritten text-base text-ink-blue bg-line-blue/20 border border-dashed border-line-blue px-4 py-1.5 rounded-full group-hover:bg-coral-light/10 group-hover:border-coral-light/30 transition-colors duration-300">
-            {tag}
-          </span>
+          <div className="inline-flex items-baseline gap-1 bg-line-blue/20 border border-dashed border-line-blue px-4 py-1.5 rounded-full group-hover:bg-coral-light/10 group-hover:border-coral-light/30 transition-colors duration-300">
+            {tag.includes('от') && tag.includes('₽') && /\d/.test(tag) ? (
+              <>
+                <span className="text-xs md:text-sm font-medium text-slate-400 font-body">от</span>
+                <span className="text-base md:text-lg font-semibold text-ink-dark tracking-tight">{tag.replace(/[^\d\s]/g, '').trim()}</span>
+                <span className="text-sm font-medium text-slate-400 font-body">₽</span>
+              </>
+            ) : (
+               <span className="font-handwritten text-base text-ink-blue">
+                 {tag}
+               </span>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>
