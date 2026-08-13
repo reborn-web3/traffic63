@@ -108,21 +108,19 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
                 </div>
               </div>
 
-              {/* Right Column: Sketch Illustration */}
+              {/* Right Column: Video Animation */}
               <div className="col-span-1 lg:col-span-5 flex justify-center items-center reveal" style={{ transitionDelay: "200ms" }}>
-                <div className="relative w-full max-w-[380px] sm:max-w-[420px] aspect-square bg-paper-dark/30 border border-line-blue/50 rounded-[48px] p-8 flex items-center justify-center shadow-inner select-none">
-                  {/* Decorative frame corners */}
-                  <div className="absolute top-6 left-6 font-heading text-[8px] font-extrabold tracking-widest text-pencil/30">SYS / INIT_IMG</div>
-                  <div className="absolute bottom-6 right-6 font-heading text-[8px] font-extrabold tracking-widest text-pencil/30">SCALE / [1.00]</div>
-
-                  <Image
-                    src={data.hero.doodleImage}
-                    alt={data.hero.titleItalic}
-                    width={320}
-                    height={320}
-                    className="object-contain animate-float hover:scale-105 transition-transform duration-700 dark-theme-image"
-                    priority
-                  />
+                <div className="relative w-full aspect-[4/3] lg:aspect-[16/10] rounded-2xl overflow-hidden shadow-2xl border border-line-blue/40 dark:border-white/10 bg-paper dark:bg-paper-dark transform-gpu">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover"
+                  >
+                    <source src="/videos/0809.webm" type="video/webm" />
+                    <source src="/videos/0809.mp4" type="video/mp4" />
+                  </video>
                 </div>
               </div>
             </div>

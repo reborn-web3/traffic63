@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CTASection } from "@/components/CTASection";
@@ -8,7 +8,7 @@ import Link from "next/link";
 import { CursorTrail } from "@/components/CursorTrail";
 import { useReveal } from "@/hooks/useReveal";
 import { Reveal } from "@/components/Reveal";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, animate } from "framer-motion";
 
 const subscriptions = [
   {
@@ -116,6 +116,30 @@ export default function PricesPage() {
   useReveal();
   const [activeTab, setActiveTab] = useState<TabType>("subscriptions");
 
+  useEffect(() => {
+    // Плавно скроллим к тарифам при открытии страницы
+    const timer = setTimeout(() => {
+      const content = document.getElementById("pricing-content");
+      if (content) {
+        // Для мобильных устройств делаем отступ чуть меньше
+        const isMobile = window.innerWidth < 768;
+        const offset = isMobile ? 80 : 120;
+        
+        const elementPosition = content.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - offset;
+
+        // Премиальный супер-плавный скролл через framer-motion
+        animate(window.scrollY, offsetPosition, {
+          duration: 1.2,
+          ease: [0.16, 1, 0.3, 1], // Плавная Apple-like кривая Безье
+          onUpdate: (latest) => window.scrollTo(0, latest)
+        });
+      }
+    }, 900); // Чуть больше задержка для загрузки всех шрифтов и стартовых анимаций
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="relative min-h-screen bg-paper overflow-x-clip font-body text-ink-dark transition-colors duration-500">
       <CursorTrail />
@@ -141,7 +165,7 @@ export default function PricesPage() {
 
           {/* ── Apple-Style Segmented Control (Native Theme) ── */}
           <Reveal delay={0.15}>
-            <div className="flex justify-center mb-16">
+            <div id="pricing-content" className="flex justify-center mb-16">
               <div className="relative inline-flex items-center p-1.5 rounded-full bg-paper-dark border border-line-blue shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] backdrop-blur-xl">
                 {/* Subscription Button */}
                 <button
