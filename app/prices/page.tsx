@@ -101,11 +101,10 @@ const priceCategories = [
     id: "web",
     title: "Сайты & AI",
     items: [
-      { name: "Landing Page", price: "от 40 000 ₽" },
-      { name: "Многостраничный сайт", price: "от 80 000 ₽" },
-      { name: "Интернет-магазин", price: "от 150 000 ₽" },
-      { name: "Техническая поддержка", price: "от 15 000 ₽" },
-      { name: "Умный AI-ассистент", price: "от 25 000 ₽" },
+      { name: "Landing Page", price: "от 100 000 ₽" },
+      { name: "Многостраничный сайт", price: "от 200 000 ₽" },
+      { name: "Интернет-магазин", price: "от 500 000 ₽" },
+      { name: "AI-ассистент", price: "от 80 000 ₽" },
     ],
   },
 ];
@@ -124,7 +123,7 @@ export default function PricesPage() {
         // Для мобильных устройств делаем отступ чуть меньше
         const isMobile = window.innerWidth < 768;
         const offset = isMobile ? 80 : 120;
-        
+
         const elementPosition = content.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.scrollY - offset;
 
@@ -171,11 +170,10 @@ export default function PricesPage() {
                 <button
                   type="button"
                   onClick={() => setActiveTab("subscriptions")}
-                  className={`relative px-7 py-3 rounded-full text-xs sm:text-sm font-heading font-extrabold uppercase tracking-wider transition-colors duration-200 select-none cursor-pointer z-10 ${
-                    activeTab === "subscriptions"
-                      ? "text-ink-dark"
-                      : "text-pencil hover:text-ink-dark"
-                  }`}
+                  className={`relative px-7 py-3 rounded-full text-xs sm:text-sm font-heading font-extrabold uppercase tracking-wider transition-colors duration-200 select-none cursor-pointer z-10 ${activeTab === "subscriptions"
+                    ? "text-ink-dark"
+                    : "text-pencil hover:text-ink-dark"
+                    }`}
                 >
                   {activeTab === "subscriptions" && (
                     <motion.div
@@ -191,11 +189,10 @@ export default function PricesPage() {
                 <button
                   type="button"
                   onClick={() => setActiveTab("catalog")}
-                  className={`relative px-7 py-3 rounded-full text-xs sm:text-sm font-heading font-extrabold uppercase tracking-wider transition-colors duration-200 select-none cursor-pointer z-10 ${
-                    activeTab === "catalog"
-                      ? "text-ink-dark"
-                      : "text-pencil hover:text-ink-dark"
-                  }`}
+                  className={`relative px-7 py-3 rounded-full text-xs sm:text-sm font-heading font-extrabold uppercase tracking-wider transition-colors duration-200 select-none cursor-pointer z-10 ${activeTab === "catalog"
+                    ? "text-ink-dark"
+                    : "text-pencil hover:text-ink-dark"
+                    }`}
                 >
                   {activeTab === "catalog" && (
                     <motion.div
@@ -226,11 +223,10 @@ export default function PricesPage() {
                   {subscriptions.map((svc) => (
                     <div
                       key={svc.id}
-                      className={`relative h-full flex flex-col justify-between p-8 sm:p-9 rounded-[32px] transition-all duration-300 group ${
-                        svc.isPopular
-                          ? "bg-paper border-2 border-coral shadow-[0_16px_40px_rgba(0,0,0,0.06)] transform hover:-translate-y-1"
-                          : "bg-paper border border-line-blue shadow-sm hover:shadow-lg hover:border-line-blue/80 hover:-translate-y-1"
-                      }`}
+                      className={`relative h-full flex flex-col justify-between p-8 sm:p-9 rounded-[32px] transition-all duration-300 group ${svc.isPopular
+                        ? "bg-paper border-2 border-coral shadow-[0_16px_40px_rgba(0,0,0,0.06)] transform hover:-translate-y-1"
+                        : "bg-paper border border-line-blue shadow-sm hover:shadow-lg hover:border-line-blue/80 hover:-translate-y-1"
+                        }`}
                     >
                       {/* Popular Badge */}
                       {svc.badge && (
@@ -278,11 +274,10 @@ export default function PricesPage() {
                       {/* Button */}
                       <Link
                         href="/#contact"
-                        className={`w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full font-heading text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-sm ${
-                          svc.isPopular
-                            ? "bg-coral text-white hover:bg-coral-dark shadow-coral/20 hover:shadow-lg"
-                            : "bg-paper-dark text-ink-dark hover:bg-ink-dark hover:text-paper"
-                        }`}
+                        className={`w-full inline-flex items-center justify-center gap-2 py-4 px-6 rounded-full font-heading text-xs font-black uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-sm ${svc.isPopular
+                          ? "bg-coral text-white hover:bg-coral-dark shadow-coral/20 hover:shadow-lg"
+                          : "bg-paper-dark text-ink-dark hover:bg-ink-dark hover:text-paper"
+                          }`}
                       >
                         Выбрать тариф
                         <svg width="12" height="12" viewBox="0 0 16 16" fill="none" className="shrink-0">

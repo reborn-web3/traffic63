@@ -129,7 +129,7 @@ export const servicesData: Record<string, ServiceData> = {
     tariffs: [
       {
         name: "Landing Page (Лендинг)",
-        price: "от 40 000 ₽",
+        price: "от 100 000 ₽",
         period: "проект",
         description: "Идеально для быстрого тестирования ниши, запуска контекстной рекламы на один продукт или презентации конкретной услуги.",
         features: [
