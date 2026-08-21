@@ -39,13 +39,15 @@ const FlipCard = ({
       >
         {/* Front Face */}
         <div className="h-full w-full bg-paper-dark/60 backdrop-blur-xl border border-line-blue/70 rounded-[32px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden [backface-visibility:hidden] [-webkit-backface-visibility:hidden]">
-          <div className="absolute -bottom-4 -right-4 w-[220px] h-[220px] opacity-95 transition-transform duration-700 md:group-hover:scale-110 md:group-hover:-rotate-6 pointer-events-none">
+          <div className="absolute -bottom-4 -right-4 w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] opacity-95 transition-transform duration-700 md:group-hover:scale-110 md:group-hover:-rotate-6 pointer-events-none select-none">
             <Image
               src={imageSrc}
               alt={imageAlt}
               fill
-              sizes="220px"
-              className="object-cover"
+              sizes="(max-width: 640px) 180px, 220px"
+              priority
+              unoptimized
+              className="object-contain pointer-events-none select-none"
             />
           </div>
 

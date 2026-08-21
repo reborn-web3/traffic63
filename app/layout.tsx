@@ -93,15 +93,17 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
       </head>
       <body suppressHydrationWarning>
-        <main>{children}</main>
+        {children}
         <div className="bottom-blur-overlay" aria-hidden="true" />
         <CookieBanner />
-        {/* Traffic63 Chatbot Embed */}
-        <Script
-          src="http://localhost:3000/loader.js"
-          data-bot-id="e8c0b20c-d986-4f4e-8a52-7cd2b0e4347c"
-          strategy="lazyOnload"
-        />
+        {/* Traffic63 Chatbot Embed (Active when NEXT_PUBLIC_CHATBOT_URL is configured) */}
+        {process.env.NEXT_PUBLIC_CHATBOT_URL && (
+          <Script
+            src={process.env.NEXT_PUBLIC_CHATBOT_URL}
+            data-bot-id="e8c0b20c-d986-4f4e-8a52-7cd2b0e4347c"
+            strategy="lazyOnload"
+          />
+        )}
       </body>
     </html>
   );

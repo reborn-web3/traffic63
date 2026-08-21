@@ -2080,15 +2080,36 @@ h1, h2, h3, p, span, button, a {
   }
   .hero-dashboard-3d-scene {
     flex-direction: column;
-    transform: none;
+    transform: none !important;
     margin-left: 0;
     gap: 20px;
+    width: 100%;
+    max-width: 540px;
+    margin-inline: auto;
+  }
+  .hero-dashboard__card {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+    transform: none !important;
+    padding: 24px 20px 20px;
+    box-shadow:
+      0 15px 35px -10px rgba(37, 99, 235, 0.12),
+      0 8px 20px -5px rgba(15, 23, 42, 0.06);
+  }
+  .hero-dashboard__card:hover {
+    transform: none !important;
   }
   .hero-dashboard__partner-column {
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
+    transform: none !important;
+    gap: 12px;
+  }
+  .hero-partner-connector {
+    display: none !important;
   }
   .hero-trust {
     gap: 24px;
@@ -2107,8 +2128,9 @@ h1, h2, h3, p, span, button, a {
     margin-bottom: 18px;
   }
   .hero-description {
-    font-size: 16px;
-    margin-bottom: 28px;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 24px;
   }
   .hero-cta {
     flex-direction: column;
@@ -2120,6 +2142,41 @@ h1, h2, h3, p, span, button, a {
   .hero-cta__secondary {
     width: 100%;
     justify-content: center;
+  }
+  .hero-dashboard__card {
+    padding: 20px 16px 16px;
+    border-radius: 20px;
+  }
+  .hero-dashboard__graph-badge {
+    font-size: 30px;
+  }
+  .hero-dashboard__metrics {
+    gap: 8px;
+  }
+  .hero-dashboard__metric {
+    padding: 12px 8px;
+    border-radius: 12px;
+  }
+  .hero-dashboard__metric-label {
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+  .hero-dashboard__metric-value {
+    font-size: 17px;
+  }
+  .hero-dashboard__metric-change {
+    font-size: 10.5px;
+    margin-top: 4px;
+  }
+  .hero-dashboard__tagline {
+    font-size: 11px;
+    white-space: normal;
+    line-height: 1.4;
+    text-align: center;
+  }
+  .hero-partner-card {
+    width: 100%;
+    max-width: 100%;
   }
   .hero-trust {
     flex-direction: column;
