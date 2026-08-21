@@ -99,6 +99,7 @@ export default async function BlogPostPage({
     <>
       <script
         type="application/ld+json"
+        suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <PostClient post={post} />

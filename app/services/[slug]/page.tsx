@@ -56,6 +56,7 @@ export default async function ServiceDetailPage({ params }: Props) {
     <>
       <script
         type="application/ld+json"
+        suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(data.jsonLd) }}
       />
       <ServiceClient data={data} />

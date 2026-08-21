@@ -11,6 +11,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { useReveal } from "@/hooks/useReveal";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import { ServiceData } from "@/lib/servicesData";
+import { WebsiteCaseMockup } from "@/components/WebsiteCaseMockup";
 
 interface ServiceClientProps {
   data: ServiceData;
@@ -111,20 +112,24 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
                 </div>
               </div>
 
-              {/* Right Column: Video Animation */}
+              {/* Right Column: Interactive Case Mockup */}
               <div className="col-span-1 lg:col-span-5 flex justify-center items-center reveal" style={{ transitionDelay: "200ms" }}>
-                <div className="relative w-full aspect-[4/3] lg:aspect-[16/10] rounded-2xl overflow-hidden shadow-2xl border border-line-blue/40 dark:border-white/10 bg-paper dark:bg-paper-dark transform-gpu">
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-cover"
-                  >
-                    <source src="/videos/0809.webm" type="video/webm" />
-                    <source src="/videos/0809.mp4" type="video/mp4" />
-                  </video>
-                </div>
+                {data.slug === "web-development" ? (
+                  <WebsiteCaseMockup />
+                ) : (
+                  <div className="relative w-full aspect-[4/3] lg:aspect-[16/10] rounded-2xl overflow-hidden shadow-2xl border border-line-blue/40 dark:border-white/10 bg-paper dark:bg-paper-dark transform-gpu">
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover"
+                    >
+                      <source src="/videos/0809.webm" type="video/webm" />
+                      <source src="/videos/0809.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+                )}
               </div>
             </div>
           </div>

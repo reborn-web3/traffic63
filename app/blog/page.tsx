@@ -37,6 +37,7 @@ export default async function BlogPage() {
     <>
       <script
         type="application/ld+json"
+        suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(getBlogJsonLd()) }}
       />
       <BlogClient posts={posts} />

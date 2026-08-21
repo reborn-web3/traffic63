@@ -1,32 +1,36 @@
-import type { Metadata } from "next";
-import { Caveat, Nunito, Geist } from "next/font/google";
-import { jsonLdOrganization, jsonLdLocalBusiness, jsonLdWebSite } from "./seo/jsonld";
-import { CookieBanner } from "@/components/CookieBanner";
-import Script from "next/script";
+import type { Metadata, Viewport } from "next";
+import { Nunito_Sans, Caveat, Geist } from "next/font/google";
 import "./globals.css";
+import { CookieBanner } from "@/components/CookieBanner";
+import { jsonLdOrganization, jsonLdLocalBusiness, jsonLdWebSite } from "@/app/seo/jsonld";
 
 const caveat = Caveat({
   subsets: ["latin", "cyrillic"],
+  weight: ["700"],
   variable: "--font-handwritten",
   display: "swap",
 });
 
-const nunito = Nunito({
+const nunito = Nunito_Sans({
   subsets: ["latin", "cyrillic"],
-  variable: "--font-body",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-nunito",
   display: "swap",
 });
 
 const geist = Geist({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-heading",
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
-/**
- * Default metadata used as a baseline for all routes.
- * Individual pages can override by exporting their own `generateMetadata`.
- */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafaf8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0f17" },
+  ],
+};
+
 const defaultMetadata: Metadata = {
   title: "traffic63 — Performance-агентство в Самаре | Интернет-маркетинг, SEO и Реклама",
   description:
@@ -47,43 +51,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var theme = localStorage.getItem('theme');
-                if (!theme) {
-                  theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-                }
-                document.documentElement.setAttribute('data-theme', theme);
-                if (theme === 'dark') {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                }
-              })()
-            `
-          }}
-        />
-        {/* JSON‑LD Schemas for rich search results */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLdOrganization),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLdLocalBusiness),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLdWebSite),
-          }}
-        />
         {/* Favicon links for all devices & browsers */}
         <link rel="canonical" href="https://traffic63.ru" />
         <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
@@ -91,19 +58,46 @@ export default function RootLayout({
         <link rel="icon" href="/favicon-32x32.png?v=2" type="image/png" sizes="32x32" />
         <link rel="icon" href="/favicon-16x16.png?v=2" type="image/png" sizes="16x16" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+
+        {/* Theme initialization script */}
+        <script
+          id="theme-switcher"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);if(t==='dark'){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}})();`,
+          }}
+        />
+
+        {/* JSON‑LD Schemas for rich search results */}
+        <script
+          id="jsonld-org"
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdOrganization),
+          }}
+        />
+        <script
+          id="jsonld-local"
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdLocalBusiness),
+          }}
+        />
+        <script
+          id="jsonld-website"
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdWebSite),
+          }}
+        />
       </head>
       <body suppressHydrationWarning>
         {children}
         <div className="bottom-blur-overlay" aria-hidden="true" />
         <CookieBanner />
-        {/* Traffic63 Chatbot Embed (Active when NEXT_PUBLIC_CHATBOT_URL is configured) */}
-        {process.env.NEXT_PUBLIC_CHATBOT_URL && (
-          <Script
-            src={process.env.NEXT_PUBLIC_CHATBOT_URL}
-            data-bot-id="e8c0b20c-d986-4f4e-8a52-7cd2b0e4347c"
-            strategy="lazyOnload"
-          />
-        )}
       </body>
     </html>
   );
@@ -136,31 +130,25 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: "ru_RU",
       type: "website",
     },
-    robots: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-image-preview": "large",
-      },
-    },
     twitter: {
       card: "summary_large_image",
       title: defaultMetadata.title as string,
       description: defaultMetadata.description as string,
       images: ["/favicon.svg"],
     },
-    verification: {
-      google: "google-site-verification-placeholder",
-      yandex: "yandex-verification-placeholder",
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-    other: {
-      "geo.region": "RU-SAM",
-      "geo.placename": "Самара",
-      "geo.position": "53.21245;50.14441",
-      "ICBM": "53.21245, 50.14441",
+    verification: {
+      yandex: "b130e46b9a895cce",
     },
   };
 }

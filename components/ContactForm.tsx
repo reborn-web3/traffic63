@@ -25,6 +25,14 @@ export const ContactForm = ({ defaultMessage }: ContactFormProps) => {
   const [isEmailTouched, setIsEmailTouched] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const urlMsg = params.get("message") || params.get("msg");
+      if (urlMsg) {
+        setMessage(urlMsg);
+        return;
+      }
+    }
     if (defaultMessage) {
       setMessage(defaultMessage);
     }
