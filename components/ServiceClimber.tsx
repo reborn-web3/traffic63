@@ -346,15 +346,9 @@ const ChatWidgetMockup = () => {
             {/* Quick reply action button */}
             {step >= 8 && (
               <motion.div variants={msgVariants} initial="hidden" animate="visible" className="self-center pt-2 pb-1">
-<<<<<<< HEAD
                 <Link
                   href="/contacts"
-                  className="inline-flex items-center gap-1.5 bg-ink-blue hover:bg-coral text-white text-[10px] sm:text-[11px] font-bold px-4 py-2.5 rounded-full shadow-md transition-all hover:scale-105 active:scale-95"
-=======
-                <a
-                  href="/contacts"
                   className="inline-flex items-center gap-1.5 bg-ink-blue hover:bg-coral text-white text-[10px] sm:text-[11px] font-bold px-4 py-2.5 rounded-full shadow-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
->>>>>>> 406fb72 (redesign)
                 >
                   <span>Заказать ИИ-ассистента</span>
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
