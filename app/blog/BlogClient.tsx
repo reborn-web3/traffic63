@@ -50,13 +50,9 @@ export function BlogClient({ posts }: { posts: BlogPost[] }) {
           
           {/* ── Page Header ── */}
           <div className="max-w-3xl mb-16 reveal">
-            <span className="font-heading text-[10px] font-extrabold tracking-widest text-coral uppercase mb-6 block select-none">
-              ✦ Инсайты и маркетинг
-            </span>
-
             <h1 className="font-heading text-4xl sm:text-7xl lg:text-[110px] font-black leading-[0.95] text-ink-dark tracking-tighter uppercase select-none mb-12">
               Наш <br />
-              <span className="font-serif italic text-coral lowercase font-normal tracking-normal">блог.</span>
+              <span className="font-serif italic text-coral lowercase font-normal tracking-normal">блог</span>
             </h1>
 
             {/* Description Row (border-t separated) */}

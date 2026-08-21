@@ -24,8 +24,9 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const handleTariffSelect = (tariffName: string) => {
+    const serviceFullName = `${data.hero.titlePart1} ${data.hero.titleItalic}${data.hero.titlePart2 ? ` ${data.hero.titlePart2}` : ""}`.trim();
     setSelectedTariff(
-      `Здравствуйте! Меня интересует тариф "${tariffName}" для услуги "${data.hero.titlePart1} ${data.hero.titleItalic} ${data.hero.titlePart2 || ""}".`
+      `Здравствуйте! Меня интересует тариф "${tariffName}" для услуги "${serviceFullName}".`
     );
     const formElement = document.getElementById("contact");
     if (formElement) {
@@ -84,11 +85,13 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
               {/* Left Column: Text */}
               <div className="col-span-1 lg:col-span-7 flex flex-col items-start reveal">
                 <h1 className="font-heading text-4xl sm:text-5xl lg:text-[72px] font-black leading-[1.05] text-ink-dark tracking-tighter uppercase select-none mb-6">
-                  {data.hero.titlePart1}{" "}
-                  <span className="font-serif italic text-coral font-normal lowercase tracking-normal block sm:inline">
+                  <span className="block">{data.hero.titlePart1}</span>
+                  <span className="font-serif italic text-coral font-normal lowercase tracking-normal block">
                     {data.hero.titleItalic}
                   </span>
-                  {data.hero.titlePart2 && ` ${data.hero.titlePart2}`}
+                  {data.hero.titlePart2 && (
+                    <span className="block">{data.hero.titlePart2}</span>
+                  )}
                 </h1>
 
                 <p className="font-body text-base sm:text-lg lg:text-xl text-pencil leading-relaxed font-medium mb-10 max-w-2xl text-left">
@@ -374,46 +377,31 @@ export const ServiceClient = ({ data }: ServiceClientProps) => {
         {/* ── 6. CTA / CONTACT SECTION ── */}
         <section className="relative py-20 md:py-28 bg-paper overflow-hidden" id="contact">
           <div className="container mx-auto px-5 md:px-10 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-              {/* Left Side text */}
-              <div className="col-span-1 lg:col-span-6 flex flex-col items-start text-left reveal">
-                <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-ink-dark tracking-tighter uppercase mb-6">
-                  Готовы получить <br />
-                  <span className="font-serif italic text-coral font-normal lowercase tracking-normal">поток клиентов?</span>
-                </h2>
+            {/* Header (Centered) */}
+            <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16 reveal">
+              <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-ink-dark tracking-tighter uppercase mb-6">
+                Готовы получить <br />
+                <span className="font-serif italic text-coral font-normal lowercase tracking-normal">поток клиентов?</span>
+              </h2>
 
-                <p className="font-body text-base sm:text-lg text-pencil leading-relaxed font-medium mb-10 max-w-lg">
-                  Заполните форму справа. Наш специалист свяжется с вами в течение 15 минут для обсуждения деталей, аудита и расчета медиаплана.
-                </p>
+              <p className="font-body text-base sm:text-lg text-pencil leading-relaxed font-medium max-w-xl mx-auto">
+                Заполните форму ниже. Наш специалист свяжется с вами для обсуждения деталей, аудита и расчета медиаплана.
+              </p>
+            </div>
 
-                {/* Decorative pointing arrow & handwritten tip */}
-                <div className="hidden lg:flex items-center gap-4 mt-4 select-none relative w-full h-[60px]">
-                  <span className="font-handwritten text-xl text-coral rotate-[-4deg] absolute left-0 top-0">
-                    ✦ Ответим за 15 минут!
-                  </span>
-                  
-                  {/* Decorative sketch arrow */}
-                  <svg className="w-24 h-12 text-coral absolute left-[220px] top-1 rotate-12" viewBox="0 0 100 50" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M10 20 C40 10, 60 40, 85 25" />
-                    <path d="M75 15 L85 25 L75 35" />
+            {/* Form (Centered) */}
+            <div className="max-w-2xl mx-auto reveal" style={{ transitionDelay: "150ms" }}>
+              <div className="relative bg-paper-dark border border-line-blue rounded-[36px] p-6 sm:p-10 shadow-lg">
+                {/* Notepad sheet line pattern in background of form card */}
+                <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
+                  <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="0" y1="20" x2="100%" y2="20" stroke="currentColor" strokeWidth="1" />
+                    <line x1="0" y1="40" x2="100%" y2="40" stroke="currentColor" strokeWidth="1" />
+                    <line x1="0" y1="60" x2="100%" y2="60" stroke="currentColor" strokeWidth="1" />
                   </svg>
                 </div>
-              </div>
 
-              {/* Right Side: Form */}
-              <div className="col-span-1 lg:col-span-6 reveal" style={{ transitionDelay: "200ms" }}>
-                <div className="relative bg-paper-dark border border-line-blue rounded-[36px] p-6 sm:p-10 shadow-lg">
-                  {/* Notepad sheet line pattern in background of form card */}
-                  <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
-                    <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                      <line x1="0" y1="20" x2="100%" y2="20" stroke="currentColor" strokeWidth="1" />
-                      <line x1="0" y1="40" x2="100%" y2="40" stroke="currentColor" strokeWidth="1" />
-                      <line x1="0" y1="60" x2="100%" y2="60" stroke="currentColor" strokeWidth="1" />
-                    </svg>
-                  </div>
-
-                  <ContactForm defaultMessage={selectedTariff} />
-                </div>
+                <ContactForm defaultMessage={selectedTariff} />
               </div>
             </div>
           </div>

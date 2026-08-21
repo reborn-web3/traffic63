@@ -153,11 +153,11 @@ export default function PricesPage() {
               <h1 className="font-heading text-5xl sm:text-7xl lg:text-[90px] font-black leading-[0.95] text-ink-dark tracking-tighter uppercase select-none mb-6">
                 Цены и <br />
                 <span className="font-serif italic text-coral lowercase font-normal tracking-normal">
-                  тарифы.
+                  тарифы
                 </span>
               </h1>
               <p className="font-body text-base sm:text-lg text-pencil leading-relaxed font-medium max-w-[540px] mx-auto">
-                Прозрачная стоимость пакетного сопровождения и честные цены на разовые услуги.
+                Комплексное ведение проекта по подписке или разовые услуги под конкретную задачу.
               </p>
             </div>
           </Reveal>
